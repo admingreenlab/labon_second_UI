@@ -11,14 +11,14 @@ export default function Home() {
                 <section className="header">
                     <div className="container">
                         <div className="row align-items-center">
-                            <div className="col-md-6">
+                            <div className="col-lg-6 col-md-3 col-12">
                                 <div className="left">
                                     <a href="/">
                                         <img src="assets/images/logo-inner.svg" alt="#" style={{ maxWidth: "180px", width: "100%", maxWidth: "185px" }} />
                                     </a>
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-lg-6 col-md-9 col-12">
                                 <div className="right">
                                     <div className="footer-one__contact pb-0">
                                         <ul className="justify-content-end">
@@ -35,7 +35,7 @@ export default function Home() {
                                             <li>
                                                 <div className="comment-form__btn-box">
                                                     <button type="submit" className="black-btn"><span
-                                                        className="txt">BOOK APPOINTMENT</span>
+                                                        className="txt">BOOK <span>APPOINTMENT</span></span>
                                                     </button>
                                                 </div>
                                             </li>
@@ -61,7 +61,7 @@ export default function Home() {
                                     <div className="contact-in">
                                         <div className="container">
                                             <div className="row">
-                                                <div className="col-md-6">
+                                                <div className="col-md-6 col-12">
                                                     <h3 className="mb-3">JCK TRADE SHOW</h3>
                                                     <p>JCK is the largest and trendiest trade event in the jewels business, with over 30 years of expertise. Organized in the City of Lights, Las Vegas, it provides an unprecedented experience for all the major sectors of the jewellery market.</p>
                                                     <p>We will delve into this world of the extravaganza that brings industry merchants and enthusiasts under one roof.</p>
@@ -69,7 +69,7 @@ export default function Home() {
                                                     <img src="assets/images/fill.svg" alt="tight" className="fill" style={{ marginLeft: "auto", marginTop: "50px" }} />
                                                     <img src="assets/images/fill1.svg" alt="tight" className="fill1" style={{ marginLeft: "auto", marginTop: "50px" }} />
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-6 col-12">
                                                     <div className="contact-one__form">
                                                         <form id="contact-form" className="default-form2 contact-form-validated">
                                                             <div className="row">

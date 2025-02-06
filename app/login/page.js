@@ -227,7 +227,7 @@ export default function Home() {
                         <div className="col-md-6 co-12" style={{ background: "#d1cde6" }}>
                             <div className="left-img">
                                 <a href="/">
-                                    <img src="assets/images/services/service-details-img2.jpg" alt="Blog" style={{ width: "100%" }} />
+                                    <img src="assets/images/services/service-details-img2.jpg" alt="Blog" style={{ width: "100%", maxWidth: "250px" }} />
                                 </a>
                             </div>
                         </div>

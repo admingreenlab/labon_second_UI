@@ -9409,6 +9409,23 @@ table::-webkit-scrollbar-thumb {
     margin: 0 auto 40px;
   }
 
+  .right ul li {
+    margin: 0;
+    width: fit-content !important;
+    max-width: fit-content !important;
+  }
+
+  .right .footer-one__contact ul {
+    display: flex;
+    justify-content: end;
+  }
+
+  .right .footer-one__contact ul li {
+    margin-bottom: 0;
+    justify-content: end;
+    margin-right: 0 !important;
+  }
+
   .footer-one__contact ul li:last-child {
     margin-right: auto;
   }
@@ -9724,6 +9741,33 @@ table::-webkit-scrollbar-thumb {
 @media only screen and (width <= 767px) {
   .auto-container {
     padding: 0 15px;
+  }
+
+  .right .footer-one__contact ul {
+    display: flex;
+    justify-content: space-between !important;
+  }
+
+  .black-btn {
+    font-size: 12px !important;
+  }
+
+  .right .footer-one__contact ul li {
+    margin-bottom: 0;
+    margin-right: 0 !important;
+    justify-content: start !important;
+  }
+
+  .right .footer-one__contact ul li:last-child {
+    justify-content: end !important;
+  }
+
+  .left {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 11px;
+    border-bottom: 1px solid #fef7f745;
+    padding-bottom: 13px;
   }
 
   .left-img img {
@@ -11026,6 +11070,12 @@ table::-webkit-scrollbar-thumb {
     padding: 40px 10px;
     background: #c2995824;
     margin: 10px 0;
+  }
+}
+
+@media only screen and (width <= 548px) {
+  button.black-btn .txt span {
+    display: none;
   }
 }
 

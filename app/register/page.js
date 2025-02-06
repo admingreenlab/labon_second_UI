@@ -360,7 +360,7 @@ export default function Faq() {
                                             <input type="checkbox" id="html" />
                                             <label for="html">I agree to the Terms and Conditions</label>
                                         </div>
-                                        <a href="#" class="forget-pwd" data-toggle="modal" style={{ color: "#c29958" }}>Login?</a>
+                                        <a href="/lohin" class="forget-pwd" data-toggle="modal" style={{ color: "#c29958" }}>Login?</a>
                                     </div>
                                     <div className="col-xl-12">
                                         <div className="d-flex align-items-center justify-content-center">
