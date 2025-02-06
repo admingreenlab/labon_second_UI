@@ -272,7 +272,7 @@ export default function Home() {
                                             </div>
                                             <div className="pricing-one__single-right">
                                                 <div className="btn-box">
-                                                    <img src="assets/images/backgrounds/icone-time-8.SVG" alt="" style={{ width: "111px", height: "111px" }} />
+                                                    <img src="assets/images/backgrounds/icone-time-8.svg" alt="" style={{ width: "111px", height: "111px" }} />
                                                 </div>
                                             </div>
                                             <div className="pricing-box">

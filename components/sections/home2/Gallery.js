@@ -87,7 +87,7 @@ export default function Gallery() {
                                         <div className="gallery-two__single">
                                             <div className="gallery-two__single-img">
                                                 <div className="inner">
-                                                    <img src="assets/images/gallery/daimon/round.png" alt="#" />
+                                                    <img src="assets/images/gallery/daimon/Round.png" alt="#" />
                                                     <div className="overlay-content">
                                                         <p>Diamond shapes</p>
                                                         <h2><Link href="#">Round</Link></h2>
