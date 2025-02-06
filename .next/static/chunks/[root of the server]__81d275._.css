@@ -25599,6 +25599,17 @@ img {
   z-index: -1;
 }
 
+.page-header__bg:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(#ffc97475 0%, #0000 100%);
+  z-index: -1;
+}
+
 .page-header__inner {
   position: relative;
   display: block;
@@ -25606,7 +25617,7 @@ img {
 }
 
 .page-header__inner h2 {
-  color: #363636;
+  color: #000;
   font-size: 57px;
   line-height: 1em;
   font-weight: 400;
@@ -25707,7 +25718,6 @@ img {
 }
 
 .advantages-one {
-  position: relative;
   display: block;
   background: var(--thm-black);
   z-index: 1;
@@ -25770,6 +25780,8 @@ img {
 
 .advantages-one__single-img .inner img {
   width: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .advantages-one__single-content {
@@ -27712,7 +27724,7 @@ a.video-popup img {
 }
 
 .gallery-two__single {
-  background: #c299583d;
+  background: #e9dfd0;
   position: relative;
   display: block;
 }
@@ -28709,9 +28721,11 @@ table {
 .img-125 {
   position: absolute;
   top: -78px;
-  left: 0;
-  max-width: 303px;
-  opacity: 0;
+  left: -472px;
+  max-width: 1394px;
+  opacity: .2;
+  z-index: 1;
+  transform: rotate(26deg);
 }
 
 .service-details__content {
@@ -32552,6 +32566,11 @@ table::-webkit-scrollbar-thumb {
 
   .subscribe-box-style1 form button {
     background: #ffffff1a;
+  }
+
+  .contact-in {
+    padding: 30px 0;
+    margin: 50px 0;
   }
 }
 

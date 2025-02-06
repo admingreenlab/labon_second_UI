@@ -53,7 +53,7 @@ export default function Gallery() {
             {/* Start Gallery Two */}
             <section className="gallery-two" style={{ paddingTop: '0' }}>
                 <div className="img-125">
-                    <img src="assets/images/shaps.gif" alt="#" />
+                    <img src="assets/images/backgrounds/no-bkg-left.png" alt="#" style={{ opacity: "0.3" }} />
                 </div>
                 <div className="container">
                     <div className="sec-title tg-heading-subheading animation-style2">

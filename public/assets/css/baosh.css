@@ -3102,6 +3102,17 @@ Brand One
   z-index: -1;
 }
 
+.page-header__bg:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(#ffc97475 0%, #0000 100%);
+  z-index: -1;
+}
+
 .page-header__inner {
   position: relative;
   display: block;
@@ -3109,12 +3120,13 @@ Brand One
 }
 
 .page-header__inner h2 {
-  color: #363636;
+  color: #000000;
   font-size: 57px;
   line-height: 1.0em;
   font-weight: 400;
   text-transform: capitalize;
   margin-bottom: 0px;
+
 }
 
 .page-header__inner .thm-breadcrumb {
@@ -3220,7 +3232,6 @@ Advantages One
 =============================================
 ***/
 .advantages-one {
-  position: relative;
   display: block;
   background: var(--thm-black);
   z-index: 1;
@@ -3295,6 +3306,8 @@ Advantages One
 
 .advantages-one__single-img .inner img {
   width: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .advantages-one__single-content {
@@ -5334,7 +5347,7 @@ Gallery Two
 }
 
 .gallery-two__single {
-  background: #c299583d;
+  background: #e9dfd0;
   position: relative;
   display: block;
 }
@@ -6419,9 +6432,11 @@ Service Details Css
 .img-125 {
   position: absolute;
   top: -78px;
-  left: 0;
-  max-width: 303px;
-  opacity: 0;
+  left: -472px;
+  max-width: 1394px;
+  opacity: .2;
+  z-index: 1;
+  transform: rotate(26deg);
 }
 
 .service-details__content {
@@ -10540,6 +10555,11 @@ End Css
   .subscribe-box-style1 form button {
     background: rgba(255, 255, 255, 0.1);
   }
+
+  .contact-in {
+    padding: 30px 0px;
+    margin: 50px 0;
+  }
 }
 
 .right-contant img {
@@ -10571,6 +10591,7 @@ End Css
     height: 1px;
     top: -5px;
   }
+
 
 
 

@@ -14,7 +14,7 @@ export default function Slogan() {
                                 </div>
 
                                 <div className="btn-box">
-                                    <Link className="thm-btn" href="/jck-events">
+                                    <Link className="thm-btn" href="/contact">
                                         <span className="txt">Send A Message</span>
                                         <span className="bdrl"></span>
                                         <span className="bdrr"></span>

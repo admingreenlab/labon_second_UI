@@ -59,15 +59,15 @@ export default function Menu() {
                     </ul>
                 </li> */}
 
-                <li className="dropdown">
+                {/* <li className="dropdown">
                     <Link href="#">Exhibition Stock </Link>
                     <ul>
                         <li><Link href="../AuctionInventoryStockReport">Download Exhibition Stock</Link></li>
-                        {/* <li><Link href="blog-carousel">Blog Carousel</Link></li>
+                        <li><Link href="blog-carousel">Blog Carousel</Link></li>
                         <li><Link href="blog-list">Blog List</Link></li>
-                        <li><Link href="blog-details">Blog Details</Link></li> */}
+                        <li><Link href="blog-details">Blog Details</Link></li>
                     </ul>
-                </li>
+                </li> */}
                 <li>
                     <Link href="about">About Us</Link>
                 </li>

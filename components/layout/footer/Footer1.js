@@ -105,8 +105,8 @@ export default function Footer1() {
                             </div>
 
                             <div className="footer-one__copyright">
-                                <p>Â© 2020 Labon LLC. All Rights Reserved</p>
-                                <span>Powered by Samyak Software <a href="http://www.esamyak.com" style={{ color: "rgb(194 153 88)" }}>www.esamyak.com</a>, Mumbai, India</span>
+                                <p>Â© 2025 Labon LLC. All Rights Reserved</p>
+                                {/* <span>Powered by Samyak Software <a href="http://www.esamyak.com" style={{ color: "rgb(194 153 88)" }}>www.esamyak.com</a>, Mumbai, India</span> */}
                             </div>
                             <a
                                 className="float"
