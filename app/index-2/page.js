@@ -106,6 +106,7 @@ export default function Home() {
                 <Gallery />
                 <section className="advantages-one">
 
+
                     <div className="container">
                         <div className="advantages-one__inner">
                             <ul className="row" style={{ alignItems: "center" }}>
