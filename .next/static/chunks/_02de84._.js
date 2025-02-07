@@ -2431,130 +2431,11 @@ function Header2({ scroll, handlePopup, handleSidebar, handleMobileMenu }) {
                 lineNumber: 36,
                 columnNumber: 13
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `stricky-header stricky-header--one stricked-menu main-menu ${scroll ? "stricky-fixed" : ""}`,
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "sticky-header__content",
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                        className: "main-menu main-menu-one",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "main-menu__wrapper clearfix",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "auto-container",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "main-menu__wrapper-inner",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "main-header-two__left",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "logo-box-one",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                    href: "/",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                        src: "assets/images/resources/logo-1.png",
-                                                        alt: "Awesome Logo",
-                                                        title: ""
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/layout/header/Header3.js",
-                                                        lineNumber: 92,
-                                                        columnNumber: 49
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/components/layout/header/Header3.js",
-                                                    lineNumber: 91,
-                                                    columnNumber: 45
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/layout/header/Header3.js",
-                                                lineNumber: 90,
-                                                columnNumber: 41
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/layout/header/Header3.js",
-                                            lineNumber: 89,
-                                            columnNumber: 37
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "main-menu-box",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                    href: "#",
-                                                    className: "mobile-nav__toggler",
-                                                    onClick: handleMobileMenu,
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                        xmlns: "http://www.w3.org/2000/svg",
-                                                        width: "22",
-                                                        height: "22",
-                                                        viewBox: "0 0 534 400",
-                                                        fill: "#fff",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                            d: "M233.666 366.667H500.333M33.666 200H500.333M233.666 33.3334H500.333",
-                                                            stroke: "white",
-                                                            "stroke-width": "66.6667",
-                                                            "stroke-linecap": "round",
-                                                            "stroke-linejoin": "round"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/layout/header/Header3.js",
-                                                            lineNumber: 100,
-                                                            columnNumber: 49
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/layout/header/Header3.js",
-                                                        lineNumber: 99,
-                                                        columnNumber: 45
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/components/layout/header/Header3.js",
-                                                    lineNumber: 98,
-                                                    columnNumber: 41
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$layout$2f$Menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                                                    fileName: "[project]/components/layout/header/Header3.js",
-                                                    lineNumber: 103,
-                                                    columnNumber: 41
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/components/layout/header/Header3.js",
-                                            lineNumber: 97,
-                                            columnNumber: 37
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/components/layout/header/Header3.js",
-                                    lineNumber: 88,
-                                    columnNumber: 33
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/components/layout/header/Header3.js",
-                                lineNumber: 87,
-                                columnNumber: 29
-                            }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/components/layout/header/Header3.js",
-                            lineNumber: 86,
-                            columnNumber: 25
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/components/layout/header/Header3.js",
-                        lineNumber: 85,
-                        columnNumber: 21
-                    }, this)
-                }, void 0, false, {
-                    fileName: "[project]/components/layout/header/Header3.js",
-                    lineNumber: 84,
-                    columnNumber: 17
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/components/layout/header/Header3.js",
-                lineNumber: 83,
-                columnNumber: 13
-            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$layout$2f$MobileMenu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 handleMobileMenu: handleMobileMenu
             }, void 0, false, {
                 fileName: "[project]/components/layout/header/Header3.js",
-                lineNumber: 129,
+                lineNumber: 128,
                 columnNumber: 13
             }, this)
         ]
@@ -3486,7 +3367,7 @@ function Banner() {
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "text",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                children: "Step Inside Our Laboratory: Discover a world of innovation, cutting-edge technology, and meticulous craftsmanship that brings brilliance and perfection to every piece we create."
+                                                                children: "Step into our lab to explore innovation, technology, and perfect craftsmanship."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
                                                                 lineNumber: 50,
@@ -3504,12 +3385,12 @@ function Banner() {
                                                                 children: "Access Inventory"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 55,
+                                                                lineNumber: 53,
                                                                 columnNumber: 49
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/sections/home2/Banner.js",
-                                                            lineNumber: 54,
+                                                            lineNumber: 52,
                                                             columnNumber: 45
                                                         }, this)
                                                     ]
@@ -3528,32 +3409,32 @@ function Banner() {
                                                                     "Explore  ",
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                                                        lineNumber: 61,
+                                                                        lineNumber: 59,
                                                                         columnNumber: 62
                                                                     }, this),
                                                                     "our Laboratory "
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 61,
+                                                                lineNumber: 59,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                                                 children: "Grown Diamonds"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 63,
+                                                                lineNumber: 61,
                                                                 columnNumber: 49
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                                        lineNumber: 60,
+                                                        lineNumber: 58,
                                                         columnNumber: 45
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                    lineNumber: 59,
+                                                    lineNumber: 57,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
@@ -3589,7 +3470,7 @@ function Banner() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                        lineNumber: 74,
+                                        lineNumber: 72,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3599,7 +3480,7 @@ function Banner() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                        lineNumber: 76,
+                                        lineNumber: 74,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3619,25 +3500,25 @@ function Banner() {
                                                                         children: "02"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                                                        lineNumber: 83,
+                                                                        lineNumber: 81,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                                    lineNumber: 82,
+                                                                    lineNumber: 80,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "border-box"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                                    lineNumber: 85,
+                                                                    lineNumber: 83,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/sections/home2/Banner.js",
-                                                            lineNumber: 81,
+                                                            lineNumber: 79,
                                                             columnNumber: 45
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3646,18 +3527,18 @@ function Banner() {
                                                                 children: "A wide range, of beautiful Type IIA, certified lab-grown diamonds that meet.."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 88,
+                                                                lineNumber: 86,
                                                                 columnNumber: 49
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/sections/home2/Banner.js",
-                                                            lineNumber: 87,
+                                                            lineNumber: 85,
                                                             columnNumber: 45
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                    lineNumber: 80,
+                                                    lineNumber: 78,
                                                     columnNumber: 41
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3670,54 +3551,54 @@ function Banner() {
                                                                     "Exceptional ",
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                                                        lineNumber: 98,
+                                                                        lineNumber: 96,
                                                                         columnNumber: 65
                                                                     }, this),
                                                                     "Standards."
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 98,
+                                                                lineNumber: 96,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                                                 children: "Grown Diamonds"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 100,
+                                                                lineNumber: 98,
                                                                 columnNumber: 49
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                                        lineNumber: 97,
+                                                        lineNumber: 95,
                                                         columnNumber: 45
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                    lineNumber: 96,
+                                                    lineNumber: 94,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/sections/home2/Banner.js",
-                                            lineNumber: 79,
+                                            lineNumber: 77,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                        lineNumber: 78,
+                                        lineNumber: 76,
                                         columnNumber: 33
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                lineNumber: 73,
+                                lineNumber: 71,
                                 columnNumber: 29
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/sections/home2/Banner.js",
-                            lineNumber: 71,
+                            lineNumber: 69,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$swiper$2f$swiper$2d$react$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SwiperSlide"], {
@@ -3731,7 +3612,7 @@ function Banner() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                        lineNumber: 111,
+                                        lineNumber: 109,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3741,7 +3622,7 @@ function Banner() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                        lineNumber: 113,
+                                        lineNumber: 111,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3758,77 +3639,48 @@ function Banner() {
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "number",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                                        children: "01"
+                                                                        children: "03"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                                                        lineNumber: 120,
+                                                                        lineNumber: 118,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                                    lineNumber: 119,
+                                                                    lineNumber: 117,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "border-box"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                                    lineNumber: 122,
+                                                                    lineNumber: 120,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/sections/home2/Banner.js",
-                                                            lineNumber: 118,
+                                                            lineNumber: 116,
                                                             columnNumber: 45
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "text",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                children: [
-                                                                    "Mestib remove the politices project completed marketing ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
-                                                                        fileName: "[project]/components/sections/home2/Banner.js",
-                                                                        lineNumber: 125,
-                                                                        columnNumber: 108
-                                                                    }, this),
-                                                                    "reserch abusiness high level process consultations for ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
-                                                                        fileName: "[project]/components/sections/home2/Banner.js",
-                                                                        lineNumber: 126,
-                                                                        columnNumber: 108
-                                                                    }, this),
-                                                                    "business the best highest growths."
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 125,
-                                                                columnNumber: 49
-                                                            }, this)
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/sections/home2/Banner.js",
-                                                            lineNumber: 124,
-                                                            columnNumber: 45
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "btn-box",
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                href: "#",
-                                                                children: "Get In Touch"
+                                                                children: "Backed by Greenlab, World's Leading Producer of Lab Grown Diamonds. www.greenlab.diamonds"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 130,
+                                                                lineNumber: 123,
                                                                 columnNumber: 49
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/sections/home2/Banner.js",
-                                                            lineNumber: 129,
+                                                            lineNumber: 122,
                                                             columnNumber: 45
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                    lineNumber: 117,
+                                                    lineNumber: 115,
                                                     columnNumber: 41
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3838,57 +3690,57 @@ function Banner() {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                                 children: [
-                                                                    "Digital ",
+                                                                    "Labon ",
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                                                        lineNumber: 136,
-                                                                        columnNumber: 61
+                                                                        lineNumber: 134,
+                                                                        columnNumber: 59
                                                                     }, this),
-                                                                    "Marketing"
+                                                                    "B2B App"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 136,
+                                                                lineNumber: 134,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                children: "Solutions"
+                                                                children: "Introducing"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                                                lineNumber: 138,
+                                                                lineNumber: 136,
                                                                 columnNumber: 49
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                                        lineNumber: 135,
+                                                        lineNumber: 133,
                                                         columnNumber: 45
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/sections/home2/Banner.js",
-                                                    lineNumber: 134,
+                                                    lineNumber: 132,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/sections/home2/Banner.js",
-                                            lineNumber: 116,
+                                            lineNumber: 114,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/sections/home2/Banner.js",
-                                        lineNumber: 115,
+                                        lineNumber: 113,
                                         columnNumber: 33
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/sections/home2/Banner.js",
-                                lineNumber: 110,
+                                lineNumber: 108,
                                 columnNumber: 29
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/sections/home2/Banner.js",
-                            lineNumber: 108,
+                            lineNumber: 106,
                             columnNumber: 25
                         }, this)
                     ]

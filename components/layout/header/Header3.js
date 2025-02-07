@@ -80,7 +80,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
             </header>
             {/* End Main Header Two*/}
 
-            <div className={`stricky-header stricky-header--one stricked-menu main-menu ${scroll ? "stricky-fixed" : ""}`}>
+            {/* <div className={`stricky-header stricky-header--one stricked-menu main-menu ${scroll ? "stricky-fixed" : ""}`}>
                 <div className="sticky-header__content">
                     <nav className="main-menu main-menu-one">
                         <div className="main-menu__wrapper clearfix">
@@ -103,7 +103,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                                         <Menu />
                                     </div>
 
-                                    {/* <div className="main-header-two__right">
+                                    <div className="main-header-two__right">
                                         <div className="header-search-box">
                                         <Link href="#"
                                             className="main-menu__search search-toggler icon-search-interface-symbol" onClick={handlePopup}>
@@ -117,14 +117,13 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                                                 </Link>
                                             </div>
                                         </div>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </nav>
                 </div>
-                {/*.sticky-header__content */}
-            </div>
+            </div> */}
             {/*.stricky-header */}
             <MobileMenu handleMobileMenu={handleMobileMenu} />
 

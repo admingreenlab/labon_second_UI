@@ -2665,7 +2665,7 @@ Main Slider Two
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 325px;
+  width: 311px;
   height: 348px;
   opacity: 0;
   -webkit-transform: perspective(400px) rotateY(0deg) translateX(-100px);
@@ -5091,7 +5091,7 @@ Services Two
 }
 
 .services-two__list-item .content-box h2 a {
-  color: #404040;
+  color: #121212f0;
 }
 
 .services-two__list-item .content-box p {

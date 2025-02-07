@@ -47,9 +47,7 @@ export default function Banner() {
                                                 <div className="border-box"></div>
                                             </div>
                                             <div className="text">
-                                                <p>Step Inside Our Laboratory: Discover a world of innovation,
-                                                    cutting-edge technology, and meticulous craftsmanship that brings
-                                                    brilliance and perfection to every piece we create.</p>
+                                                <p>Step into our lab to explore innovation, technology, and perfect craftsmanship.</p>
                                             </div>
                                             <div className="btn-box">
                                                 <Link href="#">Access Inventory</Link>
@@ -117,25 +115,25 @@ export default function Banner() {
                                         <div className="main-slider-two__single-top">
                                             <div className="counter-box">
                                                 <div className="number">
-                                                    <h2>01</h2>
+                                                    <h2>03</h2>
                                                 </div>
                                                 <div className="border-box"></div>
                                             </div>
                                             <div className="text">
-                                                <p>Mestib remove the politices project completed marketing <br />
-                                                    reserch abusiness high level process consultations for <br />
-                                                    business the best highest growths.</p>
+                                                <p>Backed by Greenlab, World's Leading Producer of Lab Grown Diamonds.
+
+                                                    www.greenlab.diamonds</p>
                                             </div>
-                                            <div className="btn-box">
+                                            {/* <div className="btn-box">
                                                 <Link href="#">Get In Touch</Link>
-                                            </div>
+                                            </div> */}
                                         </div>
 
                                         <div className="main-slider-two__single-bottom">
                                             <div className="title-box">
-                                                <h2>Digital <br />
-                                                    Marketing</h2>
-                                                <h3>Solutions</h3>
+                                                <h2>Labon <br />
+                                                    B2B App</h2>
+                                                <h3>Introducing</h3>
                                             </div>
                                         </div>
                                     </div>
