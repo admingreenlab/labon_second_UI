@@ -1,2 +1,5 @@
+.next/
 
-/node_modules
+.swc/
+
+node_modules/
