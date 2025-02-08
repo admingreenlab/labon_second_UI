@@ -279,7 +279,7 @@ li {
   position: relative;
   display: block;
   margin-top: -8px;
-  padding-bottom: 57px;
+  padding-bottom: 35px;
 }
 
 .sec-title__tagline {
@@ -293,7 +293,7 @@ li {
   position: relative;
   display: block;
   color: #c29958;
-  font-size: 22px;
+  font-size: 17px;
   line-height: 24px;
   font-weight: 500;
   text-transform: none;
@@ -312,7 +312,7 @@ li {
 
 .sec-title__title {
   color: #404040;
-  font-size: 55px;
+  font-size: 45px;
   line-height: 1.2em;
   font-weight: 500;
   text-transform: none;
@@ -2272,7 +2272,6 @@ Main Header Two
 =============================================
 ***/
 .main-header-two {
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -2309,7 +2308,6 @@ Main Header Three
 ***/
 
 .main-header-two.style3 {
-  position: fixed;
   display: block;
   background: #c29958;
 }
@@ -2659,14 +2657,14 @@ Main Slider Two
   position: absolute;
   left: 0;
   bottom: 0;
-  background: #000000;
+  background: #00000000;
   /* background-blend-mode: luminosity; */
   background-attachment: scroll;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 311px;
-  height: 348px;
+  width: 370px;
+  height: 248px;
   opacity: 0;
   -webkit-transform: perspective(400px) rotateY(0deg) translateX(-100px);
   -ms-transform: perspective(400px) rotateY(0deg) translateX(-100px);
@@ -2700,7 +2698,7 @@ Main Slider Two
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(var(--thm-black-rgb), 0.6);
+  background: rgb(0 0 0 / 14%);
   content: "";
   z-index: -1;
 }
@@ -2713,7 +2711,7 @@ Main Slider Two
 .main-slider-two__single {
   position: relative;
   display: block;
-  padding: 190px 0px 90px;
+  padding: 50px 0px 90px;
 }
 
 .main-slider-two__single-top {
@@ -2802,7 +2800,7 @@ Main Slider Two
 .main-slider-two__single-top .text {
   position: relative;
   display: block;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .main-slider-two__single-top .text p {
@@ -2914,7 +2912,7 @@ Main Slider Two
 
 .main-slider-two__single-bottom .title-box h2 {
   color: #1e1e1e;
-  font-size: 80px;
+  font-size: 50px;
   line-height: 1.2em;
   font-weight: 500;
   text-transform: capitalize;
@@ -4983,7 +4981,7 @@ Services Two
   position: relative;
   display: block;
   background: var(--thm-black);
-  padding: 120px 0px 90px;
+  padding: 70px 0px 90px;
   z-index: 1;
 }
 

@@ -1,17 +1,17 @@
 
 'use client'
 import Link from "next/link"
-import { Autoplay, Navigation, Pagination } from "swiper/modules"
+import { Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 const swiperOptions = {
-    modules: [Autoplay, Pagination, Navigation],
+    modules: [Pagination, Navigation],
     slidesPerView: 1,
     spaceBetween: 0,
     loop: true,
-    autoplay: {
-        delay: 10000,
-    },
+    // autoplay: {
+    //     delay: 10000,
+    // },
     navigation: {
         nextEl: '.h1n',
         prevEl: '.h1p',

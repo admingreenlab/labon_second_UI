@@ -23077,7 +23077,7 @@ ol, li {
   position: relative;
   display: block;
   margin-top: -8px;
-  padding-bottom: 57px;
+  padding-bottom: 35px;
 }
 
 .sec-title__tagline {
@@ -23091,7 +23091,7 @@ ol, li {
   position: relative;
   display: block;
   color: #c29958;
-  font-size: 22px;
+  font-size: 17px;
   line-height: 24px;
   font-weight: 500;
   text-transform: none;
@@ -23110,7 +23110,7 @@ ol, li {
 
 .sec-title__title {
   color: #404040;
-  font-size: 55px;
+  font-size: 45px;
   line-height: 1.2em;
   font-weight: 500;
   text-transform: none;
@@ -24825,7 +24825,6 @@ img {
 }
 
 .main-header-two {
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -24856,7 +24855,6 @@ img {
 }
 
 .main-header-two.style3 {
-  position: fixed;
   display: block;
   background: #c29958;
 }
@@ -25171,13 +25169,13 @@ img {
   position: absolute;
   left: 0;
   bottom: 0;
-  background: #000;
+  background: none;
   background-attachment: scroll;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 311px;
-  height: 348px;
+  width: 370px;
+  height: 248px;
   opacity: 0;
   -webkit-transform: perspective(400px)rotateY(0)translateX(-100px);
   -ms-transform: perspective(400px)rotateY(0)translateX(-100px);
@@ -25211,7 +25209,7 @@ img {
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(var(--thm-black-rgb), .6);
+  background: #00000024;
   content: "";
   z-index: -1;
 }
@@ -25224,7 +25222,7 @@ img {
 .main-slider-two__single {
   position: relative;
   display: block;
-  padding: 190px 0 90px;
+  padding: 50px 0 90px;
 }
 
 .main-slider-two__single-top {
@@ -25313,7 +25311,7 @@ img {
 .main-slider-two__single-top .text {
   position: relative;
   display: block;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .main-slider-two__single-top .text p {
@@ -25425,7 +25423,7 @@ img {
 
 .main-slider-two__single-bottom .title-box h2 {
   color: #1e1e1e;
-  font-size: 80px;
+  font-size: 50px;
   line-height: 1.2em;
   font-weight: 500;
   text-transform: capitalize;
@@ -27374,7 +27372,7 @@ button.black-btn:hover {
   position: relative;
   display: block;
   background: var(--thm-black);
-  padding: 120px 0 90px;
+  padding: 70px 0 90px;
   z-index: 1;
 }
 
