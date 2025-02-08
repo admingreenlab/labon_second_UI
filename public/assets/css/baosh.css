@@ -2579,6 +2579,10 @@ Main Slider One
   height: 4px !important;
 }
 
+.main-containe {
+  display: flex;
+  padding: 50px 0;
+}
 
 /***
 =============================================
@@ -4184,7 +4188,7 @@ Awards One
   width: 60px;
   height: 40px;
   background: #272727ad;
-  margin: 0 auto 68px;
+  margin: 0 auto 15px;
 
 }
 
@@ -4607,7 +4611,7 @@ Blog One
 }
 
 .blog-one__content-right-list li .left-content .text-box h2 a {
-  color: #ffffff;
+  color: #000000;
 }
 
 .blog-one__content-right-list li .left-content .text-box h3 {
@@ -6506,7 +6510,6 @@ Service Details Css
 .service-details__content-text2 {
   position: relative;
   display: block;
-  margin-top: 51px;
 }
 
 .service-details__content-text2 .img-box {
@@ -9530,7 +9533,7 @@ End Css
 /*Medium screen*/
 @media only screen and (max-width: 1199px) {
   .service-details {
-    padding: 60px 0 20px;
+    padding: 50px 0 20px;
     z-index: 1;
   }
 
@@ -9665,7 +9668,7 @@ End Css
     margin: 0 auto 50px;
   } */
   .advantages-one__single-content .title-box h2 {
-    color: #fff;
+    color: #000000;
     font-size: 25px;
     line-height: 33px;
     font-weight: 500;
@@ -10178,7 +10181,7 @@ End Css
   }
 
   .awards-one .border-box2 {
-    top: 353px;
+    top: 369px;
   }
 
   /*Team One*/
@@ -10229,9 +10232,7 @@ End Css
   }
 
   /*Footer One*/
-  .footer-one__contact ul {
-    display: block;
-  }
+
 
   .footer-one__contact ul li {
     margin-right: 0px;
@@ -10280,7 +10281,7 @@ End Css
 
   /*Main Slider Two*/
   .main-slider-two__single {
-    padding: 180px 0px 120px;
+    padding: 80px 0px 120px;
   }
 
   .main-slider-two__single-bottom {
@@ -10466,9 +10467,7 @@ End Css
     margin: 60px auto 0px;
   }
 
-  .page-header__inner h2 {
-    font-size: 90px;
-  }
+
 
   .service-details__content-text2 .content-box {
     margin-top: 0px;
@@ -10584,9 +10583,17 @@ End Css
   display: none;
 }
 
+.right .footer-one__contact ul {
+  flex-wrap: nowrap;
+}
+
 @media only screen and (max-width: 767px) {
   .auto-container {
     padding: 0px 15px;
+  }
+
+  .col-xl-6.col-lg-6.col-md-6.py-2.order1 {
+    order: -1;
   }
 
   .right .footer-one__contact ul {
@@ -10987,6 +10994,20 @@ End Css
     padding: 50px 0 50px;
   }
 
+  .left-said {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    max-width: 211px;
+    margin: auto;
+  }
+
+  .right-said {
+    text-align: center;
+    margin-top: 20px;
+    margin: 23px auto;
+  }
+
   .testimonials-one__carousel.owl-theme .owl-dots {
     display: none;
   }
@@ -11006,9 +11027,6 @@ End Css
     display: none;
   }
 
-  .awards-one .border-box2 {
-    display: none;
-  }
 
   .awards-one {
     padding: 40px 0px 21px;
@@ -11127,11 +11145,7 @@ End Css
     display: none;
   }
 
-  /*Slogan One*/
-  .slogan-one__content-box {
-    display: block;
-    text-align: center;
-  }
+
 
   .slogan-one__content-box .text-box h2 {
     font-size: 21px;
@@ -11151,9 +11165,9 @@ End Css
   }
 
   /*Footer One*/
-  .footer-one__contact ul {
-    display: block;
-  }
+  /* .footer-one__contact ul {
+      display: block;
+    } */
 
   .footer-one__contact ul li {
     margin-right: 0px;
@@ -11227,12 +11241,12 @@ End Css
 
   /*Main Slider Two*/
   .main-slider-two__single {
-    padding: 180px 0px 120px;
+    padding: 80px 0px 120px;
   }
 
   .main-slider-two__single-bottom {
     margin-left: 0;
-    max-width: 339px;
+    max-width: 100%;
     margin-top: 0px;
     padding: 5px 0;
   }
@@ -11291,15 +11305,16 @@ End Css
     -ms-transform: perspective(400px) rotateY(0deg) translateX(0px);
     transform: perspective(400px) rotateY(0deg) translateX(0px);
     width: calc((100% - 0px) / 1);
+    background-size: cover;
   }
 
-  .main-slider .swiper-slide-active .image-layer::after {
+  .main-slider .swiper-slide-active .image-layer:after {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    background: rgb(201 201 201 / 22%);
+    background: #ffffff63;
     content: "";
     z-index: 1;
   }
@@ -11331,6 +11346,10 @@ End Css
 
   .services-two__video {
     margin-top: 0px;
+  }
+
+  .scroll-to-top-box {
+    padding-bottom: 35px;
   }
 
   .services-two__inner ul li.style2 {
@@ -11573,6 +11592,10 @@ End Css
 
   .comment-one__single {
     display: block;
+  }
+
+  .contact-page {
+    padding: 50px 0;
   }
 
   .comment-one__content {
@@ -11884,12 +11907,22 @@ End Css
     line-height: 10px;
     margin-bottom: 9px;
   }
+
+  .footer-one__contact ul {
+    flex-wrap: wrap;
+  }
 }
 
 @media only screen and (max-width: 548px) {
   .main-slider-two__single-bottom .title-box h2 {
     font-size: 35px;
     margin-bottom: 14px;
+  }
+
+  /*Slogan One*/
+  .slogan-one__content-box {
+    display: block;
+    text-align: center;
   }
 
   .services-two__inner ul {
@@ -11904,6 +11937,8 @@ End Css
   .pricing-one__bottom ul li {
     width: 100% !important;
   }
+
+
 
   .main-slider-two__single-bottom .title-box h3 {
     font-size: 14px;

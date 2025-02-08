@@ -61,12 +61,12 @@ export default function Home() {
 
                                     <div className="service-details__content-text2">
                                         <div className="row align-items-center">
-                                            <div className="col-xl-6 col-lg-6 col-md-12 py-5">
+                                            <div className="col-xl-6 col-lg-6 col-md-6 py-2">
                                                 <div className="img-box">
                                                     <img src="assets/images/services/service-details-img2.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6 col-lg-6 col-md-12 py-5">
+                                            <div className="col-xl-6 col-lg-6 col-md-6 py-2">
                                                 <div className="content-box">
                                                     <h2>Who We Are ?</h2>
 
@@ -82,7 +82,9 @@ export default function Home() {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6 col-lg-6 col-md-12 py-5">
+                                        </div>
+                                        <div className="row align-items-center">
+                                            <div className="col-xl-6 col-lg-6 col-md-6 py-2">
                                                 <div className="content-box">
                                                     <h2>What We Do ?</h2>
                                                     <ul>
@@ -103,17 +105,19 @@ export default function Home() {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6 col-lg-6 col-md-12 py-5">
+                                            <div className="col-xl-6 col-lg-6 col-md-6 py-2 order1">
                                                 <div className="img-box">
                                                     <img src="assets/images/services/2.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6 col-lg-6 col-md-12 py-5">
+                                        </div>
+                                        <div className="row align-items-center">
+                                            <div className="col-xl-6 col-lg-6 col-md-6 py-2">
                                                 <div className="img-box">
                                                     <img src="assets/images/services/3.jpg" alt="" />
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6 col-lg-6 col-md-12 py-5">
+                                            <div className="col-xl-6 col-lg-6 col-md-6 py-2">
                                                 <div className="content-box">
                                                     <h2>Why to Choose LABON ?</h2>
                                                     <ul>
@@ -126,7 +130,9 @@ export default function Home() {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6 col-lg-6 col-md-12 py-5">
+                                        </div>
+                                        <div className="row align-items-center">
+                                            <div className="col-xl-6 col-lg-6 col-md-6 py-2">
                                                 <div className="content-box">
                                                     <h2>What We Care About ?</h2>
                                                     <ul>
@@ -147,7 +153,7 @@ export default function Home() {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6 col-lg-6 col-md-12 py-5">
+                                            <div className="col-xl-6 col-lg-6 col-md-6 py-2 order1">
                                                 <div className="img-box">
                                                     <img src="assets/images/services/4.jpg" alt="" />
                                                 </div>
@@ -163,7 +169,7 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-            </Layout>
+            </Layout >
         </>
     )
 }

@@ -5,7 +5,7 @@ export default function Home() {
 
     return (
         <>
-            <Layout headerStyle={4} footerStyle={2}>
+            <Layout headerStyle={3} footerStyle={1} >
                 {/* <section className="blog-list">
                     <div className="container">
                         <div className="row">
@@ -222,57 +222,60 @@ export default function Home() {
                         </div>
                     </div>
                 </section> */}
-                <div className="container" style={{ maxWidth: "100%" }}>
-                    <div className="row align-items-center">
-                        <div className="col-md-6 co-12" style={{ background: "#d1cde6" }}>
+                <div className="main-containe">
+                    <div className="container" style={{ maxWidth: "100%" }}>
+                        <div className="row align-items-center justify-content-center">
+                            {/* <div className="col-md-6 co-12" style={{ background: "#d1cde6" }}>
                             <div className="left-img">
                                 <a href="/">
                                     <img src="assets/images/services/service-details-img2.jpg" alt="Blog" style={{ width: "100%", maxWidth: "250px" }} />
                                 </a>
                             </div>
-                        </div>
-                        <div className="col-md-6 co-12" >
-                            <div className="right-contant">
-                                <img src="assets/images/services/svg.svg" />
-                                <div className="contact-one__form m-0">
-                                    <form id="contact-form" className="default-form2 contact-form-validated" >
-                                        <div className="input-box">
-                                            <input type="email" name="email" placeholder="EMAIL *" required="" />
-                                        </div>
-                                        <div className="input-box">
-                                            <input type="password" placeholder="Enter your Password *" name="password" />
-                                        </div>
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <div className="form-group">
-                                                <input type="checkbox" id="html" />
-                                                <label for="html">Remember Me</label>
+                        </div> */}
+                            <div className="col-md-6 co-12" >
+                                <div className="right-contant">
+                                    <h3 className="text-center my-3">Login</h3>
+                                    <img src="assets/images/services/svg.svg" />
+                                    <div className="contact-one__form m-0">
+                                        <form id="contact-form" className="default-form2 contact-form-validated" >
+                                            <div className="input-box">
+                                                <input type="email" name="email" placeholder="EMAIL *" required="" />
                                             </div>
-                                            <a href="/register" class="forget-pwd" data-toggle="modal" style={{ color: "#c29958" }}>Forget Password?</a>
-                                        </div>
-                                        <div className="col-xl-12">
-                                            <div className="d-flex align-items-center justify-content-CENTER">
-                                                <div className="contact-one__form-btn">
-                                                    <button className="thm-btn" type="btn" data-loading-text="Please wait...">
-                                                        <span className="txt">- Login -</span>
-                                                        <span className="bdrl"></span>
-                                                        <span className="bdrr"></span>
-                                                    </button>
+                                            <div className="input-box">
+                                                <input type="password" placeholder="Enter your Password *" name="password" />
+                                            </div>
+                                            <div className="d-flex align-items-center justify-content-between">
+                                                <div className="form-group">
+                                                    <input type="checkbox" id="html" />
+                                                    <label for="html">Remember Me</label>
                                                 </div>
-                                                <div className="contact-one__form-btn">
-                                                    <a href='/register' className="thm-btn" type="btn" data-loading-text="Please wait...">
-                                                        <span className="txt">Register</span>
-                                                        <span className="bdrl"></span>
-                                                        <span className="bdrr"></span>
-                                                    </a>
+                                                <a href="/register" class="forget-pwd" data-toggle="modal" style={{ color: "#c29958" }}>Forget Password?</a>
+                                            </div>
+                                            <div className="col-xl-12">
+                                                <div className="d-flex align-items-center justify-content-center">
+                                                    <div className="contact-one__form-btn">
+                                                        <button className="thm-btn" type="btn" data-loading-text="Please wait...">
+                                                            <span className="txt">- Login -</span>
+                                                            <span className="bdrl"></span>
+                                                            <span className="bdrr"></span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="contact-one__form-btn">
+                                                        <a href='/register' className="thm-btn" type="btn" data-loading-text="Please wait...">
+                                                            <span className="txt">Register</span>
+                                                            <span className="bdrl"></span>
+                                                            <span className="bdrr"></span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </div >
                     </div >
-                </div >
+                </div>
             </Layout >
         </>
     )

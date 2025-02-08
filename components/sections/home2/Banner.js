@@ -1,17 +1,15 @@
 
 'use client'
 import Link from "next/link"
-import { Navigation, Pagination } from "swiper/modules"
+import { Autoplay, Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 const swiperOptions = {
-    modules: [Pagination, Navigation],
+    modules: [Autoplay, Pagination, Navigation],
     slidesPerView: 1,
     spaceBetween: 0,
     loop: true,
-    // autoplay: {
-    //     delay: 10000,
-    // },
+    autoplay: window.innerWidth > 768 ? { delay: 10000 } : false, // Disable autoplay on small screens
     navigation: {
         nextEl: '.h1n',
         prevEl: '.h1p',
@@ -21,6 +19,15 @@ const swiperOptions = {
         clickable: true,
     },
 };
+
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768) {
+        swiper.autoplay.stop();
+    } else {
+        swiper.autoplay.start();
+    }
+});
 
 
 export default function Banner() {
@@ -86,6 +93,9 @@ export default function Banner() {
                                                 <p>A wide range, of beautiful Type IIA, certified lab-grown diamonds that meet..
                                                 </p>
                                             </div>
+                                            <div className="btn-box">
+                                                <Link href="#">.</Link>
+                                            </div>
                                             {/* <div className="btn-box">
                                                 <Link href="#">Get In Touch</Link>
                                             </div> */}
@@ -123,6 +133,9 @@ export default function Banner() {
                                                 <p>Backed by Greenlab, World's Leading Producer of Lab Grown Diamonds.
 
                                                     www.greenlab.diamonds</p>
+                                            </div>
+                                            <div className="btn-box">
+                                                <Link href="#">.</Link>
                                             </div>
                                             {/* <div className="btn-box">
                                                 <Link href="#">Get In Touch</Link>

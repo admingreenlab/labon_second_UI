@@ -23,7 +23,7 @@ export default function Menu() {
 
 
                 <li className="dropdown">
-                    <Link href="#">Education </Link>
+                    <Link href='#'>Education </Link>
                     <ul>
                         <li><Link href="/evolution">Evolution</Link></li>
                         <li>

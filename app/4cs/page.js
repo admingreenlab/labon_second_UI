@@ -499,13 +499,13 @@ export default function Home() {
                                                                         <tr>
                                                                             <td>Approx. size</td>
                                                                             <td>
-                                                                                <img src="assets/images/services/icone-time-25.svg" alt="" style={{ filter: 'brightness(50)', padding: "10px" }} />
+                                                                                <img src="assets/images/services/icone-time-25.svg" alt="" style={{ padding: "10px" }} />
                                                                             </td>
                                                                             <td>
-                                                                                <img src="assets/images/services/icone-time-25.svg" alt="" style={{ filter: 'brightness(50)', padding: "10px" }} />
+                                                                                <img src="assets/images/services/icone-time-25.svg" alt="" style={{ padding: "10px" }} />
                                                                             </td>
                                                                             <td>
-                                                                                <img src="assets/images/services/icone-time-25.svg" alt="" style={{ filter: 'brightness(50)', padding: "10px" }} />
+                                                                                <img src="assets/images/services/icone-time-25.svg" alt="" style={{ padding: "10px" }} />
                                                                             </td>
                                                                         </tr>
                                                                         <tr>

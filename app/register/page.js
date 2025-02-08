@@ -214,8 +214,10 @@ export default function Faq() {
                     <div className="col-md-10 co-12 my-5" >
                         <div className="right-contant">
                             <a href="/">
-                                <img src="assets/images/services/svg.svg" style={{ width: "150px", margin: "auto", marginBottom: "20px", display: 'flex', filter: ' invert(1)' }} />
+
+                                <img src="assets/images/services/svg.svg" style={{ width: "250px", margin: "auto", marginBottom: "20px", display: 'flex', filter: ' invert(1)' }} />
                             </a>
+                            <h3 className="text-center my-3">Register</h3>
                             <div className="contact-one__form m-0">
                                 <form id="contact-form" className="default-form2 contact-form-validated" >
                                     <div className="input-box">
@@ -360,7 +362,7 @@ export default function Faq() {
                                             <input type="checkbox" id="html" />
                                             <label for="html">I agree to the Terms and Conditions</label>
                                         </div>
-                                        <a href="/lohin" class="forget-pwd" data-toggle="modal" style={{ color: "#c29958" }}>Login?</a>
+                                        <a href="/login" class="forget-pwd" data-toggle="modal" style={{ color: "#c29958" }}>Login?</a>
                                     </div>
                                     <div className="col-xl-12">
                                         <div className="d-flex align-items-center justify-content-center">
