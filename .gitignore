@@ -3,3 +3,5 @@
 .swc/
 
 node_modules/
+
+.next/"
