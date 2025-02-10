@@ -22,7 +22,7 @@ export default function Footer1() {
                         <div className="footer-one__inner">
                             <div className="logo-box text-center">
                                 <Link href="/"><img src="assets/images/resources/logo-1.png" alt="#" /></Link>
-                                <p style={{ marginTop: "10px", textAlign: "center" }}>We are broad supplier of an extensive inventory of Type IIA Lab-grown Diamonds <br /> at the best affordable price.</p>
+                                <p style={{ marginTop: "10px", textAlign: "center", fontSize: "18px" }}>We are broad supplier of an extensive inventory of Type IIA Lab-grown Diamonds <br /> at the best affordable price.</p>
                             </div>
 
                             <div className="footer-one__contact">

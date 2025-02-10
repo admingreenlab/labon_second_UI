@@ -511,7 +511,7 @@ img {
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  padding-bottom: 60px;
+  padding-bottom: 20px;
 }
 
 .scroll-to-top {
@@ -4750,7 +4750,7 @@ Footer One
 .footer {
   position: relative;
   display: block;
-  padding-bottom: 52px;
+  padding-bottom: 20px;
 }
 
 .footer-one__inner {
@@ -4761,7 +4761,7 @@ Footer One
 .footer-one__inner .logo-box {
   position: relative;
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .footer-one__inner .logo-box a {
@@ -4771,7 +4771,7 @@ Footer One
 
 .footer-one__inner .logo-box a img {
   width: 100%;
-  max-width: 363px;
+  max-width: 250px;
   filter: invert(1);
 }
 
@@ -4859,9 +4859,10 @@ button.black-btn:hover {
 
 .footer-one__contact ul li .text-box h3 {
   color: #2c2c2c;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 20px;
   font-weight: 400;
+  font-family: var(--thm-font);
 }
 
 
@@ -4913,7 +4914,7 @@ button.black-btn:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .footer-one__social-links ul {
@@ -4970,10 +4971,10 @@ button.black-btn:hover {
 
 .footer-one__copyright p {
   color: #1d1d1d;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 15px;
+  line-height: 1;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: 1.2PX;
 }
 
 /***
@@ -9430,6 +9431,26 @@ End Css
   }
 }
 
+@media only screen and (max-width: 1500px) {
+  .main-slider-two__single {
+    position: relative;
+    display: block;
+    padding: 20px 0 20px;
+  }
+
+  .main-slider .swiper-slide-active .main-slider-two__single-bottom:before {
+    width: 62%;
+  }
+
+  .main-slider-two__single-bottom .title-box h2 {
+    margin-bottom: 0;
+  }
+
+  .main-slider-two__single-top .counter-box .number h2 {
+    font-size: 20px;
+  }
+}
+
 @media only screen and (min-width: 1200px) and (max-width: 1500px) {
   .main-header-one__right .Reg-login-box {
     display: none;
@@ -9517,6 +9538,12 @@ End Css
     min-width: 141px;
   }
 
+
+
+  .main-slider-two__single-bottom {
+    margin-top: 10px !important;
+  }
+
   .gallery-two {
     padding: 45px 0;
   }
@@ -9535,6 +9562,14 @@ End Css
   .service-details {
     padding: 50px 0 20px;
     z-index: 1;
+  }
+
+  .main-slider .swiper-slide-active .main-slider-two__single-bottom:before {
+    width: 100%;
+  }
+
+  .main-slider-two__single {
+    padding: 20px 0 40px 0px !important;
   }
 
   .blog-two__single-content.style2 {
@@ -9849,6 +9884,10 @@ End Css
     position: absolute;
     top: -124px;
     right: auto;
+  }
+
+  .footer .container {
+    max-width: 100% !important;
   }
 
   .sec-title {
@@ -10236,9 +10275,9 @@ End Css
 
   .footer-one__contact ul li {
     margin-right: 0px;
-    max-width: 400px;
+    max-width: fit-content;
     width: 100%;
-    margin: 0 auto 40px;
+    margin: 0 auto 10px;
   }
 
   .right ul li {
@@ -10268,7 +10307,7 @@ End Css
   .main-header-two {
     position: relative;
     background: var(--thm-black);
-    padding: 29px 0px 29px;
+    padding: 15px 0px 15px;
   }
 
   .main-header-two__right {
@@ -10449,9 +10488,8 @@ End Css
   }
 
   .blog-two__single {
-    max-width: 500px;
     width: 100%;
-    margin: 0 auto 30px;
+    margin: 0 auto 0px;
   }
 
   /*Contact Page*/
@@ -11145,8 +11183,6 @@ End Css
     display: none;
   }
 
-
-
   .slogan-one__content-box .text-box h2 {
     font-size: 21px;
   }
@@ -11305,7 +11341,6 @@ End Css
     -ms-transform: perspective(400px) rotateY(0deg) translateX(0px);
     transform: perspective(400px) rotateY(0deg) translateX(0px);
     width: calc((100% - 0px) / 1);
-    background-size: cover;
   }
 
   .main-slider .swiper-slide-active .image-layer:after {
@@ -11775,6 +11810,10 @@ End Css
     line-height: 38px;
   }
 
+  .main-slider-two__single-top {
+    max-width: 210px;
+  }
+
   .coming-soon-page-style1 {
     height: auto !important;
     padding: 110px 0 120px;
@@ -11834,6 +11873,7 @@ End Css
     -ms-flex-order: 2;
     order: 2;
   }
+
 
   .pricing-one__bottom ul li {
     padding-top: 30px;
@@ -11919,6 +11959,17 @@ End Css
     margin-bottom: 14px;
   }
 
+  .lbnappbanner p,
+  .lbnappbanner .main-slider-two__single-top .counter-box .number h2,
+  .lbnappbanner .main-slider-two__single-bottom .title-box h2,
+  .lbnappbanner .main-slider-two__single-bottom .title-box h3 {
+    color: transparent;
+  }
+
+  .main-slider-two .image-layer {
+    background-size: cover;
+  }
+
   /*Slogan One*/
   .slogan-one__content-box {
     display: block;
@@ -11970,7 +12021,6 @@ End Css
     background-position: center;
     width: 100%;
     height: 100%;
-    background-size: cover;
   }
 
   .slogan-one__content-box .btn-box .thm-btn {

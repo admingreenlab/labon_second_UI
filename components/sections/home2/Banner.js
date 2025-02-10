@@ -5,15 +5,15 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 export default function Banner() {
-    const [autoplayEnabled, setAutoplayEnabled] = useState(false);
-
-
-    const swiperOptions = {
+    const [swiperOptions, setSwiperOptions] = useState({
         modules: [Autoplay, Pagination, Navigation],
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,
-        autoplay: autoplayEnabled ? { delay: 1000 } : false,
+        autoplay: {
+            delay: 8000, // Set scroll time in milliseconds (e.g., 3000ms = 3s)
+            disableOnInteraction: false, // Keeps autoplay running even after user interaction
+        },
         navigation: {
             nextEl: '.h1n',
             prevEl: '.h1p',
@@ -22,30 +22,10 @@ export default function Banner() {
             el: '.swiper-pagination',
             clickable: true,
         },
-    };
+    });
 
-    useEffect(() => {
-        if (typeof window === "undefined") return;
 
-        const updateAutoplay = () => {
-            setAutoplayEnabled(window.innerWidth > 768);
-        };
 
-        updateAutoplay(); // Initial check
-        window.addEventListener("resize", updateAutoplay);
-
-        return () => {
-            window.removeEventListener("resize", updateAutoplay);
-        };
-    }, []);
-
-    // window.addEventListener('resize', () => {
-    //     if (window.innerWidth <= 768) {
-    //         swiper.autoplay.stop();
-    //     } else {
-    //         swiper.autoplay.start();
-    //     }
-    // });
     return (
         <>
             {/* Start Main Slider Two*/}
@@ -136,7 +116,7 @@ export default function Banner() {
                                 <div className="main-slider-two__bg"
                                     style={{ backgroundImage: ' url(assets/images/slides/slider-v4-img4.jpg)' }} ></div>
                                 <div className="auto-container">
-                                    <div className="main-slider-two__single">
+                                    <div className="main-slider-two__single lbnappbanner">
                                         <div className="main-slider-two__single-top">
                                             <div className="counter-box">
                                                 <div className="number">
