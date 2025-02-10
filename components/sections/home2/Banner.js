@@ -1,36 +1,51 @@
-
-'use client'
+'use client';
 import Link from "next/link"
+import { useEffect, useState } from "react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-const swiperOptions = {
-    modules: [Autoplay, Pagination, Navigation],
-    slidesPerView: 1,
-    spaceBetween: 0,
-    loop: true,
-    autoplay: window.innerWidth > 768 ? { delay: 10000 } : false, // Disable autoplay on small screens
-    navigation: {
-        nextEl: '.h1n',
-        prevEl: '.h1p',
-    },
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-};
-
-
-window.addEventListener('resize', () => {
-    if (window.innerWidth <= 768) {
-        swiper.autoplay.stop();
-    } else {
-        swiper.autoplay.start();
-    }
-});
-
-
 export default function Banner() {
+    const [autoplayEnabled, setAutoplayEnabled] = useState(false);
+
+
+    const swiperOptions = {
+        modules: [Autoplay, Pagination, Navigation],
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        autoplay: autoplayEnabled ? { delay: 1000 } : false,
+        navigation: {
+            nextEl: '.h1n',
+            prevEl: '.h1p',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    };
+
+    // useEffect(() => {
+    //     if (typeof window === "undefined") return;
+
+    //     const updateAutoplay = () => {
+    //         setAutoplayEnabled(window.innerWidth > 768);
+    //     };
+
+    //     updateAutoplay(); // Initial check
+    //     window.addEventListener("resize", updateAutoplay);
+
+    //     return () => {
+    //         window.removeEventListener("resize", updateAutoplay);
+    //     };
+    // }, []);
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            swiper.autoplay.stop();
+        } else {
+            swiper.autoplay.start();
+        }
+    });
     return (
         <>
             {/* Start Main Slider Two*/}

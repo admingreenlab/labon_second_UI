@@ -1,5 +1,4 @@
-
-'use client'
+'use client';
 import { useEffect, useState } from "react"
 import BackToTop from '../elements/BackToTop'
 import DataBg from "../elements/DataBg"
@@ -28,20 +27,31 @@ export default function Layout({ headerStyle, footerStyle, headTitle, breadcrumb
     const [isSidebar, setSidebar] = useState(false)
     const handleSidebar = () => setSidebar(!isSidebar)
 
-    useEffect(() => {
-        const WOW = require('wowjs')
-        window.wow = new WOW.WOW({
-            live: false
-        })
-        window.wow.init()
+    // useEffect(() => {
+    //     const WOW = require('wowjs')
+    //     window.wow = new WOW.WOW({
+    //         live: false
+    //     })
+    //     window.wow.init()
 
-        document.addEventListener("scroll", () => {
-            const scrollCheck = window.scrollY > 100
-            if (scrollCheck !== scroll) {
-                setScroll(scrollCheck)
-            }
-        })
-    }, [])
+    //     document.addEventListener("scroll", () => {
+    //         const scrollCheck = window.scrollY > 100
+    //         if (scrollCheck !== scroll) {
+    //             setScroll(scrollCheck)
+    //         }
+    //     })
+    // }, [])
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+
+        import('wowjs').then(({ WOW }) => {
+            new WOW({ live: false }).init();
+        });
+
+        const handleScroll = () => setScroll(window.scrollY > 100);
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
     return (
         <>
             <DataBg />

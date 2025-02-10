@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Link from "next/link"
 import Layout from "@/components/layout/Layout"
 import Banner from "@/components/sections/home2/Banner"
