@@ -24,28 +24,28 @@ export default function Banner() {
         },
     };
 
-    // useEffect(() => {
-    //     if (typeof window === "undefined") return;
+    useEffect(() => {
+        if (typeof window === "undefined") return;
 
-    //     const updateAutoplay = () => {
-    //         setAutoplayEnabled(window.innerWidth > 768);
-    //     };
+        const updateAutoplay = () => {
+            setAutoplayEnabled(window.innerWidth > 768);
+        };
 
-    //     updateAutoplay(); // Initial check
-    //     window.addEventListener("resize", updateAutoplay);
+        updateAutoplay(); // Initial check
+        window.addEventListener("resize", updateAutoplay);
 
-    //     return () => {
-    //         window.removeEventListener("resize", updateAutoplay);
-    //     };
-    // }, []);
+        return () => {
+            window.removeEventListener("resize", updateAutoplay);
+        };
+    }, []);
 
-    window.addEventListener('resize', () => {
-        if (window.innerWidth <= 768) {
-            swiper.autoplay.stop();
-        } else {
-            swiper.autoplay.start();
-        }
-    });
+    // window.addEventListener('resize', () => {
+    //     if (window.innerWidth <= 768) {
+    //         swiper.autoplay.stop();
+    //     } else {
+    //         swiper.autoplay.start();
+    //     }
+    // });
     return (
         <>
             {/* Start Main Slider Two*/}
