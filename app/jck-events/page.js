@@ -1,51 +1,88 @@
-
+'use client'
+import { useEffect, useState } from "react";
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
 import Awards from "@/components/sections/home1/Awards"
-export default function Home() {
+export default function Header2({ scroll, handlePopup, handleSidebar, handleMobileMenu }) {
+    const [isScrollingDown, setIsScrollingDown] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY) {
+                // Scrolling down
+                setIsScrollingDown(true);
+            } else {
+                // Scrolling up
+                setIsScrollingDown(false);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
     return (
         <>
             <Layout headerStyle={12} footerStyle={11} >
                 {/* Start Blog Details */}
                 <section className="header">
-                    <div className="container">
-                        <div className="row align-items-center">
-                            <div className="col-lg-6 col-md-3 col-12">
-                                <div className="left">
-                                    <a href="/">
-                                        <img src="assets/images/logo-inner.svg" alt="#" style={{ maxWidth: "180px", width: "100%", maxWidth: "185px" }} />
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 col-md-9 col-12">
-                                <div className="right">
-                                    <div className="footer-one__contact pb-0">
-                                        <ul className="justify-content-end">
-                                            <li>
-                                                <div className="icon-box" style={{ width: "auto" }}>
-                                                    <span className="icon-message"></span>
+                    <header className={`main-header main-header-two  style3 ${isScrollingDown ? "header-hidden" : ""}`}>
+                        <div className="main-header-two__inner">
+                            <nav className="main-menu main-menu-one">
+                                <div className="main-menu__wrapper clearfix">
+                                    <div className="auto-container">
+                                        <div className="row align-items-center">
+                                            <div className="col-lg-6 col-md-3 col-12">
+                                                <div className="left">
+                                                    <a href="/">
+                                                        <img src="assets/images/logo-inner.svg" alt="#" style={{ maxWidth: "180px", width: "100%", maxWidth: "185px" }} />
+                                                    </a>
                                                 </div>
+                                            </div>
+                                            <div className="col-lg-6 col-md-9 col-12">
+                                                <div className="right">
+                                                    <div className="footer-one__contact pb-0">
+                                                        <ul className="justify-content-end">
+                                                            <li>
+                                                                <div className="icon-box" style={{ width: "auto" }}>
+                                                                    <span className="icon-message"></span>
+                                                                </div>
 
-                                                <div className="text-box">
-                                                    <Link style={{ color: "white", display: "block", fontSize: "14px" }} href="tel:+916352241283">+91 6352 241 283</Link>
-                                                    <Link style={{ color: "white", display: "block", fontSize: "14px" }} href="mailto:sales@labondiamonds.com">sales@labondiamonds.com</Link>
+                                                                <div className="text-box">
+                                                                    <Link style={{ color: "white", display: "block", fontSize: "14px" }} href="tel:+916352241283">+91 6352 241 283</Link>
+                                                                    <Link style={{ color: "white", display: "block", fontSize: "14px" }} href="mailto:sales@labondiamonds.com">sales@labondiamonds.com</Link>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div className="comment-form__btn-box">
+                                                                    <button type="submit" className="black-btn"><span
+                                                                        className="txt">BOOK <span>APPOINTMENT</span></span>
+                                                                    </button>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </li>
-                                            <li>
-                                                <div className="comment-form__btn-box">
-                                                    <button type="submit" className="black-btn"><span
-                                                        className="txt">BOOK <span>APPOINTMENT</span></span>
-                                                    </button>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </nav>
                         </div>
-                    </div>
+                    </header>
                 </section>
+                {/* <section className="">
+                    <div className="auto-container">
+
+                    </div>
+                </section> */}
                 <section className="blog-details">
                     <div className="container">
                         <div className="row">

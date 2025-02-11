@@ -3076,6 +3076,9 @@ Brand One
   opacity: 1.0;
 }
 
+.right .footer-one__contact ul {
+  gap: 30px;
+}
 
 /***
 =============================================
@@ -3085,7 +3088,7 @@ Brand One
 .page-header {
   position: relative;
   display: block;
-  padding: 204px 0px 211px;
+  padding: 150px 0px 150px;
   background: var(--thm-black);
   overflow: hidden;
   z-index: 1;
@@ -4084,7 +4087,7 @@ Awards One
 
 .awards-one .border-box2 {
   position: absolute;
-  top: 400px;
+  top: 369px;
   left: -155px;
   right: -155px;
   height: 1px;
@@ -11989,6 +11992,9 @@ End Css
     width: 100% !important;
   }
 
+  .right .footer-one__contact ul {
+    gap: 1s0px;
+  }
 
 
   .main-slider-two__single-bottom .title-box h3 {
