@@ -211,11 +211,11 @@ export default function Faq() {
         <>
             <div className="container" style={{ maxWidth: "100%" }}>
                 <div className="row     justify-content-center">
-                    <div className="col-md-10 co-12 my-5" >
+                    <div className="col-md-8 co-12 my-5" >
                         <div className="right-contant">
                             <a href="/">
 
-                                <img src="assets/images/services/svg.svg" style={{ width: "250px", margin: "auto", marginBottom: "20px", display: 'flex', filter: ' invert(1)' }} />
+                                <img src="assets/images/services/svg.svg" style={{ width: "195px", margin: "auto", marginBottom: "20px", display: 'flex', filter: ' invert(1)' }} />
                             </a>
                             <h3 className="text-center my-3">Register</h3>
                             <div className="contact-one__form m-0">

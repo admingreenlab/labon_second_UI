@@ -2581,7 +2581,7 @@ Main Slider One
 
 .main-containe {
   display: flex;
-  padding: 50px 0;
+  padding: 90px 0;
 }
 
 /***
@@ -8557,8 +8557,8 @@ Contact Page Css
   font-size: 15px;
   font-weight: 400;
   font-style: normal;
-  padding-left: 25px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 0;
   transition: all .5s;
   font-family: var(--thm-font);
@@ -8632,7 +8632,7 @@ Contact Page Css
 .input-box.main-selct select {
   width: 100%;
   min-height: 65px;
-  padding: 0 20px;
+  padding: 0 8px;
 }
 
 .ReactFlagsSelect-module_selectOptions__3LNBJ {
@@ -10620,6 +10620,95 @@ End Css
   }
 }
 
+@media only screen and (max-width: 991px) {
+  .order-22 {
+    -ms-flex-order: 2;
+    order: 2;
+  }
+
+  .main-containe {
+    display: flex;
+    padding: 0px 0;
+  }
+
+  .pricing-one__bottom ul li {
+    padding-top: 30px;
+    margin-bottom: 30px;
+    width: 49%;
+  }
+
+  .pricing-one__bottom ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm {
+    max-width: 100% !important;
+  }
+
+  .service-details__faq .accrodion.active .accrodion-content {
+    padding: 0px 20px 15px;
+  }
+
+  .service-details__faq .accrodion .accrodion-title {
+    padding: 12px 0;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .fill {
+    display: none;
+  }
+
+  .fill1 {
+    display: flex;
+  }
+
+  .service-details__faq .accrodion .accrodion-content .inner {
+    padding: 15px 15px 15px;
+  }
+
+  .order-11 {
+    -ms-flex-order: 1;
+    order: 1;
+  }
+
+  .services-two__list-item {
+    position: relative;
+    display: block;
+    margin-bottom: 6px;
+    max-width: 326px;
+    width: 100%;
+  }
+
+  .services-two__inner ul {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .services-two__list-item .icon-box {
+    margin-bottom: 10px;
+  }
+
+  .services-two__list-item .content-box h2 {
+    font-size: 20px;
+    line-height: 10px;
+    margin-bottom: 9px;
+  }
+
+  .footer-one__contact ul {
+    flex-wrap: wrap;
+  }
+}
+
 .right-contant img {
   display: none;
 }
@@ -10631,6 +10720,23 @@ End Css
 @media only screen and (max-width: 767px) {
   .auto-container {
     padding: 0px 15px;
+  }
+
+  .contact-one__form .input-box input[type="password"],
+  .contact-one__form .input-box input[type="date"],
+  .contact-one__form .input-box input[type="text"],
+  .contact-one__form .input-box input[type="email"],
+  .contact-one__form .input-box textarea,
+  .input-box select {
+    font-size: 12px;
+    padding-left: 8px;
+    padding-right: 5px;
+  }
+
+  .input-box.main-selct select {
+    width: 100%;
+    min-height: 65px;
+    padding: 0 8px;
   }
 
   .col-xl-6.col-lg-6.col-md-6.py-2.order1 {
@@ -11352,7 +11458,7 @@ End Css
     left: 0;
     bottom: 0;
     right: 0;
-    background: #ffffff63;
+    background: #ffffff1f;
     content: "";
     z-index: 1;
   }
@@ -11663,6 +11769,11 @@ End Css
     padding-right: 40px;
   }
 
+  .main-containe {
+    display: flex;
+    padding: 0px 0;
+  }
+
   .service-details__faq .accrodion .accrodion-title h4 {
     font-size: 18px;
   }
@@ -11867,99 +11978,32 @@ End Css
   .subscribe-box-style1 form button {
     background: rgba(255, 255, 255, 0.1);
   }
-
-
 }
 
-@media only screen and (max-width: 991px) {
-  .order-22 {
-    -ms-flex-order: 2;
-    order: 2;
-  }
 
-
-  .pricing-one__bottom ul li {
-    padding-top: 30px;
-    margin-bottom: 30px;
-    width: 49%;
-  }
-
-  .pricing-one__bottom ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .container,
-  .container-lg,
-  .container-md,
-  .container-sm {
-    max-width: 100% !important;
-  }
-
-  .service-details__faq .accrodion.active .accrodion-content {
-    padding: 0px 20px 15px;
-  }
-
-  .service-details__faq .accrodion .accrodion-title {
-    padding: 12px 0;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .fill {
-    display: none;
-  }
-
-  .fill1 {
-    display: flex;
-  }
-
-  .service-details__faq .accrodion .accrodion-content .inner {
-    padding: 15px 15px 15px;
-  }
-
-  .order-11 {
-    -ms-flex-order: 1;
-    order: 1;
-  }
-
-  .services-two__list-item {
-    position: relative;
-    display: block;
-    margin-bottom: 6px;
-    max-width: 326px;
-    width: 100%;
-  }
-
-  .services-two__inner ul {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-
-  .services-two__list-item .icon-box {
-    margin-bottom: 10px;
-  }
-
-  .services-two__list-item .content-box h2 {
-    font-size: 20px;
-    line-height: 10px;
-    margin-bottom: 9px;
-  }
-
-  .footer-one__contact ul {
-    flex-wrap: wrap;
-  }
-}
 
 @media only screen and (max-width: 548px) {
   .main-slider-two__single-bottom .title-box h2 {
     font-size: 35px;
     margin-bottom: 14px;
+  }
+
+  .form-group label {
+    position: relative;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .form-group label:before {
+    padding: 7px;
+  }
+
+  button.black-btn .txt span {
+    display: none;
+  }
+
+  .right-contant {
+    padding: 28px 0;
   }
 
   .lbnappbanner p,
@@ -11993,7 +12037,7 @@ End Css
   }
 
   .right .footer-one__contact ul {
-    gap: 1s0px;
+    gap: 10px;
   }
 
 
@@ -12055,11 +12099,3 @@ End Css
     margin: 10px 0;
   }
 }
-
-@media only screen and (max-width: 548px) {
-  button.black-btn .txt span {
-    display: none;
-  }
-}
-
-/*Order Box One*/

@@ -78,7 +78,7 @@ export default function Menu() {
                     <Link href="contact">Contact</Link>
                 </li>
                 <li>
-                    <Link href="https://store.labondiamonds.com/">store Jewels</Link>
+                    <Link href="https://store.labondiamonds.com/" target="_blank">store Jewels</Link>
                 </li>
                 <li>
                     <Link href="/jck-events">Appointment at JCK</Link>

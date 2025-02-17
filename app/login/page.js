@@ -232,10 +232,9 @@ export default function Home() {
                                 </a>
                             </div>
                         </div> */}
-                            <div className="col-md-6 co-12" >
+                            <div className="col-md-5 co-12" >
                                 <div className="right-contant">
                                     <h3 className="text-center my-3">Login</h3>
-                                    <img src="assets/images/services/svg.svg" />
                                     <div className="contact-one__form m-0">
                                         <form id="contact-form" className="default-form2 contact-form-validated" >
                                             <div className="input-box">

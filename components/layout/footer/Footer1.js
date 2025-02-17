@@ -33,7 +33,6 @@ export default function Footer1() {
                                         <div className="icon-box">
                                             <span className="icon-placeholder"></span>
                                         </div>
-
                                         <div className="text-box">
                                             <p>Visit Office</p>
                                             <h3>22 West 48th St. Suite #1101,<br />
@@ -44,7 +43,6 @@ export default function Footer1() {
                                             <h6 className="mt-1">{time}</h6>
                                         </div>
                                     </li>
-
                                     <li>
                                         <div className="icon-box">
                                             <span className="icon-message"></span>
