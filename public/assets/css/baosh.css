@@ -8546,6 +8546,7 @@ Contact Page Css
 .contact-one__form .input-box input[type="date"],
 .contact-one__form .input-box input[type="text"],
 .contact-one__form .input-box input[type="email"],
+.contact-one__form .input-box input[type="tel"],
 .contact-one__form .input-box textarea {
   position: relative;
   display: block;

@@ -19,6 +19,7 @@
     "@hugeicons/react": "^1.0.3",
     "@mui/material": "^6.4.4",
     "@mui/x-date-pickers": "^7.27.0",
+    "axios": "^1.7.9",
     "framer-motion": "^12.4.3",
     "isotope-layout": "^3.0.6",
     "moment": "^2.30.1",

@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment from 'moment';
 import { redirect } from 'next/navigation';
+import Axios from '@/components/auth/axios';
 
 const styles = {
     container: {
@@ -113,14 +114,20 @@ const styles = {
 const WebOrderHistory = () => {
     const [fromDate, setFromDate] = useState(moment());
     const [toDate, setToDate] = useState(moment().add(5, 'days'));
-    const [clientName, setClientName] = useState('Kripal');
+    const [clientName, setClientName] = useState('');
     const [status, setStatus] = useState([]);
 
-    useEffect(() => {
-        console.log('status', status);
-    }, [status])
 
-    const handleSubmit = () => {
+    useEffect(() => {
+        const user = localStorage.getItem('user') || sessionStorage.getItem('user');
+        if (user) {
+            // console.log('user.FL_USER_NAME',JSON.parse(user)?.FL_USER_NAME)
+            setClientName(JSON.parse(user)?.FL_USER_NAME)
+        }
+    }, [])
+
+
+    const handleSubmit = async () => {
         const payload = {
             fromDate,
             toDate,
@@ -130,7 +137,19 @@ const WebOrderHistory = () => {
 
         console.log('Payload:', payload);
 
-        redirect('/showCartHistory/searchresult');
+        try {
+            const response = await Axios.post('user/addnewuser', payload);
+
+            if (response.ok) {
+                redirect('/showCartHistory/searchresult');
+            } else {
+                setError(data.message || 'Registration failed');
+            }
+        } catch (err) {
+            setError('An error occurred. Please try again.');
+        }
+
+        
         // alert(JSON.stringify(payload, null, 2));
     };
 

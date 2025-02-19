@@ -1,6 +1,8 @@
 'use client'
+import Axios from "@/components/auth/axios";
 import Link from "next/link"
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 
 
@@ -169,25 +171,54 @@ const countryStateCityInfo = {
 
 };
 export default function Faq() {
+    // const router = useRouter();
+    const options = ["MR.", "MRS.", "MS."];
 
-    const [inputValue, setInputValue] = useState("");
-    const [dropdownValue, setDropdownValue] = useState("");
-    const options = ["MRS.", "MS."];
+    const [formData, setFormData] = useState({
+        companyName: '',
+        title: 'MR',
+        fname: '',
+        lname: '',
+        email: '',
+        country: '',
+        state: '',
+        city: '',
+        phoneNumber: '',
+        aboutUs: '',
+        loginEmail: '',
+        pass: '',
+        confirmPassword: '',
+        securityQuestion: '',
+        securityAnswer: '',
+        agreeToTerms: false
+    });
 
-    const [selected, setSelected] = useState("");
-
-    const [selectedCountry, setSelectedCountry] = useState("");
-    const [selectedState, setSelectedState] = useState("");
-    const [selectedCity, setSelectedCity] = useState("");
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
     const [zips, setZips] = useState([]);
 
+    useEffect(() => {
+        console.log('formData', formData)
+    }, [formData])
+
+    const handleInputChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
     const handleCountryChange = (e) => {
         const country = e.target.value;
-        setSelectedCountry(country);
-        setSelectedState("");
-        setSelectedCity("");
+        setFormData(prev => ({
+            ...prev,
+            country,
+            state: '',
+            city: ''
+        }));
         setStates(Object.keys(countryStateCityInfo[country] || {}));
         setCities([]);
         setZips([]);
@@ -195,78 +226,152 @@ export default function Faq() {
 
     const handleStateChange = (e) => {
         const state = e.target.value;
-        setSelectedState(state);
-        setSelectedCity("");
-        setCities(Object.keys(countryStateCityInfo[selectedCountry][state] || {}));
+        setFormData(prev => ({
+            ...prev,
+            state,
+            city: ''
+        }));
+        setCities(Object.keys(countryStateCityInfo[formData.country][state] || {}));
         setZips([]);
     };
 
     const handleCityChange = (e) => {
         const city = e.target.value;
-        setSelectedCity(city);
-        setZips(countryStateCityInfo[selectedCountry][selectedState][city] || []);
+        setFormData(prev => ({
+            ...prev,
+            city
+        }));
+        setZips(countryStateCityInfo[formData.country][formData.state][city] || []);
+    };
+
+    const validateForm = () => {
+        if (formData.pass !== formData.confirmPassword) {
+            setError('Passwords do not match');
+            return false;
+        }
+        if (!formData.agreeToTerms) {
+            setError('Please agree to the Terms and Conditions');
+            return false;
+        }
+        if (formData.pass.length < 6) {
+            setError('Password must be at least 6 characters long');
+            return false;
+        }
+        return true;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setLoading(true);
+
+        if (!validateForm()) {
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await Axios.post('user/addnewuser', JSON.stringify(formData));
+
+            if (response.ok) {
+                window.location.href = '/login'; // Redirect to login after successful registration
+            } else {
+                setError(data.message || 'Registration failed');
+            }
+        } catch (err) {
+            setError('An error occurred. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <>
             <div className="container" style={{ maxWidth: "100%" }}>
-                <div className="row     justify-content-center">
-                    <div className="col-md-8 co-12 my-5" >
+                <div className="row justify-content-center">
+                    <div className="col-md-8 co-12 my-5">
                         <div className="right-contant">
                             <a href="/">
-
-                                <img src="assets/images/services/svg.svg" style={{ width: "195px", margin: "auto", marginBottom: "20px", display: 'flex', filter: ' invert(1)' }} />
+                                <img src="assets/images/services/svg.svg" style={{ width: "195px", margin: "auto", marginBottom: "20px", display: 'flex', filter: 'invert(1)' }} alt="logo" />
                             </a>
                             <h3 className="text-center my-3">Register</h3>
+                            {error && (
+                                <div className="alert alert-danger text-center">
+                                    {error}
+                                </div>
+                            )}
                             <div className="contact-one__form m-0">
-                                <form id="contact-form" className="default-form2 contact-form-validated" >
+                                <form onSubmit={handleSubmit} className="default-form2 contact-form-validated">
                                     <div className="input-box">
-                                        <input type="text" name="text" placeholder=" Company Name of Account Applicant as appears officially *" required="" />
+                                        <input
+                                            type="text"
+                                            name="companyName"
+                                            value={formData.companyName}
+                                            onChange={handleInputChange}
+                                            placeholder="Company Name of Account Applicant as appears officially *"
+                                            required
+                                        />
                                     </div>
                                     <div className="row">
                                         <div className="col-md-6 col-12">
                                             <div className="input-box flex flex-col">
                                                 <label className="text-lg font-medium" style={{ display: "flex" }}>
                                                     <select
-                                                        value={dropdownValue}
-                                                        onChange={(e) => setDropdownValue(e.target.value)}
-                                                        className="rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                                        name="title"
+                                                        value={formData.title}
+                                                        onChange={handleInputChange}
+                                                        className="rounded-md shadow-sm"
                                                     >
-                                                        <option value="">
-                                                            MR
-                                                        </option>
-                                                        {options.map((option, index) => (
-                                                            <option key={index} value={option}>
+                                                        {options.map((option) => (
+                                                            <option key={option} value={option}>
                                                                 {option}
                                                             </option>
                                                         ))}
                                                     </select>
                                                     <input
                                                         type="text"
-                                                        name="text"
-                                                        value={inputValue}
-                                                        onChange={(e) => setInputValue(e.target.value)}
+                                                        name="fname"
+                                                        value={formData.fname}
+                                                        onChange={handleInputChange}
                                                         placeholder="First Name *"
-                                                        className="w-full rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                                        required
+                                                        className="w-full rounded-md shadow-sm"
                                                     />
                                                 </label>
-
-
                                             </div>
                                         </div>
                                         <div className="col-md-6 col-12">
                                             <div className="input-box">
-                                                <input type="text" placeholder="Last Name *" name="password" />
+                                                <input
+                                                    type="text"
+                                                    name="lname"
+                                                    value={formData.lname}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Last Name *"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                         <div className="col-md-6 col-12">
                                             <div className="input-box">
-                                                <input type="email" placeholder="Enter your Email" name="password" />
+                                                <input
+                                                    type="email"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Enter your Email *"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                         <div className="col-md-6 col-12">
                                             <div className="input-box main-selct">
-                                                <select value={selectedCountry} onChange={handleCountryChange}>
+                                                <select
+                                                    name="country"
+                                                    value={formData.country}
+                                                    onChange={handleCountryChange}
+                                                    required
+                                                >
                                                     <option value="">Select Country</option>
                                                     {Object.keys(countryStateCityInfo).map((country) => (
                                                         <option key={country} value={country}>
@@ -277,21 +382,16 @@ export default function Faq() {
                                             </div>
                                         </div>
                                         <div className="col-md-6 col-12">
-                                            {/* <ReactFlagsSelect
-                                                selected={selected}
-                                                string
-                                                onSelect={(code) => setSelected(code)}
-                                                searchPlaceholder="Search state"
-                                            /> */}
                                             <div className="input-box main-selct">
                                                 <select
-                                                    value={selectedState}
+                                                    name="state"
+                                                    value={formData.state}
                                                     onChange={handleStateChange}
-                                                    disabled={!selectedCountry}
+                                                    disabled={!formData.country}
+                                                    required
                                                 >
                                                     <option value="">Select State</option>
                                                     {states.map((state) => (
-
                                                         <option key={state} value={state}>
                                                             {state}
                                                         </option>
@@ -302,9 +402,11 @@ export default function Faq() {
                                         <div className="col-md-6 col-12">
                                             <div className="input-box main-selct">
                                                 <select
-                                                    value={selectedCity}
+                                                    name="city"
+                                                    value={formData.city}
                                                     onChange={handleCityChange}
-                                                    disabled={!selectedState}
+                                                    disabled={!formData.state}
+                                                    required
                                                 >
                                                     <option value="">Select City</option>
                                                     {cities.map((city) => (
@@ -317,58 +419,117 @@ export default function Faq() {
                                         </div>
                                         <div className="col-md-6 col-12">
                                             <div className="input-box">
-                                                <input type="text" name="number" placeholder=" Number *" required="" />
+                                                <input
+                                                    type="tel"
+                                                    name="phoneNumber"
+                                                    value={formData.phoneNumber}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Phone Number *"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                         <div className="col-md-6 col-12">
                                             <div className="input-box">
-                                                <input type="text" name="about" placeholder="How did you know about us? *" required="" />
+                                                <input
+                                                    type="text"
+                                                    name="aboutUs"
+                                                    value={formData.aboutUs}
+                                                    onChange={handleInputChange}
+                                                    placeholder="How did you know about us? *"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="input-box">
-                                        <input type="email" name="email" placeholder="EMAIL *" required="" />
+                                        <input
+                                            type="email"
+                                            name="loginEmail"
+                                            value={formData.loginEmail}
+                                            onChange={handleInputChange}
+                                            placeholder="Login Email *"
+                                            required
+                                        />
                                     </div>
                                     <div className="row">
                                         <div className="col-md-6 col-12">
                                             <div className="input-box">
-                                                <input type="password" placeholder="Password *" name="password" />
+                                                <input
+                                                    type="password"
+                                                    name="pass"
+                                                    value={formData.pass}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Password *"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                         <div className="col-md-6 col-12">
                                             <div className="input-box">
-                                                <input type="password" placeholder="Confirm Password *" name="password" />
+                                                <input
+                                                    type="password"
+                                                    name="confirmPassword"
+                                                    value={formData.confirmPassword}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Confirm Password *"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                         <div className="col-md-6 col-12">
                                             <div className="input-box main-selct">
-                                                <select id="country">
-                                                    <option value="" selected>Select SecurityQuestion </option>
-                                                    <option value="" >What was your childhood nickname</option>
-                                                    <option value="" >In what city or town was your first job</option>
-                                                    <option value="" >What are the last 5 digits of your drivers license number</option>
-                                                    <option value="" >Who was your childhood hero</option>
+                                                <select
+                                                    name="securityQuestion"
+                                                    value={formData.securityQuestion}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                >
+                                                    <option value="">Select Security Question</option>
+                                                    <option value="nickname">What was your childhood nickname</option>
+                                                    <option value="firstJob">In what city or town was your first job</option>
+                                                    <option value="license">What are the last 5 digits of your drivers license number</option>
+                                                    <option value="hero">Who was your childhood hero</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div className="col-md-6 col-12">
                                             <div className="input-box">
-                                                <input type="text" placeholder="Answer *" name="password" />
+                                                <input
+                                                    type="text"
+                                                    name="securityAnswer"
+                                                    value={formData.securityAnswer}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Security Answer *"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="d-flex align-items-center justify-content-between">
                                         <div className="form-group">
-                                            <input type="checkbox" id="html" />
-                                            <label for="html">I agree to the Terms and Conditions</label>
+                                            <input
+                                                type="checkbox"
+                                                id="agreeToTerms"
+                                                name="agreeToTerms"
+                                                checked={formData.agreeToTerms}
+                                                onChange={handleInputChange}
+                                            />
+                                            <label htmlFor="agreeToTerms">I agree to the Terms and Conditions</label>
                                         </div>
-                                        <a href="/login" class="forget-pwd" data-toggle="modal" style={{ color: "#c29958" }}>Login?</a>
+                                        <a href="/login" className="forget-pwd" style={{ color: "#c29958" }}>Login?</a>
                                     </div>
                                     <div className="col-xl-12">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <div className="contact-one__form-btn">
-                                                <button className="thm-btn" type="btn" data-loading-text="Please wait...">
-                                                    <span className="txt">Register</span>
+                                                <button
+                                                    className="thm-btn"
+                                                    type="submit"
+                                                    disabled={loading}
+                                                >
+                                                    <span className="txt">
+                                                        {loading ? 'Registering...' : 'Register'}
+                                                    </span>
                                                     <span className="bdrl"></span>
                                                     <span className="bdrr"></span>
                                                 </button>
@@ -379,8 +540,8 @@ export default function Faq() {
                             </div>
                         </div>
                     </div>
-                </div >
-            </div >
+                </div>
+            </div>
         </>
     )
 }
