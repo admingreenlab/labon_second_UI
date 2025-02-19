@@ -1,5 +1,5 @@
 'use client';
-import Layout from '@/components/layout/Layout';
+import Layout from '../../components/layout/Layout';
 import React, { useEffect, useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';

@@ -72,11 +72,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                                                         <Link href="shapes">Basket</Link>
                                                     </li>
                                                     <li>
-<<<<<<< HEAD
-                                                        <Link href="anatomy">Web History</Link>
-=======
                                                         <Link href="/showCartHistory">Web History</Link>
->>>>>>> 5dbc9a1914d689b674f3b1724127b644dddc716c
                                                     </li>
                                                     <li>
                                                         <Link href="anatomy">Change Password</Link>

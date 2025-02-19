@@ -1,19 +1,18 @@
 'use client'
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Table from 'react-bootstrap/Table'
 import Pagination from 'react-bootstrap/Pagination';
 
-function Demo() {
+function Basket() {
     const [selectedRows, setSelectedRows] = useState([]);
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState("asc");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage] = useState(10);
     const [data, setData] = useState([
         {
             srNo: 1,
             status: 'M',
+            location: "NY",
             stoneId: '180777',
             lab: 'IGI',
             reportNo: '560236486',
@@ -24,7 +23,7 @@ function Demo() {
             cut: 'ID',
             polish: 'EX',
             symm: 'EX',
-            measurements: '16.62  16.72  10.30',
+            measurements: '16.62 * 16.72 * 10.30',
             tablePercent: 58.000,
             depthPercent: 62.00,
             ratio: 0.000,
@@ -33,25 +32,26 @@ function Demo() {
             discount: 97.41,
             pricePerCts: 880.60,
             amount: 15859.61,
+            viewoffer: '-',
             certificate: 'PDF',
             videoLink: 'VIDEO',
-            createdBy: 'krigel',
-            companyName: 'KRIGEL MESH DIAMONDS'
+
         },
         {
             srNo: 2,
             status: 'M',
+            location: "NY",
             stoneId: '180777',
-            lab: 'GIA',
+            lab: 'IGI',
             reportNo: '560236486',
-            shape: 'OVAL',
+            shape: 'ROUND',
             carats: 18.010,
-            color: 'E',
-            clarity: 'VS1',
+            color: 'H',
+            clarity: 'VS2',
             cut: 'ID',
             polish: 'EX',
             symm: 'EX',
-            measurements: '16.62  16.72  10.30',
+            measurements: '16.62 * 16.72 * 10.30',
             tablePercent: 58.000,
             depthPercent: 62.00,
             ratio: 0.000,
@@ -60,10 +60,10 @@ function Demo() {
             discount: 97.41,
             pricePerCts: 880.60,
             amount: 15859.61,
+            viewoffer: '-',
             certificate: 'PDF',
             videoLink: 'VIDEO',
-            createdBy: 'krigel',
-            companyName: 'KRIGEL MESH DIAMONDS'
+
         },
 
         // Add more rows as needed
@@ -103,23 +103,31 @@ function Demo() {
         sortfilter(col);
     };
 
-    const indexOfLastRow = currentPage * rowsPerPage;
-    const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
 
-    const totalPages = Math.ceil(data.length / rowsPerPage);
-
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
 
     return (
         <>
-
             <Container fluid className="text-center">
-                <h6 className="mt-3">Watch List</h6>
+                <h6 className="mt-3">Basket</h6>
+                <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex' }}>
+                    <button className="basketbtn" >Export To Excel</button>
+                    <button className="basketbtn" >Remove to Basket</button>
+                    <button className="basketbtn" >INTEREST SLIP</button>
+                </div>
+                <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex' }}>
+                    <label>Client Name : </label>
+                    <div> KRIGEL MESH DIAMONDS </div>
+                </div>
+                <div className="tabletopcss">
+                    <div>Total Pcs = <span> 2</span></div>
+                    <div style={{ marginLeft: '20px' }}>Cts = <span> 29.24</span></div>
+                    <div style={{ marginLeft: '20px' }}>Rap = <span> 45905.95</span></div>
+                    <div style={{ marginLeft: '20px' }}>Disc% = <span> 98.24</span></div>
+                    <div style={{ marginLeft: '20px' }}>Price = <span> 809.51</span></div>
+                    <div style={{ marginLeft: '20px' }}>Amt $ = <span> 23670.07</span></div>
+                </div>
                 <div className="table-responsive pt-10" >
-                    <Table striped bordered hover style={{ width: 'max-content' }} >
+                    <Table striped bordered hover style={{ width: '100%' }} >
                         <thead className="tablecss" >
                             <tr>
                                 <th>
@@ -137,9 +145,10 @@ function Demo() {
                                 </th>
                                 <th>SrNo</th>
                                 <th>Status</th>
+                                <th>Location</th>
                                 <th>StoneId</th>
                                 <th onClick={() => handleSort("lab")}> Lab {sortBy === "lab" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                <th>Report No</th>
+                                <th>ReportNo</th>
                                 <th onClick={() => handleSort("shape")}>
                                     Shape {sortBy === "shape" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}
                                 </th>
@@ -163,15 +172,15 @@ function Demo() {
                                 <th>RapPrice</th>
                                 <th>Discount %</th>
                                 <th>Price/Cts</th>
-                                <th>Amount</th>
+                                <th onClick={() => handleSort("amount")}>
+                                    Amount{sortBy === "amount" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                <th>View Offer</th>
                                 <th>Certificate</th>
                                 <th>VideoLink</th>
-                                <th>Created By</th>
-                                <th>CompanyName</th>
                             </tr>
                         </thead>
                         <tbody className="tablecss">
-                            {currentRows.map((item, index) => (
+                            {data.map((item, index) => (
                                 <tr key={index}>
                                     <td>    <input
                                         type="checkbox"
@@ -180,6 +189,7 @@ function Demo() {
                                     /></td>
                                     <td>{item.srNo}</td>
                                     <td>{item.status}</td>
+                                    <td>{item.location}</td>
                                     <td>{item.stoneId}</td>
                                     <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.reportNo}`} target="_blank">{item.lab}</a></td>
                                     <td>{item.reportNo}</td>
@@ -199,23 +209,22 @@ function Demo() {
                                     <td>{item.discount}</td>
                                     <td>{item.pricePerCts}</td>
                                     <td>{item.amount}</td>
+                                    <td>{item.viewoffer}</td>
                                     <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.reportNo}`} target="_blank">PDF</a></td>
                                     <td><a href={`https://v360.in/movie/${item.videoLink}`} target="_blank">VIDEO</a></td>
-                                    <td>{item.createdBy}</td>
-                                    <td>{item.companyName}</td>
+
                                 </tr>
                             ))}
 
                             <tr className="tablecss">
                                 <th></th>
-                                <th colSpan={6}>Total</th>
+                                <th colSpan={7}>Total</th>
                                 <th>18.01</th>
                                 <th colSpan={10}></th>
-                                <th>34000</th>
+                                <th></th>
                                 <th>97.41</th>
                                 <th>880.60</th>
                                 <th>15859.61</th>
-                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -223,27 +232,10 @@ function Demo() {
                         </tbody>
                     </Table>
                 </div>
-                <div >
-                    <Pagination>
-                        <Pagination.First onClick={() => handlePageChange(1)} />
-                        <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} />
-                        {[...Array(totalPages)].map((_, index) => (
-                            <Pagination.Item
-                                key={index + 1}
-                                active={index + 1 === currentPage}
-                                onClick={() => handlePageChange(index + 1)}
-                            >
-                                {index + 1}
-                            </Pagination.Item>
-                        ))}
-                        <Pagination.Next onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)} />
-                        <Pagination.Last onClick={() => handlePageChange(totalPages)} />
-                    </Pagination>
-                </div>
             </Container>
 
         </>
     );
 }
 
-export default Demo;
+export default Basket;

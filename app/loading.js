@@ -6,7 +6,7 @@ export default function loading() {
     return (
         <>
             <div>
-                <Preloader />
+                {/* <Preloader /> */}
             </div>
         </>
     )
