@@ -1,10 +1,10 @@
 'use client'
-import Layout from "@/components/layout/Layout"
+import Layout from "../../components/layout/Layout"
 import Link from "next/link"
 import { useState } from 'react'
 import { Autoplay, Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
-import Slogan from "@/components/sections/home2/Slogan"
+import Slogan from "../../components/sections/home2/Slogan"
 export default function Home() {
     const [isActive, setIsActive] = useState({
         status: false,
