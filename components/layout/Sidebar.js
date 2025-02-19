@@ -15,7 +15,7 @@ export default function Sidebar({ isSidebar, handleSidebar }) {
                         <div className="sidebar-info-contents">
                             <div className="content-inner">
                                 <div className="logo">
-                                    <Link href="/"><img src="assets/images/resources/logo-1.png" alt="" /></Link>
+                                    <Link href="/"><img src="/assets/images/resources/logo-1.png" alt="" /></Link>
                                 </div>
                                 <div className="content-box">
                                     <h4>About Us</h4>

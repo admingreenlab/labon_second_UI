@@ -315,7 +315,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                         <div className="container">
                             <div className="footer-one__inner">
                                 <div className="logo-box text-center">
-                                    <Link href="/"><img src="assets/images/resources/logo-1.png" alt="#" /></Link>
+                                    <Link href="/"><img src="/assets/images/resources/logo-1.png" alt="#" /></Link>
                                 </div>
 
 
@@ -343,7 +343,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <img src="assets/images/whatsapp.gif" alt="gif" style={{ width: '32px', filter: "invert(1)" }} />
+                                    <img src="/assets/images/whatsapp.gif" alt="gif" style={{ width: '32px', filter: "invert(1)" }} />
                                 </a>
                             </div>
                         </div>
