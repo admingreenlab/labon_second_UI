@@ -18,9 +18,8 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                {/* Start Team Carousel Page*/}
                 <section className="team-carousel-page">
-                    <div className="auto-container">
+                    <div className="container">
                         <div className="row">
                             <div className="col-xl-12">
                                 <PolishSinglesearch />
@@ -28,7 +27,6 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                {/* End Team Carousel Page*/}
             </Layout>
         </>
     )

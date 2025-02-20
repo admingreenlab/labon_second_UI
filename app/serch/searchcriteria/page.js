@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Table from 'react-bootstrap/Table'
+import Link from "next/link"
 import Pagination from 'react-bootstrap/Pagination';
-import Layout from "@/components/layout/Layout"
+import Layout from "../../../components/layout/Layout"
 const styles = {
     container: {
         maxWidth: '1200px',
@@ -111,7 +112,7 @@ function Basket() {
     const [selectedRows, setSelectedRows] = useState([]);
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState("asc");
-    const [data, setData] = useState([
+    const [datam, setData] = useState([
         {
             srNo: 1,
             status: 'M',
@@ -206,7 +207,22 @@ function Basket() {
         sortfilter(col);
     };
 
+    const totalRecords = 33070; // Total number of records
+    const [pageSize, setPageSize] = useState(100); // Default page size
+    const [currentPage, setCurrentPage] = useState(1);
 
+    // Generate dummy data
+    const data = Array.from({ length: totalRecords }, (_, index) => ({
+        id: index + 1,
+        name: `User ${index + 1}`,
+        age: Math.floor(Math.random() * 50) + 20,
+    }));
+
+    // Calculate start and end index for pagination
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, totalRecords);
+    const paginatedData = data.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(totalRecords / pageSize);
 
     return (
         <>
@@ -214,32 +230,95 @@ function Basket() {
                 <div class="same-secton my-3">
                     <div className=" auto-container">
                         <div className="d-flex align-items-center gap-3 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#c29958" class="bi bi-cart" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#c29958" class="bi bi-home" viewBox="0 0 16 16">
                                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                             </svg>
-                            BasKet
+                            DashBoard
                         </div>
                     </div>
                 </div>
                 <div className="text-center auto-container">
-                    <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex' }}>
-                        <button className="basketbtn" >Export To Excel</button>
-                        <button className="basketbtn" >Remove to Basket</button>
-                        <button className="basketbtn" >INTEREST SLIP</button>
+                    <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex', alignItems: "center", justifyContent: "space-between" }}>
+                        <div className="d-flex align-items-center  gap-2">
+                            <Link href="/basket">
+                                <button class="button">
+                                    <div class="backdrop">
+                                        <span>Add To Basket</span>
+                                    </div>
+                                    <div class="overlay">
+                                        <span>Add To Basket</span>
+                                    </div>
+                                </button>
+                            </Link>
+                            <Link href="/serch">
+                                <button class="button">
+                                    <div class="backdrop">
+                                        <span>Export to Excel</span>
+                                    </div>
+                                    <div class="overlay">
+                                        <span>Export to Excel</span>
+                                    </div>
+                                </button>
+                            </Link>
+                            <Link href="/serch">
+                                <button class="button">
+                                    <div class="backdrop">
+                                        <span>Modify Search</span>
+                                    </div>
+                                    <div class="overlay">
+                                        <span>Modify Search</span>
+                                    </div>
+                                </button>
+                            </Link>
+                            <Link href="/wishlist">
+                                <button class="button">
+                                    <div class="backdrop">
+                                        <span>Add To WatchList</span>
+                                    </div>
+                                    <div class="overlay">
+                                        <span>Add To WatchList</span>
+                                    </div>
+                                </button>
+                            </Link>
+                        </div>
+                        <div>
+                            <div style={{ marginBottom: '10px', marginLeft: 'auto' }}>
+                                <label style={{ fontWeight: '300' }}> Available: </label>
+                                <button style={{ fontWeight: '300', padding: '0px 7px', marginRight: '5px', border: '1px solid #b89154', color: '#fff', background: '#b89154', borderRadius: "3px", marginLeft: "3px" }}> A </button>
+                                <label style={{ fontWeight: '300' }}> Memo : </label>
+                                <button style={{ fontWeight: '300', padding: '0px 7px', marginRight: '5px', border: '1px solid #b89154', color: '#fff', background: '#b89154', borderRadius: "3px", marginLeft: "3px" }}> M </button>
+                                <label style={{ fontWeight: '300' }}> ArrivingSoon :  </label>
+                                <button style={{ fontWeight: '300', padding: '0px 7px', marginRight: '5px', border: '1px solid #b89154', color: '#fff', background: '#b89154', borderRadius: "3px", marginLeft: "3px" }}> AS </button>
+                            </div>
+                        </div>
                     </div>
-                    <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex' }}>
+                    <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex', gap: "10px" }}>
                         <label>Client Name : </label>
-                        <div> KRIGEL MESH DIAMONDS </div>
+                        <div style={{ color: "#b8863b" }}> KRIGEL MESH DIAMONDS </div>
                     </div>
-                    <div className="tabletopcss">
-                        <div>Total Pcs = <span> 2</span></div>
-                        <div style={{ marginLeft: '20px' }}>Cts = <span> 29.24</span></div>
-                        <div style={{ marginLeft: '20px' }}>Rap = <span> 45905.95</span></div>
-                        <div style={{ marginLeft: '20px' }}>Disc% = <span> 98.24</span></div>
-                        <div style={{ marginLeft: '20px' }}>Price = <span> 809.51</span></div>
-                        <div style={{ marginLeft: '20px' }}>Amt $ = <span> 23670.07</span></div>
+                    <div className="controls text-start my-3 d-flex align-items-center justify-content-between gap-3">
+                        <div>
+                            <label>Page Size :</label>
+                            <select
+                                value={pageSize}
+                                onChange={(e) => {
+                                    setPageSize(Number(e.target.value));
+                                    setCurrentPage(1); // Reset to first page on page size change
+                                }}
+                                className="dropdown"
+                                style={{ marginLeft: "10px" }}
+                            >
+                                <option value={1}>1</option>
+                                <option value={5}>5</option>
+                                <option value={10}>10</option>
+                                <option value={data.length}>All</option>
+                            </select>
+                        </div>
+                        <span className="record-info">
+                            Showing {startIndex + 1} - {endIndex} out of {totalRecords}
+                        </span>
                     </div>
-                    <div className="table-responsive pt-10" >
+                    <div className="table-responsive pt-10 " >
                         <Table striped bordered hover style={{ width: '100%' }} >
                             <thead className="tablecss" >
                                 <tr>
@@ -307,8 +386,10 @@ function Basket() {
                                 </tr>
                             </thead>
                             <tbody className="tablecss">
-                                {data.map((item, index) => (
-                                    <tr key={index}>
+                                {datam.slice(0, pageSize, paginatedData).map((item, index) => (
+                                    // {.map((item)
+                                    // {data.map((item, index) => (
+                                    < tr key={index} >
                                         <td>
                                             {/* <input
                                             type="checkbox"
@@ -369,6 +450,32 @@ function Basket() {
                             </tbody>
                         </Table>
                     </div>
+                    <Pagination>
+                        <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+                        <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} disabled={currentPage === 1} />
+
+                        {/* Show Pagination Items (Max 5 at a time) */}
+                        {totalPages > 1 && (
+                            [...Array(totalPages)].slice(
+                                Math.max(0, currentPage - 3),
+                                Math.min(totalPages, currentPage + 2)
+                            ).map((_, index) => {
+                                const pageNumber = Math.max(1, currentPage - 2) + index;
+                                return (
+                                    <Pagination.Item
+                                        key={pageNumber}
+                                        active={pageNumber === currentPage}
+                                        onClick={() => handlePageChange(pageNumber)}
+                                    >
+                                        {pageNumber}
+                                    </Pagination.Item>
+                                );
+                            })
+                        )}
+
+                        <Pagination.Next onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)} disabled={currentPage === totalPages} />
+                        <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
+                    </Pagination>
                 </div>
                 {/* <div className=" auto-container">
                     <div style={styles.bottomSections}>
@@ -402,7 +509,7 @@ function Basket() {
                         </div>
                     </div>
                 </div> */}
-            </Layout>
+            </Layout >
         </>
     );
 }

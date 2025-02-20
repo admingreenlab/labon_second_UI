@@ -1,5 +1,6 @@
 import Axios from "@/components/auth/axios";
 import React, { useEffect, useState } from "react";
+import Link from "next/link"
 
 const categories = {
     Shape: [
@@ -566,7 +567,7 @@ const DiamondFilter = () => {
                                 </button>
                             </div>
                         </button>
-                        <button class="button">
+                        <button class="button" onClick={() => setIsOpen(true)}>
                             <div class="backdrop">
                                 <span>Post Your Demand</span>
                             </div>
@@ -574,6 +575,12 @@ const DiamondFilter = () => {
                                 <span>Post Your Demand</span>
                             </div>
                         </button>
+                        {/* <button
+                            
+                            className="px-4 py-2 bg-blue-500 text-white rounded-md">
+                            Open Modal
+                        </button> */}
+
                     </div>
                 </div>
             </div>

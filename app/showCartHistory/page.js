@@ -21,11 +21,12 @@ const styles = {
         marginBottom: '40px',
     },
     header: {
-        backgroundColor: '#c19a6b',
+        backgroundColor: '#c29958',
         color: 'white',
         padding: '10px',
         // fontWeight: 'bold',
         textAlign: 'center',
+        borderBottom: '1px solid #494949c9'
     },
     content: {
         padding: '20px'
@@ -33,10 +34,10 @@ const styles = {
     row: {
         display: 'flex',
         // marginBottom: '15px',
-        borderBottom: '1px solid rgb(153, 153, 153)'
+        borderBottom: '1px solid #494949c9'
     },
     label: {
-        backgroundColor: '#c19a6b',
+        backgroundColor: '#c29958',
         color: 'white',
         width: '200px',
         padding: '10px',
@@ -64,7 +65,7 @@ const styles = {
         gap: '5px'
     },
     showCart: {
-        backgroundColor: '#c19a6b',
+        backgroundColor: '#c29958',
         color: 'white',
         border: 'none',
         padding: '8px 20px',
@@ -82,7 +83,7 @@ const styles = {
         flex: 1
     },
     heading: {
-        color: '#c19a6b',
+        color: '#c29958',
         marginBottom: '15px'
     },
     subscribe: {
@@ -196,18 +197,34 @@ const WebOrderHistory = () => {
         }
     };
 
+
     return (
         <Layout headerStyle={2} footerStyle={1}>
+            <div class="same-secton my-3">
+                <div className=" auto-container">
+                    <div className="d-flex align-items-center gap-3 ">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#c29958" class="bi bi-clock-history" viewBox="0 0 16 16">
+                            <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
+                            <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
+                            <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
+                        </svg>
+                        Change user Password
+                    </div>
+                </div>
+            </div>
             <div style={styles.container}>
                 <div style={{ ...styles.orderHistory, display: 'flex', justifyContent: 'center' }}>
-                    <div style={{ maxWidth: '600px', border: '1px solid #ccc', width: '100%' }}>
-                        <div style={styles.header}>Weborder History</div>
+                    <div style={{ maxWidth: '700px', border: '1px solid #ccc', width: '100%' }}>
+                        <h4 style={styles.header}>Weborder History</h4>
+                        <h4></h4>
                         <div >
-                            <div style={styles.row}>
+                            <div style={styles.row}   >
                                 <div style={styles.label}>From</div>
-                                <div style={styles.value}>
-                                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                                <div style={styles.value} >
+                                    <LocalizationProvider dateAdapter={AdapterMoment} className='w-100' >
                                         <DatePicker
+                                            className='w-100'
                                             value={fromDate}
                                             onChange={(date) => setFromDate(date).format("MM-DD-YYYY")}
                                             // placeholder="Select start date"
@@ -224,6 +241,7 @@ const WebOrderHistory = () => {
                                 <div style={{ ...styles.value }}>
                                     <LocalizationProvider dateAdapter={AdapterMoment}>
                                         <DatePicker
+                                            className='w-100'
                                             value={toDate}
                                             onChange={(date) => setToDate(date).format("MM-DD-YYYY")}
                                             label="To Date"
@@ -290,6 +308,8 @@ const WebOrderHistory = () => {
                     </div>
                 </div>
 
+            </div>
+            {/* <div className=" auto-container">
                 <div style={styles.bottomSections}>
                     <div style={styles.section}>
                         <h2 style={styles.heading}>Join!</h2>
@@ -320,7 +340,7 @@ const WebOrderHistory = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </Layout>
     );
 };

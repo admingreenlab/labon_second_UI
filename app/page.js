@@ -18,7 +18,7 @@ export default function Home() {
             <Layout headerStyle={3} footerStyle={1}>
                 <Banner />
                 <section className="services-two">
-                    <div className="container-fluid">
+                    <div className="container">
                         <div className="sec-title tg-heading-subheading animation-style2">
                             <div className="sec-title__tagline">
                                 <p className="tg-element-title">IGI-Certified Lab-Grown Diamonds</p>
@@ -31,9 +31,9 @@ export default function Home() {
                             <div className="col-xl-12">
                                 <div className="services-two__inner">
                                     <div className="services-two__middle-content">
-                                        <div className="img-box float-bob-y">
+                                        {/* <div className="img-box float-bob-y">
                                             <img src="assets/images/resources/services-v2-img2.jpg" alt="" />
-                                        </div>
+                                        </div> */}
 
                                         <div className="services-two__video">
                                             <div className="video-box">
