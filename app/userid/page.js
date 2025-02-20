@@ -151,7 +151,7 @@ export default function Home() {
                                 <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5" />
                                 <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
                             </svg>
-                            Change user Password
+                            Edit User
                         </div>
                     </div>
                 </div>
@@ -161,14 +161,42 @@ export default function Home() {
                         <div className="row justify-content-center">
                             <div className="col-xl-6">
                                 <div className="main-box-change">
-                                    <div><h4>Change user Password</h4></div>
+                                    <div><h5>Select Customer/Vendor Account Name</h5></div>
                                     <form id="contact-form" className="default-form2 contact-form-validated">
-
                                         <ul>
                                             <li>
                                                 <div className="row">
                                                     <div className="col-xl-4">
-                                                        <div className="left-name">Your Username:</div>
+                                                        <div className="left-name"> Customer/Vendor Account </div>
+                                                    </div>
+                                                    <div className="col-xl-8">
+                                                        <div className="text-start"> krigel</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div className="col-12 mb-3 mt-3">
+                                            <div className="mainbtn">
+                                                <button class="button">
+                                                    <div class="backdrop">
+                                                        <span>Search</span>
+                                                    </div>
+                                                    <div class="overlay">
+                                                        <span>Search</span>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div className="main-box-change mt-5">
+                                    <div><h5>New User Password</h5></div>
+                                    <form id="contact-form" className="default-form2 contact-form-validated">
+                                        <ul>
+                                            <li>
+                                                <div className="row">
+                                                    <div className="col-xl-4">
+                                                        <div className="left-name">User Name:</div>
                                                     </div>
                                                     <div className="col-xl-8">
                                                         <div className="text-start"> krigel</div>
@@ -178,17 +206,27 @@ export default function Home() {
                                             <li>
                                                 <div className="row">
                                                     <div className="col-xl-4">
-                                                        <div className="left-name">New Password:</div>
+                                                        <div className="left-name">Old Password</div>
                                                     </div>
                                                     <div className="col-xl-8">
-                                                        <input type="password" placeholder="Type New Password" id="pass" name="pass" />
+                                                        <input type="password" placeholder="Type Old Password" id="pass" name="pass" />
                                                     </div>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div className="row">
                                                     <div className="col-xl-4">
-                                                        <div className="left-name">Retype Password:</div>
+                                                        <div className="left-name">Password</div>
+                                                    </div>
+                                                    <div className="col-xl-8">
+                                                        <input type="password" placeholder="Type Password" id="repass" name="repass" />
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div className="row">
+                                                    <div className="col-xl-4">
+                                                        <div className="left-name">Retype Password</div>
                                                     </div>
                                                     <div className="col-xl-8">
                                                         <input type="password" placeholder="Type Retype Password" id="repass" name="repass" />

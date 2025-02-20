@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link"
 
 const categories = {
     Shape: [
@@ -85,7 +86,7 @@ const DiamondFilter = () => {
     const handleOthersClick = () => {
         setShowVVS2((prev) => !prev); // Toggle visibility
     };
-
+    const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="">
             <div className="row">
@@ -324,14 +325,16 @@ const DiamondFilter = () => {
                 </div>
                 <div className="col-12 mb-3">
                     <div className="mainbtn">
-                        <button class="button">
-                            <div class="backdrop">
-                                <span>Search</span>
-                            </div>
-                            <div class="overlay">
-                                <span>Search</span>
-                            </div>
-                        </button>
+                        <Link href="/serch/searchcriteria">
+                            <button type="button" class="button">
+                                <div class="backdrop">
+                                    <span>Search</span>
+                                </div>
+                                <div class="overlay">
+                                    <span>Search</span>
+                                </div>
+                            </button>
+                        </Link>
                         <button class="button">
                             <div class="backdrop">
                                 <span>Advance Search</span>
@@ -340,7 +343,7 @@ const DiamondFilter = () => {
                                 <span>Advance Search</span>
                             </div>
                         </button>
-                        <button class="button">
+                        <button class="button" onClick={() => setIsOpen(true)}>
                             <div class="backdrop">
                                 <span>Post Your Demand</span>
                             </div>
@@ -348,6 +351,12 @@ const DiamondFilter = () => {
                                 <span>Post Your Demand</span>
                             </div>
                         </button>
+                        {/* <button
+                            
+                            className="px-4 py-2 bg-blue-500 text-white rounded-md">
+                            Open Modal
+                        </button> */}
+
                     </div>
                 </div>
                 {/* {["Color", "Clarity", "Cut", "Lab", "Polish", "Symm", "Flour"].map((category) => (
@@ -367,7 +376,31 @@ const DiamondFilter = () => {
                     </div>
                 ))} */}
             </div>
+            {isOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        {/* Modal Header */}
+                        <div className="modal-header">
+                            <h2>Post Your Demand</h2>
+                            <button onClick={() => setIsOpen(false)} className="close-btn">✖</button>
+                        </div>
+
+                        {/* Modal Body */}
+                        <div className="modal-body">
+                            <label>Remark</label>
+                            <input type="text" placeholder="ADD Remark" className="input-box" />
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div className="modal-footer">
+                            <button onClick={() => setIsOpen(false)} className="cancel-btn">Cancel</button>
+                            <button className="submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
+
     );
 };
 

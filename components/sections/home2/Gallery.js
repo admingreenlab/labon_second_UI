@@ -2,52 +2,38 @@
 import Link from "next/link"
 import { Autoplay, Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { useEffect } from "react"
+import SwiperCore from "swiper"
 
+SwiperCore.use([Navigation, Pagination, Autoplay])
 
 const swiperOptions = {
     modules: [Autoplay, Pagination, Navigation],
     slidesPerView: 4,
     spaceBetween: 10,
     loop: true,
-    // Navigation
     navigation: {
-        nextEl: '.srn',
-        prevEl: '.srp',
+        nextEl: '.swiper-button-next',  // Next button class
+        prevEl: '.swiper-button-prev',  // Previous button class
     },
-    // Pagination
     pagination: {
         el: '.swiper-pagination',
         clickable: true,
     },
     breakpoints: {
-        320: {
-            slidesPerView: 4,
-
-        },
-        575: {
-            slidesPerView: 3,
-
-        },
-        767: {
-            slidesPerView: 3,
-
-        },
-        991: {
-            slidesPerView: 4,
-
-        },
-        1199: {
-            slidesPerView: 5,
-
-        },
-        1350: {
-            slidesPerView: 5,
-
-        },
+        320: { slidesPerView: 2 },
+        575: { slidesPerView: 3 },
+        767: { slidesPerView: 3 },
+        991: { slidesPerView: 4 },
+        1199: { slidesPerView: 5 },
+        1350: { slidesPerView: 5 },
     }
 }
 
 export default function Gallery() {
+    useEffect(() => {
+        SwiperCore.use([Navigation, Pagination])
+    }, [])
     return (
         <>
             {/* Start Gallery Two */}
@@ -66,6 +52,17 @@ export default function Gallery() {
                     <div className="row">
                         <div className="col-xl-12">
                             <div className="gallery-two__inner">
+                                {/* Swiper Previous & Next Buttons */}
+                                <div className="swiper-button-prev">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                                    </svg>
+                                </div> {/* Left arrow */}
+                                <div className="swiper-button-next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                    </svg>
+                                </div> {/* Right arrow */}
                                 <Swiper {...swiperOptions} className="owl-carousel owl-theme thm-owl__carousel gallery-two__carousel">
                                     <SwiperSlide>
                                         {/* Start Gallery Two Single*/}
@@ -203,6 +200,7 @@ export default function Gallery() {
                                         {/* End Gallery Two Single*/}
                                     </SwiperSlide>
                                 </Swiper>
+                                <div className="swiper-pagination"></div>
                             </div>
                         </div>
                     </div>
