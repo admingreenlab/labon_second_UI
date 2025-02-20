@@ -82,6 +82,7 @@ const MobileMenu = ({ isSidebar, handleMobileMenu, handleSidebar }) => {
                                 </li> */}
                                 <li><Link href="/contact">Contact</Link></li>
                                 <li><Link href="/jck-events">Appointment at JCK</Link> </li>
+                                <li><Link href="/login">Login</Link> </li>
                             </ul>
                         </div>
                     </div>
