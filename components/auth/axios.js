@@ -1,7 +1,7 @@
 import jwtAxios from "axios";
 
 const Axios = jwtAxios.create({
-  baseURL: 'https://labonback.labon.diamonds/',
+  baseURL: 'http://labonstkback.labon.diamonds/',
   headers: {
     "Content-Type": "application/json",
   },
