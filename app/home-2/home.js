@@ -1,6 +1,9 @@
+"use client"
 import Axios from "@/components/auth/axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link"
+import { useRouter } from "next/navigation";
+import { SearchContext } from "@/components/context/SearchContext";
 
 const categories = {
     Shape: [
@@ -26,11 +29,14 @@ const categories = {
 };
 
 const DiamondFilter = () => {
+    const { setSearchState } = useContext(SearchContext);
+    const router = useRouter();
     const [selectedOptions, setSelectedOptions] = useState({});
     const [carat, setCarat] = useState({ from: "", to: "" });
     const [US$CT, setUS$CT] = useState({ from: "", to: "" });
     const [stoneId, setStoneId] = useState("");
     const [data, setData] = useState();
+    const [isOpen, setIsOpen] = useState(false);
 
     const [error, setError] = useState(false);
 
@@ -105,6 +111,67 @@ const DiamondFilter = () => {
         }));
     };
 
+    const [remark, setRemark] = useState('');
+
+
+    const handleSubmit = async () => {
+
+        const payload = {
+            CLARITY: selectedOptions.Clarity || [],
+            COLOR: selectedOptions.Color || [],
+            CUT: selectedOptions.Cut || [],
+            FromCarate: carat.from || "",
+            ToCarate: carat.to || "",
+            FromUSCT: US$CT.from || "",
+            ToUSCT: US$CT.to || "",
+            LAB: selectedOptions.Lab || [],
+            POLISH: selectedOptions.Polish || [],
+            SHAPE: selectedOptions.SHAPES || [],
+            SYMM: selectedOptions.Symm || [],
+            stoneCert: stoneId || "",
+            FLOUR: selectedOptions.Flour || [],
+            ...(isAdvanceSearchOpen && {
+
+                FromTable_per: advanceSearchFields.tableFrom || "",
+                ToTable_per: advanceSearchFields.tableTo || "",
+
+                FromDepth_per: advanceSearchFields.depthFrom || "",
+                ToDepth_per: advanceSearchFields.depthTo || "",
+
+                FromRatio: advanceSearchFields.ratioFrom || "",
+                ToRatio: advanceSearchFields.ratioTo || "",
+
+                ...(advanceSearchFields.available && { A: true }),
+                ...(advanceSearchFields.memo && { Memo: true }),
+                ...(advanceSearchFields.hold && { Hold: true }),
+            }),
+        };
+
+        const cleanPayload = Object.fromEntries(
+            Object.entries(payload).filter(([_, value]) => value !== undefined && value !== "" && !(Array.isArray(value) && value.length === 0))
+        );
+
+        const formData = {
+            remark: remark,
+            data: cleanPayload
+        };
+
+        try {
+            const response = await Axios.post('mail/postdemand', JSON.stringify(formData));
+
+            if (response.status === 200) {
+                console.log('search seuccess', response.data)
+                setIsOpen(false);
+                setRemark('');
+            } else {
+                console.log(data.message || 'failed');
+            }
+        } catch (err) {
+            console.log('An error occurred. Please try again.', err);
+        }
+
+    };
+
 
 
     const handlesearch = async () => {
@@ -143,17 +210,22 @@ const DiamondFilter = () => {
             Object.entries(payload).filter(([_, value]) => value !== undefined && value !== "" && !(Array.isArray(value) && value.length === 0))
         );
 
-        try {
-            const response = await Axios.post('/search/stoneUser', JSON.stringify(cleanPayload));
+        setSearchState(cleanPayload);
 
-            if (response.ok) {
-                console.log('search seuccess')
-            } else {
-                setError(data.message || 'Registration failed');
-            }
-        } catch (err) {
-            setError('An error occurred. Please try again.');
-        }
+        router.push(`/serch/searchcriteria`)
+
+        // try {
+        //     const response = await Axios.post('/search/stoneUser', JSON.stringify(cleanPayload));
+
+        //     if (response.status === 200) {
+        //         router.push(`/serch/searchcriteria`)
+        //         console.log('search seuccess')
+        //     } else {
+        //         setError(data.message || 'Registration failed');
+        //     }
+        // } catch (err) {
+        //     setError('An error occurred. Please try again.');
+        // }
     };
 
 
@@ -549,20 +621,20 @@ const DiamondFilter = () => {
                     <div className="mainbtn">
                         <button class="button">
                             <div class="backdrop">
-                                <button onClick={handlesearch} style={{color:'white'}}>Search</button>
+                                <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
                             </div>
                             <div class="overlay">
-                                <button onClick={handlesearch} style={{color:'white'}}>Search</button>
+                                <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
                             </div>
                         </button>
                         <button class="button">
                             <div class="backdrop">
-                                <button style={{color:'white'}} onClick={handleAdvanceSearchClick}>
+                                <button style={{ color: 'white' }} onClick={handleAdvanceSearchClick}>
                                     {isAdvanceSearchOpen ? "Close Advance Search" : "Advance Search"}
                                 </button>
                             </div>
                             <div class="overlay">
-                                <button style={{color:'white'}} onClick={handleAdvanceSearchClick}>
+                                <button style={{ color: 'white' }} onClick={handleAdvanceSearchClick}>
                                     {isAdvanceSearchOpen ? "Close Advance Search" : "Advance Search"}
                                 </button>
                             </div>
@@ -584,6 +656,35 @@ const DiamondFilter = () => {
                     </div>
                 </div>
             </div>
+            {isOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        {/* Modal Header */}
+                        <div className="modal-header">
+                            <h2>Post Your Demand</h2>
+                            <button onClick={() => setIsOpen(false)} className="close-btn">✖</button>
+                        </div>
+
+                        {/* Modal Body */}
+                        <div className="modal-body">
+                            <label>Remark</label>
+                            <input
+                                type="text"
+                                placeholder="ADD Remark"
+                                className="input-box"
+                                value={remark}
+                                onChange={(e) => setRemark(e.target.value)}
+                            />
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div className="modal-footer">
+                            <button onClick={() => setIsOpen(false)} className="cancel-btn">Cancel</button>
+                            <button onClick={handleSubmit} className="submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div >
     );
 };
