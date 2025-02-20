@@ -1,10 +1,8 @@
-import Layout from "@/components/layout/Layout"
 import Link from "next/link"
 export default function Error404() {
 
     return (
         <>
-            <Layout headerStyle={3} footerStyle={1} breadcrumbTitle="Page Not Found">
             <section className="error-page">
                 <div className="container">
                     <div className="row">
@@ -27,7 +25,6 @@ export default function Error404() {
                     </div>
                 </div>
             </section>
-            </Layout>
         </>
     )
 }

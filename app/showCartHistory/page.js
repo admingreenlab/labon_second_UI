@@ -1,12 +1,13 @@
 'use client';
-import Layout from '@/components/layout/Layout';
+import Layout from '../../components/layout/Layout';
 import React, { useEffect, useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment from 'moment';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import Axios from '@/components/auth/axios';
+// import { useNavigate } from 'react-router-dom';
 
 const styles = {
     container: {
@@ -112,6 +113,10 @@ const styles = {
 };
 
 const WebOrderHistory = () => {
+
+    const router = useRouter();
+
+
     const [fromDate, setFromDate] = useState(moment());
     const [toDate, setToDate] = useState(moment().add(5, 'days'));
     const [clientName, setClientName] = useState('');
@@ -126,30 +131,60 @@ const WebOrderHistory = () => {
         }
     }, [])
 
+    useEffect(() => {
+        let isMounted = true; // Track whether the component is still mounted
+
+        const fetchData = async () => {
+            try {
+                const response = await Axios.get('/master/helper?trtype=INWARD');
+                if (isMounted) {
+                    console.log(response.data); // Update state only if the component is still mounted
+                }
+            } catch (err) {
+                if (isMounted) {
+                    console.log("Failed to fetch data. Please try again."); // Set error state
+                }
+                console.error("Error fetching data:", err);
+            }
+        };
+
+        fetchData(); // Call the async function
+
+        // Cleanup function to prevent state updates on an unmounted component
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
 
     const handleSubmit = async () => {
         const payload = {
-            fromDate,
-            toDate,
-            clientName,
-            status,
+            startDate: fromDate.format("MM-DD-YYYY"),
+            endDate: toDate.format("MM-DD-YYYY"),
+            // clientName,
+            // transactionType: status,
+            transactionType: status.join(","),
+            // INVETORYTYPE: ['POLISH-SINGLE']  
         };
+
+        const queryString = new URLSearchParams(payload).toString();
+        console.log('Query String:', queryString);
 
         console.log('Payload:', payload);
 
-        try {
-            const response = await Axios.post('user/addnewuser', payload);
+        // try {
+        // const response = await Axios.post('transation/getuserOutwardTransactionData', payload);
 
-            if (response.ok) {
-                redirect('/showCartHistory/searchresult');
-            } else {
-                setError(data.message || 'Registration failed');
-            }
-        } catch (err) {
-            setError('An error occurred. Please try again.');
-        }
+        // if (response.ok) {
+        router.push(`/showCartHistory/searchresult?${queryString}`);
+        // } else {
+        // setError(data.message || 'Registration failed');
+        // }
+        // } catch (err) {
+        //     setError('An error occurred. Please try again.');
+        // }
 
-        
+
         // alert(JSON.stringify(payload, null, 2));
     };
 
@@ -174,7 +209,7 @@ const WebOrderHistory = () => {
                                     <LocalizationProvider dateAdapter={AdapterMoment}>
                                         <DatePicker
                                             value={fromDate}
-                                            onChange={(date) => setFromDate(date)}
+                                            onChange={(date) => setFromDate(date).format("MM-DD-YYYY")}
                                             // placeholder="Select start date"
                                             label="From Date"
                                             style={styles.input}
@@ -190,7 +225,7 @@ const WebOrderHistory = () => {
                                     <LocalizationProvider dateAdapter={AdapterMoment}>
                                         <DatePicker
                                             value={toDate}
-                                            onChange={(date) => setToDate(date)}
+                                            onChange={(date) => setToDate(date).format("MM-DD-YYYY")}
                                             label="To Date"
                                             style={{ ...styles.input }}
                                         />
@@ -219,21 +254,13 @@ const WebOrderHistory = () => {
                                     flexWrap: 'wrap'
                                 }}>
                                     <form>
-                                        <div style={styles.statusItem}>
-                                            <input
-                                                type="checkbox"
-                                                id="InterestedSlip"
-                                                checked={status.includes('interestedSlip')}
-                                                onChange={handleCheckboxChange('interestedSlip')}
-                                            />
-                                            <label htmlFor="interested">InterestedSlip</label>
-                                        </div>
+
                                         <div style={styles.statusItem}>
                                             <input
                                                 type="checkbox"
                                                 id="sold"
-                                                checked={status.includes('sold')}
-                                                onChange={handleCheckboxChange('sold')}
+                                                checked={status.includes(35)}
+                                                onChange={handleCheckboxChange(35)}
                                             />
                                             <label htmlFor="sold">Sold</label>
                                         </div>
@@ -241,10 +268,19 @@ const WebOrderHistory = () => {
                                             <input
                                                 type="checkbox"
                                                 id="memo"
-                                                checked={status.includes('memo')}
-                                                onChange={handleCheckboxChange('memo')}
+                                                checked={status.includes(33)}
+                                                onChange={handleCheckboxChange(33)}
                                             />
                                             <label htmlFor="memo">Memo</label>
+                                        </div>
+                                        <div style={styles.statusItem}>
+                                            <input
+                                                type="checkbox"
+                                                id="InterestedSlip"
+                                                checked={status.includes(47)}
+                                                onChange={handleCheckboxChange(47)}
+                                            />
+                                            <label htmlFor="interested">Hold</label>
                                         </div>
                                     </form>
                                 </div>

@@ -1,4 +1,4 @@
-import "@/node_modules/react-modal-video/css/modal-video.css"
+// import "@/node_modules/react-modal-video/css/modal-video.css"
 import "../public/assets/css/baosh.css"
 import 'swiper/css'
 // import "swiper/css/navigation"

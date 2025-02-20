@@ -1,7 +1,7 @@
 'use client';
 import Link from "next/link"
 import Layout from "@/components/layout/Layout"
-import Banner from "@/components/sections/home2/Banner"
+// import Banner from "@/components/sections/home2/Banner"
 import Blog from "@/components/sections/home2/Blog"
 import Services from "@/components/sections/home2/Services"
 import Team from "@/components/sections/home2/Team"

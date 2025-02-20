@@ -66,16 +66,16 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                                                 <ul>
                                                     <li><Link href="/evolution">Stone Inventory </Link></li>
                                                     <li>
-                                                        <Link href="4cs">Search Stone</Link>
+                                                        <Link href="/serch">Search Stone</Link>
                                                     </li>
                                                     <li>
-                                                        <Link href="shapes">Basket</Link>
+                                                        <Link href="/basket">Basket</Link>
                                                     </li>
                                                     <li>
                                                         <Link href="/showCartHistory">Web History</Link>
                                                     </li>
                                                     <li>
-                                                        <Link href="anatomy">Change Password</Link>
+                                                        <Link href="/changepssword">Change Password</Link>
                                                     </li>
                                                 </ul>
                                             </li>
