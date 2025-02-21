@@ -38,7 +38,7 @@ export default function Home() {
                 setAuthToken(response.data, formData.rememberMe)
                 router.push('/serch') // Redirect to dashboard after successful login
             } else {
-                setError(data.message || 'Login failed')
+                setError(response.data.message || 'Login failed')
             }
         } catch (err) {
             setError('An error occurred. Please try again.',err)

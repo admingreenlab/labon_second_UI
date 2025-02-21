@@ -262,6 +262,89 @@ function Basket() {
     const handleMouseLeave = () => {
         setHoveredRow(null);
     };
+
+    const handleExportSelectedToExcel = () => {
+        if (selectedRows.length === 0) {
+            window.alert('Please select stones to export.');
+            return;
+        }
+
+        const worksheetData = [
+            ["Status", "StoneId", "Lab", "ReportNo", "Shape", "Carats", "Color", "Clarity", "Cut", "Polish", "Symm", "Measurements", "Table %", "Depth %", "Ratio", "H &A", "RapPrice", "Discount %", "Price/Cts", "Amount", "View Offer", "Certificate", "VideoLink"],
+            ...selectedRows.map(row => [
+                row.STATUS,
+                row.STONE,
+                row.LAB,
+                row.REPORTNO,
+                row.SHAPE,
+                row.CARATS,
+                row.COLOR,
+                row.CLARITY,
+                row.CUT,
+                row.POLISH,
+                row.SYMM,
+                row.FL_MEASUREMENTS,
+                row.FL_TABLE_PER?.toFixed(2),
+                row.FL_DEPTH_PER?.toFixed(2),
+                row.FL_RATIO || '-',
+                row.ha,
+                row.RAP_PRICE?.toFixed(2),
+                row.ASK_DISC,
+                (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100).toFixed(2),
+                ((row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS)?.toFixed(2),
+                row.viewoffer,
+                { t: 'n', f: `HYPERLINK("${`https://www.igi.org/reports/verify-your-report?r=${row.REPORTNO}`}", "PDF")` },
+                { t: 'n', f: `HYPERLINK("${`https://www.dnav360.com/vision/dna.html?d=${row.STONE}&ic=1`}", "VIDEO")` }
+            ])
+        ];
+
+        const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Selected Stones");
+        XLSX.writeFile(workbook, "selected_stones.xlsx");
+    };
+
+    // Function to export all data to Excel
+    const handleExportAllToExcel = () => {
+        if (data.length === 0) {
+            window.alert('No data available to export.');
+            return;
+        }
+
+        const worksheetData = [
+            ["Status", "StoneId", "Lab", "ReportNo", "Shape", "Carats", "Color", "Clarity", "Cut", "Polish", "Symm", "Measurements", "Table %", "Depth %", "Ratio", "H &A", "RapPrice", "Discount %", "Price/Cts", "Amount", "View Offer", "Certificate", "VideoLink"],
+            ...data.map(row => [
+                row.STATUS,
+                row.STONE,
+                row.LAB,
+                row.REPORTNO,
+                row.SHAPE,
+                row.CARATS,
+                row.COLOR,
+                row.CLARITY,
+                row.CUT,
+                row.POLISH,
+                row.SYMM,
+                row.FL_MEASUREMENTS,
+                row.FL_TABLE_PER?.toFixed(2),
+                row.FL_DEPTH_PER?.toFixed(2),
+                row.FL_RATIO || '-',
+                row.ha,
+                row.RAP_PRICE?.toFixed(2),
+                row.ASK_DISC,
+                (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100).toFixed(2),
+                ((row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS)?.toFixed(2),
+                row.viewoffer,
+                { t: 'n', f: `HYPERLINK("${`https://www.igi.org/reports/verify-your-report?r=${row.REPORTNO}`}", "PDF")` },
+                { t: 'n', f: `HYPERLINK("${`https://www.dnav360.com/vision/dna.html?d=${row.STONE}&ic=1`}", "VIDEO")` }
+            ])
+        ];
+
+        const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "All Stones");
+        XLSX.writeFile(workbook, "all_stones.xlsx");
+    };
     return (
         <>
             <Layout headerStyle={2} footerStyle={1}>
@@ -289,7 +372,7 @@ function Basket() {
                             </button>
 
 
-                            <button className="button">
+                            <button className="button" onClick={handleExportSelectedToExcel}>
                                 <div className="backdrop">
                                     <span>Export to Excel</span>
                                 </div>
@@ -298,7 +381,7 @@ function Basket() {
                                 </div>
                             </button>
 
-                            <button className="button">
+                            <button className="button" onClick={handleExportAllToExcel}>
                                 <div className="backdrop">
                                     <span>Export All to Excel</span>
                                 </div>

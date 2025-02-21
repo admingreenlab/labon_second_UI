@@ -617,7 +617,7 @@ const DiamondFilter = () => {
                 )}
                 <div className="col-12 mb-3">
                     <div className="mainbtn">
-                        <span className="button">
+                        <span className="button" onClick={handlesearch}>
                             <div className="backdrop">
                                 <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
                             </div>
@@ -625,7 +625,7 @@ const DiamondFilter = () => {
                                 <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
                             </div>
                         </span>
-                        <span className="button">
+                        <span className="button" onClick={handleAdvanceSearchClick}>
                             <div className="backdrop">
                                 <button style={{ color: 'white' }} onClick={handleAdvanceSearchClick}>
                                     {isAdvanceSearchOpen ? "Close Advance Search" : "Advance Search"}
