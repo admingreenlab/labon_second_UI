@@ -510,41 +510,44 @@ function Basket() {
                                     <tr border className="text-center">
                                         <th border colSpan={3} style={{ background: "#c29958", textAlign: "center" }}>
                                             <td className="p-1 border-0 font-bold"><b>Stone ID:</b>
-                                                {hoveredRow.stoneId}</td>
+                                                {hoveredRow.STONE}</td>
                                         </th>
                                         <th border colSpan={3} style={{ background: "#c29958", textAlign: "center" }}>
-                                            <td className="p-1 border-0 font-bold text-center"><b>Stone ID:</b>
-                                                {hoveredRow.stoneId}</td>
+                                            <td className="p-1 border-0 font-bold text-center"><b>Status :</b>
+                                                {hoveredRow.FL_BRID}</td>
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td className="p-1 border font-bold"><b>Stone ID:</b></td>
-                                        <td className="p-1 border">{hoveredRow.stoneId}</td>
                                         <td className="p-1 border font-bold"><b>Lab:</b></td>
-                                        <td className="p-1 border">{hoveredRow.lab}</td>
-                                        <td className="p-1 border font-bold"><b>Report No:</b></td>
-                                        <td className="p-1 border">{hoveredRow.reportNo}</td>
+                                        <td className="p-1 border">{hoveredRow.LAB}</td>
+                                        <td className="p-1 border font-bold"><b>Carat:</b></td>
+                                        <td className="p-1 border">{hoveredRow.CARATS}</td>
+                                        <td className="p-1 border font-bold"><b>Ratio:</b></td>
+                                        <td className="p-1 border">{hoveredRow.FL_RATIO || '-'}</td>
                                     </tr>
                                     <tr>
-                                        <td className="p-1 border font-bold"><b>Shape:</b></td>
-                                        <td className="p-1 border">{hoveredRow.shape}</td>
-                                        <td className="p-1 border font-bold"><b>Carats:</b></td>
-                                        <td className="p-1 border">{hoveredRow.carats}</td>
+                                        <td className="p-1 border font-bold"><b>Report No:</b></td>
+                                        <td className="p-1 border">{hoveredRow.REPORTNO}</td>
                                         <td className="p-1 border font-bold"><b>Color:</b></td>
-                                        <td className="p-1 border">{hoveredRow.color}</td>
+                                        <td className="p-1 border">{hoveredRow.COLOR}</td>
+                                        <td className="p-1 border font-bold"><b>Polish:</b></td>
+                                        <td className="p-1 border">{hoveredRow.POLISH}</td>
                                     </tr>
                                     <tr>
                                         <td className="p-1 border font-bold"><b>Clarity:</b></td>
-                                        <td className="p-1 border">{hoveredRow.clarity}</td>
-                                        <td className="p-1 border font-bold"><b>Cut:</b></td>
-                                        <td className="p-1 border">{hoveredRow.cut}</td>
-                                        <td className="p-1 border font-bold"><b>Polish:</b></td>
-                                        <td className="p-1 border">{hoveredRow.polish}</td>
+                                        <td className="p-1 border">{hoveredRow.CLARITY}</td>
+                                        <td className="p-1 border font-bold"><b>Shape:</b></td>
+                                        <td className="p-1 border">{hoveredRow.SHAPE}</td>
+                                        <td className="p-1 border font-bold"><b>Symm:</b></td>
+                                        <td className="p-1 border">{hoveredRow.SYMM}</td>
                                     </tr>
                                     <tr>
-                                        <td className="p-1 border font-bold"><b>Symmetry:</b></td>
-                                        <td className="p-1 border">{hoveredRow.symm}</td>
+                                        <td className="p-1 border font-bold"><b>Table %:</b></td>
+                                        <td className="p-1 border">{hoveredRow.FL_TABLE_PER?.toFixed(2)}</td>
+                                        <td className="p-1 border font-bold"><b>Depth %:</b></td>
+                                        <td className="p-1 border">{hoveredRow.FL_DEPTH_PER?.toFixed(2)}</td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
