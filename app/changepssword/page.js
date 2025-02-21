@@ -38,9 +38,9 @@ export default function Home() {
                 new_password: formData.newPassword,
             });
 
-            const result = await response.json();
+            const result = await response.data;
 
-            if (response.ok) {
+            if (response.status === 200) {
                 // Success
                 setSuccess(result.message);
                 setError('');

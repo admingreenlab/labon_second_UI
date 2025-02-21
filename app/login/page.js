@@ -34,7 +34,7 @@ export default function Home() {
             },
             )
 
-            if (response.status === 200) {
+            if (response.status === 200 && response.data.status === "success") {
                 setAuthToken(response.data, formData.rememberMe)
                 router.push('/serch') // Redirect to dashboard after successful login
             } else {
