@@ -161,13 +161,13 @@ function Demo() {
                                         <label className="checkbox style-a">
                                             <input type="checkbox"
                                                 onChange={() => {
-                                                    if (selectedRows.length === data.length) {
+                                                    if (selectedRows?.length === data?.length) {
                                                         setSelectedRows([]);
                                                     } else {
                                                         setSelectedRows(data.map(item => item.STONE));
                                                     }
                                                 }}
-                                                checked={selectedRows.length === data.length}
+                                                checked={selectedRows?.length === data?.length}
                                             />
                                             <div className="checkbox__checkmark"></div>
                                         </label>
