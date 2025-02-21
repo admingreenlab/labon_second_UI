@@ -78,7 +78,7 @@ function Demo() {
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     const currentRows = data?.slice(indexOfFirstRow, indexOfLastRow);
 
-    const totalPages = Math.ceil(data.length / rowsPerPage);
+    const totalPages = Math.ceil(data?.length / rowsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -214,7 +214,7 @@ function Demo() {
                                             <label className="checkbox style-a">
                                                 <input
                                                     type="checkbox"
-                                                    checked={selectedRows.some(selected => selected === item.STONE)}
+                                                    checked={selectedRows?.some(selected => selected === item.STONE)}
                                                     onChange={() => handleRowSelect(item)}
 
                                                 />
