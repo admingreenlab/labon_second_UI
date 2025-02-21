@@ -114,6 +114,8 @@ const styles = {
 };
 function Basket() {
     const { searchState } = useContext(SearchContext);
+    const [hoveredRow, setHoveredRow] = useState(null);
+    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
     const [selectedRows, setSelectedRows] = useState([]);
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState("asc");
@@ -188,6 +190,10 @@ function Basket() {
     const endIndex = Math.min(startIndex + pageSize, totalRecords);
     const paginatedData = data.slice(startIndex, endIndex);
     const totalPages = Math.ceil(totalRecords / pageSize);
+    // const handleMouseEnter = (event, row) => {
+    //     setHoveredRow(row);
+    //     setTooltipPos({ x: event.clientX, y: event.clientY });
+    // };
 
     // Handle page change
     const handlePageChange = (page) => {
@@ -244,6 +250,18 @@ function Basket() {
     }
 
 
+    const handleMouseEnter = (event, row) => {
+        setHoveredRow(row);
+        setTooltipPos({ x: event.clientX, y: event.clientY });
+    };
+
+    const handleMouseMove = (event) => {
+        setTooltipPos({ x: event.clientX + 10, y: event.clientY + 10 });
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredRow(null);
+    };
     return (
         <>
             <Layout headerStyle={2} footerStyle={1}>
@@ -347,9 +365,9 @@ function Basket() {
                             Showing {startIndex + 1} - {endIndex} out of {totalRecords}
                         </span>
                     </div>
-                    <div className="table-responsive pt-10 " >
-                        <Table striped bordered hover style={{ width: '100%' }} >
-                            <thead className="tablecss" >
+                    <div className="table-responsive pt-10">
+                        <Table striped bordered hover>
+                            <thead className="tablecss">
                                 <tr>
                                     <th>
                                         <label className="checkbox style-a">
@@ -407,7 +425,13 @@ function Basket() {
                                 {paginatedData?.map((item, index) => (
                                     // {.map((item)
                                     // {data.map((item, index) => (
-                                    < tr key={index} >
+                                    <tr
+                                        key={index}
+                                        onMouseEnter={(e) => handleMouseEnter(e, item)}
+                                        onMouseMove={handleMouseMove}
+                                        onMouseLeave={handleMouseLeave}
+                                        className="hover:bg-[#f3e8d8]"
+                                    >
                                         <td>
                                             {/* <input
                                             type="checkbox"
@@ -451,7 +475,6 @@ function Basket() {
 
                                     </tr>
                                 ))}
-
                                 <tr className="tablecss">
                                     <th></th>
                                     <th colSpan={6}></th>
@@ -468,6 +491,64 @@ function Basket() {
                             </tbody>
                         </Table>
                     </div>
+
+                    {/* Tooltip */}
+                    {hoveredRow && (
+                        <div
+                            className="absolute bg-white shadow-lg p-1 border border-gray-300 rounded-md text-sm z-50"
+                            style={{
+                                top: `${tooltipPos.y}px`,
+                                left: `${tooltipPos.x}px`,
+                                minWidth: "200px",
+                                position: "fixed",
+                                pointerEvents: "none",
+                                zIndex: 1000,
+                            }}
+                        >
+                            <table className="tablehover text-sm text-left border border-gray-300">
+                                <tbody>
+                                    <tr border className="text-center">
+                                        <th border colSpan={3} style={{ background: "#c29958", textAlign: "center" }}>
+                                            <td className="p-1 border-0 font-bold"><b>Stone ID:</b>
+                                                {hoveredRow.stoneId}</td>
+                                        </th>
+                                        <th border colSpan={3} style={{ background: "#c29958", textAlign: "center" }}>
+                                            <td className="p-1 border-0 font-bold text-center"><b>Stone ID:</b>
+                                                {hoveredRow.stoneId}</td>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td className="p-1 border font-bold"><b>Stone ID:</b></td>
+                                        <td className="p-1 border">{hoveredRow.stoneId}</td>
+                                        <td className="p-1 border font-bold"><b>Lab:</b></td>
+                                        <td className="p-1 border">{hoveredRow.lab}</td>
+                                        <td className="p-1 border font-bold"><b>Report No:</b></td>
+                                        <td className="p-1 border">{hoveredRow.reportNo}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="p-1 border font-bold"><b>Shape:</b></td>
+                                        <td className="p-1 border">{hoveredRow.shape}</td>
+                                        <td className="p-1 border font-bold"><b>Carats:</b></td>
+                                        <td className="p-1 border">{hoveredRow.carats}</td>
+                                        <td className="p-1 border font-bold"><b>Color:</b></td>
+                                        <td className="p-1 border">{hoveredRow.color}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="p-1 border font-bold"><b>Clarity:</b></td>
+                                        <td className="p-1 border">{hoveredRow.clarity}</td>
+                                        <td className="p-1 border font-bold"><b>Cut:</b></td>
+                                        <td className="p-1 border">{hoveredRow.cut}</td>
+                                        <td className="p-1 border font-bold"><b>Polish:</b></td>
+                                        <td className="p-1 border">{hoveredRow.polish}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="p-1 border font-bold"><b>Symmetry:</b></td>
+                                        <td className="p-1 border">{hoveredRow.symm}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                     <Pagination>
                         <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                         <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} disabled={currentPage === 1} />

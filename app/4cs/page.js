@@ -21,6 +21,7 @@ export default function Home() {
             })
         }
     }
+    const [activeTab, setActiveTab] = useState("tab1");
 
     return (
         <>
@@ -32,65 +33,90 @@ export default function Home() {
                             {/* Start Service Details Content*/}
                             <div className="col-xl-12">
                                 <div className="service-details__content">
-                                    <div className="service-details__content-img1">
-                                        <div className="inner">
-                                            <img src="assets/images/services/service-details-img4.jpg" alt="" />
+                                    <div className="row align-items-center">
+                                        <div className="col-xl-6">
+                                            <div className="service-details__content-text1">
+                                                <h2>4Cs of Diamonds</h2>
+                                                <p>Diamond is one of the world’s most valued natural resources, not to mention one of the most highly desired gemstones. Diamond is naturally made with an enormous variety of characteristics, making each individual diamond unique. The combinations of these characteristics determine the quality and value of a diamond.</p>
+
+                                                <p>The Four C’s stand for Cut, Color, Clarity, and Carat Weight . The diamond grading system has transformed the diamond trade and today is used by nearly every professional in the industry and diamond enthusiasts across the globe. Because individual diamond varies so immensely in quality and price, it is vital for consumers to be familiar with the Four C’s as well. We’ve outlined the basics of this grading system below, to help give consumers the resources they need to make educated purchases.</p>
+                                                <p>The 4Cs of a diamond are the most important factors that play a critical role in determining the price of a diamond. These include diamond carat weight, diamond color, diamond clarity, and diamond cut. While the first three a natural elements, the fourth one depends on the quality of the craftsmanship, so cut is a human factor.</p>
+                                                <p>It is very important to note that you would have to learn more about each C in order to understand how important that C is while considering a diamond.</p>
+                                            </div>
                                         </div>
-                                        <div className="icon-box">
-                                            <span className="icon-creative-idea"></span>
-                                        </div>
-                                    </div>
-
-                                    <div className="service-details__content-text1">
-                                        <h2>4Cs of Diamonds</h2>
-                                        <p>Diamond is one of the world’s most valued natural resources, not to mention one of the most highly desired gemstones. Diamond is naturally made with an enormous variety of characteristics, making each individual diamond unique. The combinations of these characteristics determine the quality and value of a diamond.</p>
-
-                                        <p>The Four C’s stand for Cut, Color, Clarity, and Carat Weight . The diamond grading system has transformed the diamond trade and today is used by nearly every professional in the industry and diamond enthusiasts across the globe. Because individual diamond varies so immensely in quality and price, it is vital for consumers to be familiar with the Four C’s as well. We’ve outlined the basics of this grading system below, to help give consumers the resources they need to make educated purchases.</p>
-                                        <p>The 4Cs of a diamond are the most important factors that play a critical role in determining the price of a diamond. These include diamond carat weight, diamond color, diamond clarity, and diamond cut. While the first three a natural elements, the fourth one depends on the quality of the craftsmanship, so cut is a human factor.</p>
-                                        <p>It is very important to note that you would have to learn more about each C in order to understand how important that C is while considering a diamond.</p>
-                                    </div>
-
-                                    {/* <div className="service-details__content-text2">
-                                        <div className="row">
-                                            <div className="col-xl-6 col-lg-6 col-md-6">
-                                                <div className="img-box">
-                                                    <img src="assets/images/services/service-details-img2.jpg" alt="" />
+                                        <div className="col-xl-6">
+                                            <div className="service-details__content-img1">
+                                                {/* <div className="inner">
+                                                    <img src="assets/images/services/service-details-img4.jpg" alt="" />
+                                                </div>
+                                                <div className="icon-box">
+                                                    <span className="icon-creative-idea"></span>
+                                                </div> */}
+                                                <div className="tabs-container">
+                                                    {/* Tab Buttons */}
+                                                    <div className="tab-content">
+                                                        {activeTab === "tab1" && <div><img src="assets/images/about/table.png" alt="" /></div>}
+                                                        {activeTab === "tab2" && <div><img src="assets/images/about/03Crown.png" alt="" /></div>}
+                                                        {activeTab === "tab3" && <div><img src="assets/images/about/04Pavilion.png" alt="" /></div>}
+                                                        {activeTab === "tab4" && <div><img src="assets/images/about/05Culet.png" alt="" /></div>}
+                                                        {activeTab === "tab5" && <div><img src="assets/images/about/06Girdle.png" alt="" /></div>}
+                                                        {activeTab === "tab6" && <div><img src="assets/images/about/07All.png" alt="" /></div>}
+                                                    </div>
+                                                    <div className="tabs">
+                                                        <button className={`button  ${activeTab === "tab1" ? "active" : ""} `} onClick={() => setActiveTab("tab1")}>
+                                                            <div class="backdrop">
+                                                                <span>Table</span>
+                                                            </div>
+                                                            <div class="overlay">
+                                                                <span>Table</span>
+                                                            </div>
+                                                        </button>
+                                                        <button className={`button  ${activeTab === "tab2" ? "active" : ""} `} onClick={() => setActiveTab("tab2")}>
+                                                            <div class="backdrop">
+                                                                <span>Crown</span>
+                                                            </div>
+                                                            <div class="overlay">
+                                                                <span>Crown</span>
+                                                            </div>
+                                                        </button>
+                                                        <button className={`button  ${activeTab === "tab3" ? "active" : ""} `} onClick={() => setActiveTab("tab3")}>
+                                                            <div class="backdrop">
+                                                                <span>Pavilion</span>
+                                                            </div>
+                                                            <div class="overlay">
+                                                                <span>Pavilion</span>
+                                                            </div>
+                                                        </button>
+                                                        <button className={`button  ${activeTab === "tab4" ? "active" : ""} `} onClick={() => setActiveTab("tab4")}>
+                                                            <div class="backdrop">
+                                                                <span>Culet</span>
+                                                            </div>
+                                                            <div class="overlay">
+                                                                <span>Culet</span>
+                                                            </div>
+                                                        </button>
+                                                        <button className={`button  ${activeTab === "tab5" ? "active" : ""} `} onClick={() => setActiveTab("tab5")}>
+                                                            <div class="backdrop">
+                                                                <span>Girdle</span>
+                                                            </div>
+                                                            <div class="overlay">
+                                                                <span>Girdle</span>
+                                                            </div>
+                                                        </button>
+                                                        <button className={`button  ${activeTab === "tab6" ? "active" : ""} `} onClick={() => setActiveTab("tab6")}>
+                                                            <div class="backdrop">
+                                                                <span>All</span>
+                                                            </div>
+                                                            <div class="overlay">
+                                                                <span>All</span>
+                                                            </div>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <div className="col-xl-6 col-lg-6 col-md-6">
-                                                <div className="content-box">
-                                                    <h2>Why choose?</h2>
-                                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                                                    </p>
-                                                    <ul>
-                                                        <li>
-                                                            <div className="icon-box">
-                                                                <span className="icon-checked"></span>
-                                                            </div>
-                                                            <p>Refresing to get such a touch</p>
-                                                        </li>
-
-                                                        <li>
-                                                            <div className="icon-box">
-                                                                <span className="icon-checked"></span>
-                                                            </div>
-                                                            <p>Duis aute irure dolor in in voluptate</p>
-                                                        </li>
-
-                                                        <li>
-                                                            <div className="icon-box">
-                                                                <span className="icon-checked"></span>
-                                                            </div>
-                                                            <p>Velit esse cillum eu fugiat pariatur</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
                                         </div>
-                                    </div> */}
 
+                                    </div>
                                     <div className="service-details__faq">
                                         <div className="service-details__faq-inner">
                                             <div className="accrodion-grp" data-grp-name="faq-one-accrodion">
@@ -578,7 +604,7 @@ export default function Home() {
                 </section>
                 {/* End Service Details */}
 
-            </Layout>
+            </Layout >
         </>
     )
 }

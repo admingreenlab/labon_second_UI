@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 'use client'
 import Axios from '@/components/auth/axios';
 import Layout from '../../../components/layout/Layout';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
+=======
+import Layout from '../../../components/layout/Layout';
+import React from 'react';
+>>>>>>> 169bb5cd8bfa28a32a705db1ead4ddda59fa5d50
 
 const styles = {
     container: {
@@ -222,6 +227,7 @@ const InvoiceTable = () => {
         invoiceTotal: data?.reduce((sum, row) => sum + row.INV_AMT, 0),
         totalAmtS: data?.reduce((sum, row) => sum + row.INV_AMT, 0),
     };
+<<<<<<< HEAD
 
     if (isLoading) {
         return (
@@ -235,8 +241,12 @@ const InvoiceTable = () => {
 
 
 
+=======
+>>>>>>> 169bb5cd8bfa28a32a705db1ead4ddda59fa5d50
     return (
+
         <Layout headerStyle={2} footerStyle={1}>
+<<<<<<< HEAD
             <div className="w-full overflow-x-auto " style={{ marginBottom: '30px', overflow: 'overlay', marginTop: '65px' }}>
                 <table className="w-full border-collapse">
                     <thead>
@@ -286,9 +296,74 @@ const InvoiceTable = () => {
                         </tr>
                     </tbody>
                 </table>
+=======
+            <div class="same-secton my-3">
+                <div className=" auto-container">
+                    <div className="d-flex align-items-center gap-3 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#c29958" class="bi bi-clock-history" viewBox="0 0 16 16">
+                            <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
+                            <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
+                            <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
+                        </svg>
+                        Weborder History
+                    </div>
+                </div>
+            </div>
+            <div className="text-center auto-container">
+                <div className="w-full overflow-x-auto " style={{ marginBottom: '30px', overflow: 'overlay', marginTop: '65px' }}>
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr className="bg-[#C19A6B] text-black" style={{ backgroundColor: 'rgb(201 177 138)' }}>
+                                <th className="p-2 border border-gray-300 text-left">No</th>
+                                <th className="p-2 border border-gray-300 text-left">OrderNo</th>
+                                <th className="p-2 border border-gray-300 text-left">Date</th>
+                                <th className="p-2 border border-gray-300 text-left">Memo Terms</th>
+                                <th className="p-2 border border-gray-300 text-left">No. Of Days</th>
+                                <th className="p-2 border border-gray-300 text-left">CreatedBy</th>
+                                <th className="p-2 border border-gray-300 text-left">Customer Name</th>
+                                <th className="p-2 border border-gray-300 text-left">Pcs</th>
+                                <th className="p-2 border border-gray-300 text-left">Cts</th>
+                                <th className="p-2 border border-gray-300 text-left">Invoice Total</th>
+                                <th className="p-2 border border-gray-300 text-left">Total Amt $</th>
+                                <th className="p-2 border border-gray-300 text-left">Inv Report</th>
+                                <th className="p-2 border border-gray-300 text-left">Memo Report</th>
+                                <th className="p-2 border border-gray-300 text-left">Sale Inv</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map((row) => (
+                                <tr key={row.no} className="hover:bg-gray-50">
+                                    <td className="p-2 border border-gray-300">{row.no}</td>
+                                    <td className="p-2 border border-gray-300">{row.orderNo}</td>
+                                    <td className="p-2 border border-gray-300">{row.date}</td>
+                                    <td className="p-2 border border-gray-300">{row.memoTerms}</td>
+                                    <td className="p-2 border border-gray-300">{row.noOfDays}</td>
+                                    <td className="p-2 border border-gray-300">{row.createdBy}</td>
+                                    <td className="p-2 border border-gray-300">{row.customerName}</td>
+                                    <td className="p-2 border border-gray-300">{row.pcs}</td>
+                                    <td className="p-2 border border-gray-300">{row.cts.toFixed(2)}</td>
+                                    <td className="p-2 border border-gray-300">{row.invoiceTotal.toFixed(2)}</td>
+                                    <td className="p-2 border border-gray-300">{row.totalAmtS.toFixed(2)}</td>
+                                    <td className="p-2 border border-gray-300">{row.invReport}</td>
+                                    <td className="p-2 border border-gray-300">{row.memoReport}</td>
+                                    <td className="p-2 border border-gray-300">{row.saleInv}</td>
+                                </tr>
+                            ))}
+                            <tr className="bg-[#C19A6B] text-black font-bold">
+                                <td colSpan={7} className="p-2 border border-gray-300 text-left">Total</td>
+                                <td className="p-2 border border-gray-300">{totals.pcs}</td>
+                                <td className="p-2 border border-gray-300">{totals.cts.toFixed(2)}</td>
+                                <td className="p-2 border border-gray-300">{totals.invoiceTotal.toFixed(2)}</td>
+                                <td className="p-2 border border-gray-300">{totals.totalAmtS.toFixed(2)}</td>
+                                <td colSpan={3} className="p-2 border border-gray-300"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+>>>>>>> 169bb5cd8bfa28a32a705db1ead4ddda59fa5d50
             </div>
 
-            <div style={{ ...styles.bottomSections }}>
+            {/* <div style={{ ...styles.bottomSections }}>
                 <div style={styles.section}>
                     <h2 style={styles.heading}>Join!</h2>
                     <p>Receive our latest offers, news, updates and promotions straight to your inbox. Just enter your email address to join our world of diamonds!</p>
@@ -299,7 +374,6 @@ const InvoiceTable = () => {
                         <button style={{ ...styles.subscribeButton, position: 'absolute', right: 0 }}>Subscribe</button>
                     </div>
                 </div>
-
                 <div style={styles.section}>
                     <h2 style={styles.heading}>Chat!</h2>
                     <p>If you have any questions, feel free to live-chat with our well-experienced Lab-grown Diamond specialists by just a click away.</p>
@@ -317,7 +391,7 @@ const InvoiceTable = () => {
                         </svg></button>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </Layout>
     );
 };
