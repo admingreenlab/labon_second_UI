@@ -7,6 +7,8 @@ import Pagination from 'react-bootstrap/Pagination';
 import Layout from "../../../components/layout/Layout"
 import { SearchContext } from "@/components/context/SearchContext";
 import Axios from "@/components/auth/axios";
+import * as XLSX from 'xlsx';
+
 const styles = {
     container: {
         maxWidth: '1200px',
@@ -122,6 +124,10 @@ function Basket() {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
+        console.log('selectedRows', selectedRows, selectedRows.length)
+    }, [selectedRows])
+
+    useEffect(() => {
         const fetchdata = async () => {
             try {
                 const response = await Axios.post('/search/stoneUser', JSON.stringify(searchState));
@@ -140,12 +146,15 @@ function Basket() {
     }, [searchState])
 
 
-    const handleRowSelect = (srNo) => {
+    const handleRowSelect = (item) => {
         setSelectedRows((prevSelected) => {
-            if (prevSelected.includes(srNo)) {
-                return prevSelected.filter((id) => id !== srNo);
+            const isSelected = prevSelected.some(selected => selected.STONE === item.STONE);
+            if (isSelected) {
+                // Remove the item if already selected
+                return prevSelected.filter(selected => selected.STONE !== item.STONE);
             } else {
-                return [...prevSelected, srNo];
+                // Add the complete item if not selected
+                return [...prevSelected, item];
             }
         });
     };
@@ -195,6 +204,46 @@ function Basket() {
     };
 
 
+    const handleaddwatchlist = () => {
+        if (selectedRows?.length < 1) {
+            window.alert('Please select stone to add watchlist')
+        } else {
+
+            const existingWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+
+            // Filter out rows that are already in the watchlist (based on stoneId)
+            const uniqueSelectedRows = selectedRows.filter(row =>
+                !existingWatchlist.some(existingRow => existingRow.STONE === row.STONE)
+            );
+
+            // Combine existing watchlist with new rows
+            const updatedWatchlist = [...existingWatchlist, ...uniqueSelectedRows];
+
+            // Save the updated watchlist back to localStorage
+            localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
+
+            window.alert('stones added to watch');
+
+        }
+    }
+
+
+    const handleaddBasket = async () => {
+        try {
+            const response = await Axios.post('user/userbasket', {
+                type: 'I',
+                stone_id: selectedRows.map(row => row.STONE),
+                stype: 'POLISH-SINGLE'
+            })
+            if (response.status === 200) {
+                window.alert('Added to basket')
+            }
+        } catch (error) {
+            console.error("error to handle basket", error)
+        }
+    }
+
+
     return (
         <>
             <Layout headerStyle={2} footerStyle={1}>
@@ -211,26 +260,35 @@ function Basket() {
                 <div className="text-center auto-container">
                     <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex', alignItems: "center", justifyContent: "space-between" }}>
                         <div className="d-flex align-items-center  gap-2">
-                            <Link href="/basket">
-                                <button className="button">
-                                    <div className="backdrop">
-                                        <span>Add To Basket</span>
-                                    </div>
-                                    <div className="overlay">
-                                        <span>Add To Basket</span>
-                                    </div>
-                                </button>
-                            </Link>
-                            <Link href="/serch">
-                                <button className="button">
-                                    <div className="backdrop">
-                                        <span>Export to Excel</span>
-                                    </div>
-                                    <div className="overlay">
-                                        <span>Export to Excel</span>
-                                    </div>
-                                </button>
-                            </Link>
+
+                            <button className="button" onClick={handleaddBasket}>
+                                <div className="backdrop">
+                                    <span>Add To Basket</span>
+                                </div>
+                                <div className="overlay">
+                                    <span>Add To Basket</span>
+                                </div>
+                            </button>
+
+
+                            <button className="button">
+                                <div className="backdrop">
+                                    <span>Export to Excel</span>
+                                </div>
+                                <div className="overlay">
+                                    <span>Export to Excel</span>
+                                </div>
+                            </button>
+
+                            <button className="button">
+                                <div className="backdrop">
+                                    <span>Export All to Excel</span>
+                                </div>
+                                <div className="overlay">
+                                    <span>Export All to Excel</span>
+                                </div>
+                            </button>
+
                             <Link href="/serch">
                                 <button className="button">
                                     <div className="backdrop">
@@ -241,16 +299,16 @@ function Basket() {
                                     </div>
                                 </button>
                             </Link>
-                            <Link href="/wishlist">
-                                <button className="button">
-                                    <div className="backdrop">
-                                        <span>Add To WatchList</span>
-                                    </div>
-                                    <div className="overlay">
-                                        <span>Add To WatchList</span>
-                                    </div>
-                                </button>
-                            </Link>
+
+                            <button className="button" onClick={handleaddwatchlist}>
+                                <div className="backdrop">
+                                    <span>Add To WatchList</span>
+                                </div>
+                                <div className="overlay">
+                                    <span>Add To WatchList</span>
+                                </div>
+                            </button>
+
                         </div>
                         <div>
                             <div style={{ marginBottom: '10px', marginLeft: 'auto' }}>
@@ -263,10 +321,10 @@ function Basket() {
                             </div>
                         </div>
                     </div>
-                    <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex', gap: "10px" }}>
+                    {/* <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex', gap: "10px" }}>
                         <label>Client Name : </label>
                         <div style={{ color: "#b8863b" }}> KRIGEL MESH DIAMONDS </div>
-                    </div>
+                    </div> */}
                     <div className="controls text-start my-3 d-flex align-items-center justify-content-between gap-3">
                         <div>
                             <label>Page Size :</label>
@@ -301,7 +359,7 @@ function Basket() {
                                                     if (selectedRows.length === data.length) {
                                                         setSelectedRows([]);
                                                     } else {
-                                                        setSelectedRows(data.map(item => item.STONE));
+                                                        setSelectedRows(data.map(item => item));
                                                     }
                                                 }}
                                                 checked={selectedRows.length === data.length}
@@ -359,8 +417,8 @@ function Basket() {
                                             <label className="checkbox style-a">
                                                 <input
                                                     type="checkbox"
-                                                    checked={selectedRows.includes(item.STONE)}
-                                                    onChange={() => handleRowSelect(item.STONE)}
+                                                    checked={selectedRows.some(selected => selected.STONE === item.STONE)}
+                                                    onChange={() => handleRowSelect(item)}
                                                 />
                                                 <div className="checkbox__checkmark"></div>
                                             </label>
@@ -369,7 +427,7 @@ function Basket() {
                                         <td>{item.STATUS}</td>
                                         <td>{item.FL_BRID}</td>
                                         <td>{item.STONE}</td>
-                                        <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.reportNo}`} target="_blank">{item.LAB}</a></td>
+                                        <td><a style={{ color: 'blue' }} href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank">{item.LAB}</a></td>
                                         <td>{item.REPORTNO}</td>
                                         <td>{item.SHAPE}</td>
                                         <td>{item.CARATS}</td>
@@ -379,8 +437,8 @@ function Basket() {
                                         <td>{item.POLISH}</td>
                                         <td>{item.SYMM}</td>
                                         <td>{item.FL_MEASUREMENTS}</td>
-                                        <td>{item.FL_TABLE_PER}</td>
-                                        <td>{item.FL_DEPTH_PER}</td>
+                                        <td>{item.FL_TABLE_PER?.toFixed(2)}</td>
+                                        <td>{item.FL_DEPTH_PER?.toFixed(2)}</td>
                                         <td>{item.FL_RATIO || '-'}</td>
                                         <td>{item.ha}</td>
                                         <td>{item.RAP_PRICE?.toFixed(2)}</td>

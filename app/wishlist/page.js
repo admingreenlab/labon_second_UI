@@ -1,80 +1,51 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Table from 'react-bootstrap/Table'
 import Pagination from 'react-bootstrap/Pagination';
 import Layout from "../../components/layout/Layout"
+import Axios from "@/components/auth/axios";
 function Demo() {
     const [selectedRows, setSelectedRows] = useState([]);
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState("asc");
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage] = useState(10);
-    const [data, setData] = useState([
-        {
-            srNo: 1,
-            status: 'M',
-            stoneId: '180777',
-            lab: 'IGI',
-            reportNo: '560236486',
-            shape: 'ROUND',
-            carats: 18.010,
-            color: 'H',
-            clarity: 'VS2',
-            cut: 'ID',
-            polish: 'EX',
-            symm: 'EX',
-            measurements: '16.62  16.72  10.30',
-            tablePercent: 58.000,
-            depthPercent: 62.00,
-            ratio: 0.000,
-            ha: 'No',
-            rapPrice: 34000,
-            discount: 97.41,
-            pricePerCts: 880.60,
-            amount: 15859.61,
-            certificate: 'PDF',
-            videoLink: 'VIDEO',
-            createdBy: 'krigel',
-            companyName: 'KRIGEL MESH DIAMONDS'
-        },
-        {
-            srNo: 2,
-            status: 'M',
-            stoneId: '180777',
-            lab: 'GIA',
-            reportNo: '560236486',
-            shape: 'OVAL',
-            carats: 18.010,
-            color: 'E',
-            clarity: 'VS1',
-            cut: 'ID',
-            polish: 'EX',
-            symm: 'EX',
-            measurements: '16.62  16.72  10.30',
-            tablePercent: 58.000,
-            depthPercent: 62.00,
-            ratio: 0.000,
-            ha: 'No',
-            rapPrice: 34000,
-            discount: 97.41,
-            pricePerCts: 880.60,
-            amount: 15859.61,
-            certificate: 'PDF',
-            videoLink: 'VIDEO',
-            createdBy: 'krigel',
-            companyName: 'KRIGEL MESH DIAMONDS'
-        },
+    const [data, setData] = useState([]);
+    const [clientName, setClientName] = useState('');
 
-        // Add more rows as needed
-    ]);
 
-    const handleRowSelect = (srNo) => {
+    useEffect(() => {
+        const fetchdata = async () => {
+            const watchlist = localStorage.getItem('watchlist');
+            setData(JSON.parse(watchlist));
+        }
+        fetchdata();
+    }, []);
+
+
+    useEffect(() => {
+        const user = localStorage.getItem('user') || sessionStorage.getItem('user');
+        if (user) {
+            // console.log('user.FL_USER_NAME',JSON.parse(user)?.FL_USER_NAME)
+            setClientName(JSON.parse(user)?.FL_USER_NAME)
+        }
+    }, [])
+
+
+    useEffect(() => {
+        console.log('selectedRows', selectedRows);
+    }, [selectedRows])
+
+    const handleRowSelect = (item) => {
         setSelectedRows((prevSelected) => {
-            if (prevSelected.includes(srNo)) {
-                return prevSelected.filter((id) => id !== srNo);
+            const isSelected = prevSelected.some(selected => selected === item.STONE);
+            if (isSelected) {
+                // Remove the item if already selected
+                return prevSelected.filter(selected => selected !== item.STONE);
             } else {
-                return [...prevSelected, srNo];
+                // Add the complete item if not selected
+                return [...prevSelected, item.STONE];
             }
         });
     };
@@ -113,6 +84,30 @@ function Demo() {
         setCurrentPage(pageNumber);
     };
 
+    const totals = {
+        CARATS: data?.reduce((sum, row) => sum + row.CARATS, 0),
+        ASK_DISC: data?.reduce((sum, row) => sum + row.ASK_DISC, 0),
+        pricects: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+        amount: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS, 0),
+        // {(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100)}
+        // {(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS}
+    };
+
+    const handleaddBasket = async () => {
+        try {
+            const response = await Axios.post('user/userbasket', {
+                type: 'I',
+                stone_id: selectedRows,
+                stype: 'POLISH-SINGLE'
+            })
+            if (response.status === 200) {
+                window.alert('Added to basket')
+            }
+        } catch (error) {
+            console.error("error to handle basket", error)
+        }
+    }
+
     return (
         <>
             <Layout headerStyle={2} footerStyle={1}>
@@ -131,8 +126,8 @@ function Demo() {
                         <div className="d-flex align-items-center gap-3">
                             <label >Client Name:</label>
                             {/* <span className="d-bock">krigel</span> */}
-                            <span style={{ fontWeight: '300', marginRight: '5px', color: '#b89154' }}>krigel</span>
-                            <button className="button">
+                            <span style={{ fontWeight: '300', marginRight: '5px', color: '#b89154' }}>{clientName}</span>
+                            <button className="button" onClick={handleaddBasket}>
                                 <div className="backdrop">
                                     <span>Add to Basket</span>
                                 </div>
@@ -169,7 +164,7 @@ function Demo() {
                                                     if (selectedRows.length === data.length) {
                                                         setSelectedRows([]);
                                                     } else {
-                                                        setSelectedRows(data.map(item => item.srNo));
+                                                        setSelectedRows(data.map(item => item.STONE));
                                                     }
                                                 }}
                                                 checked={selectedRows.length === data.length}
@@ -177,26 +172,26 @@ function Demo() {
                                             <div className="checkbox__checkmark"></div>
                                         </label>
                                     </th>
-                                    <th>SrNo</th>
+                                    {/* <th>SrNo</th> */}
                                     <th>Status</th>
                                     <th>StoneId</th>
-                                    <th onClick={() => handleSort("lab")}> Lab {sortBy === "lab" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                    <th onClick={() => handleSort("LAB")}> Lab {sortBy === "LAB" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
                                     <th>Report No</th>
-                                    <th onClick={() => handleSort("shape")}>
-                                        Shape {sortBy === "shape" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}
+                                    <th onClick={() => handleSort("SHAPE")}>
+                                        Shape {sortBy === "SHAPE" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}
                                     </th>
-                                    <th onClick={() => handleSort("carats")}>
-                                        Carats {sortBy === "carats" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("color")}>
-                                        Color {sortBy === "color" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("clarity")}>
-                                        Clarity {sortBy === "clarity" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("cut")}>
-                                        Cut{sortBy === "cut" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("polish")}>
-                                        Polish{sortBy === "polish" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("symm")}>
-                                        Symm{sortBy === "symm" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                    <th onClick={() => handleSort("CARATS")}>
+                                        Carats {sortBy === "CARATS" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                    <th onClick={() => handleSort("COLOR")}>
+                                        Color {sortBy === "COLOR" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                    <th onClick={() => handleSort("CLARITY")}>
+                                        Clarity {sortBy === "CLARITY" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                    <th onClick={() => handleSort("CUT")}>
+                                        Cut{sortBy === "CUT" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                    <th onClick={() => handleSort("POLISH")}>
+                                        Polish{sortBy === "POLISH" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                    <th onClick={() => handleSort("SYMM")}>
+                                        Symm{sortBy === "SYMM" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
                                     <th>Measurements</th>
                                     <th>Table %</th>
                                     <th>Depth %</th>
@@ -209,64 +204,64 @@ function Demo() {
                                     <th>Certificate</th>
                                     <th>VideoLink</th>
                                     <th>Created By</th>
-                                    <th>CompanyName</th>
+                                    {/* <th>CompanyName</th> */}
                                 </tr>
                             </thead>
                             <tbody className="tablecss">
-                                {currentRows.map((item, index) => (
+                                {currentRows?.map((item, index) => (
                                     <tr key={index}>
                                         <td>
                                             <label className="checkbox style-a">
                                                 <input
                                                     type="checkbox"
-                                                    checked={selectedRows.includes(item.srNo)}
-                                                    onChange={() => handleRowSelect(item.srNo)}
+                                                    checked={selectedRows.some(selected => selected === item.STONE)}
+                                                    onChange={() => handleRowSelect(item)}
 
                                                 />
                                                 <div className="checkbox__checkmark"></div>
                                             </label>
                                         </td>
-                                        <td>{item.srNo}</td>
-                                        <td>{item.status}</td>
-                                        <td>{item.stoneId}</td>
-                                        <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.reportNo}`} target="_blank">{item.lab}</a></td>
-                                        <td>{item.reportNo}</td>
-                                        <td>{item.shape}</td>
-                                        <td>{item.carats}</td>
-                                        <td>{item.color}</td>
-                                        <td>{item.clarity}</td>
-                                        <td>{item.cut}</td>
-                                        <td>{item.polish}</td>
-                                        <td>{item.symm}</td>
-                                        <td>{item.measurements}</td>
-                                        <td>{item.tablePercent}</td>
-                                        <td>{item.depthPercent}</td>
-                                        <td>{item.ratio}</td>
+                                        {/* <td>{item.srNo}</td> */}
+                                        <td>{item.STATUS}</td>
+                                        <td>{item.STONE}</td>
+                                        <td><a style={{ color: 'blue' }} href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank">{item.LAB}</a></td>
+                                        <td>{item.REPORTNO}</td>
+                                        <td>{item.SHAPE}</td>
+                                        <td>{item.CARATS}</td>
+                                        <td>{item.COLOR}</td>
+                                        <td>{item.CLARITY}</td>
+                                        <td>{item.CUT}</td>
+                                        <td>{item.POLISH}</td>
+                                        <td>{item.SYMM}</td>
+                                        <td>{item.FL_MEASUREMENTS}</td>
+                                        <td>{item.FL_TABLE_PER?.toFixed(2)}</td>
+                                        <td>{item.FL_DEPTH_PER?.toFixed(2)}</td>
+                                        <td>{item.FL_RATIO || '-'}</td>
                                         <td>{item.ha}</td>
-                                        <td>{item.rapPrice}</td>
-                                        <td>{item.discount}</td>
-                                        <td>{item.pricePerCts}</td>
-                                        <td>{item.amount}</td>
-                                        <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.reportNo}`} target="_blank">PDF</a></td>
-                                        <td><a href={`https://v360.in/movie/${item.videoLink}`} target="_blank">VIDEO</a></td>
-                                        <td>{item.createdBy}</td>
-                                        <td>{item.companyName}</td>
+                                        <td>{item.RAP_PRICE?.toFixed(2)}</td>
+                                        <td>{item.ASK_DISC}</td>
+                                        <td>{(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100).toFixed(2)}</td>
+                                        <td>{((item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS)?.toFixed(2)}</td>
+                                        <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank" style={{ color: 'blue' }}>PDF</a></td>
+                                        <td><a href={`https://www.dnav360.com/vision/dna.html?d=${item.STONE}&ic=1`} target="_blank" style={{ color: 'blue' }}>VIDEO</a></td>
+                                        <td>{clientName}</td>
+                                        {/* <td>{item.companyName}</td> */}
                                     </tr>
                                 ))}
 
                                 <tr className="tablecss">
                                     <th></th>
-                                    <th colSpan={6}>Total</th>
-                                    <th>18.01</th>
+                                    <th colSpan={5}>Total</th>
+                                    <th>{totals.CARATS?.toFixed(2)}</th>
                                     <th colSpan={10}></th>
-                                    <th>34000</th>
-                                    <th>97.41</th>
-                                    <th>880.60</th>
-                                    <th>15859.61</th>
+                                    <th></th>
+                                    <th>{totals.ASK_DISC}</th>
+                                    <th>{totals.pricects?.toFixed(2)}</th>
+                                    <th>{totals.amount?.toFixed(2)}</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
+                                    {/* <th></th> */}
                                 </tr>
                             </tbody>
                         </Table>
