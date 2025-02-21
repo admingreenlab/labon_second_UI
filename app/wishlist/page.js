@@ -78,7 +78,8 @@ function Demo() {
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     const currentRows = data?.slice(indexOfFirstRow, indexOfLastRow);
 
-    const totalPages = Math.ceil(data?.length / rowsPerPage);
+    // const totalPages = Math.ceil(data?.length / rowsPerPage);
+    const totalPages = data?.length > 0 ? Math.ceil(data.length / rowsPerPage) : 1;
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -164,7 +165,7 @@ function Demo() {
                                                     if (selectedRows?.length === data?.length) {
                                                         setSelectedRows([]);
                                                     } else {
-                                                        setSelectedRows(data.map(item => item.STONE));
+                                                        setSelectedRows(data?.map(item => item.STONE));
                                                     }
                                                 }}
                                                 checked={selectedRows?.length === data?.length}
@@ -270,7 +271,7 @@ function Demo() {
                         <Pagination>
                             <Pagination.First onClick={() => handlePageChange(1)} />
                             <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} />
-                            {[...Array(totalPages)].map((_, index) => (
+                            {[...Array(totalPages)]?.map((_, index) => (
                                 <Pagination.Item
                                     key={index + 1}
                                     active={index + 1 === currentPage}
