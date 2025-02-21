@@ -13,11 +13,7 @@ const styles = {
         margin: '0 auto',
         padding: '20px'
     },
-    orderHistory: {
-        maxWidth: '1200px',
-        // border: '1px solid #ccc',
-        marginBottom: '40px',
-    },
+
     header: {
         backgroundColor: '#c29958',
         color: 'white',
@@ -109,6 +105,11 @@ const styles = {
         width: '40px',
         height: '40px',
     },
+    '@media (max-width: 768px)': {
+        label: {
+            width: '122px !important',
+        },
+    }
 };
 
 const WebOrderHistory = () => {
@@ -155,18 +156,18 @@ const WebOrderHistory = () => {
                             <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
                             <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
                         </svg>
-                        Change user Password
+                        Weborder History
                     </div>
                 </div>
             </div>
             <div style={styles.container}>
-                <div style={{ ...styles.orderHistory, display: 'flex', justifyContent: 'center' }}>
+                <div className='orderHistory' style={{ display: 'flex', justifyContent: 'center' }}>
                     <div style={{ maxWidth: '700px', border: '1px solid #ccc', width: '100%' }}>
                         <h4 style={styles.header}>Weborder History</h4>
                         <h4></h4>
                         <div >
                             <div style={styles.row}   >
-                                <div style={styles.label}>From</div>
+                                <div className='wtitle'>From</div>
                                 <div style={styles.value} >
                                     <LocalizationProvider dateAdapter={AdapterMoment} className='w-100' >
                                         <DatePicker
@@ -178,12 +179,11 @@ const WebOrderHistory = () => {
                                             style={styles.input}
                                         />
                                     </LocalizationProvider>
-
                                     {/* <input style={styles.input} type="text" defaultValue="11/02/2025" /> */}
                                 </div>
                             </div>
                             <div style={styles.row}>
-                                <div style={styles.label}>To</div>
+                                <div className='wtitle'>To</div>
                                 <div style={{ ...styles.value }}>
                                     <LocalizationProvider dateAdapter={AdapterMoment}>
                                         <DatePicker
@@ -198,7 +198,7 @@ const WebOrderHistory = () => {
                                 </div>
                             </div>
                             <div style={styles.row}>
-                                <div style={styles.label}>Client Name</div>
+                                <div className='wtitle'>Client Name</div>
                                 {/* <input
                                     type="text"
                                     value={clientName}
@@ -210,7 +210,7 @@ const WebOrderHistory = () => {
                                 <div style={{ flex: 1, padding: '10px', textAlign: 'center' }}>{clientName}</div>
                             </div>
                             <div style={styles.row}>
-                                <div style={styles.label}>Status</div>
+                                <div className='wtitle'>Status</div>
                                 <div style={{
                                     display: 'flex',
                                     gap: '20px',

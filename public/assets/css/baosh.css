@@ -42,7 +42,7 @@
   --thm-black-rgb: 0, 0, 0;
 }
 
-@charset "UTF-8";
+/* @charset "UTF-8"; */
 
 @font-face {
   font-family: "diamond-shape";
@@ -3162,6 +3162,32 @@ Main Slider Two
   padding: 25px 0px 49px 0px;
 }
 
+.saliderimg:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: #ffffff14;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+.main-slider-two__single-bottom:before {
+  position: absolute;
+  top: 0;
+  left: -32px;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+  background-color: #ffffff66;
+  opacity: 0;
+  transform: perspective(400px) rotateY(0) translateX(40px);
+  transform-origin: bottom;
+  transition: all 1.5s;
+  content: "";
+}
+
 .main-slider-two__single-bottom:before {
   position: absolute;
   top: 0;
@@ -3169,7 +3195,7 @@ Main Slider Two
   bottom: 0;
   right: 0;
   width: 70%;
-  background-color: #cda46366;
+  background-color: #ffffff66;
   opacity: 0;
   -webkit-transform: perspective(400px) rotateY(0) translateX(40px);
   -ms-transform: perspective(400px) rotateY(0) translateX(40px);
@@ -3185,6 +3211,15 @@ Main Slider Two
   content: "";
 }
 
+.banner-count {
+  position: absolute;
+  top: 50%;
+  margin: auto;
+  left: 50%;
+  display: flex;
+  transform: translate(-50%, -50%);
+}
+
 .main-slider .swiper-slide-active .main-slider-two__single-bottom::before {
   opacity: 1;
   -webkit-transform: perspective(400px) rotateY(0deg) translateX(0px);
@@ -3195,7 +3230,7 @@ Main Slider Two
   -ms-transition-delay: 1300ms;
   -o-transition-delay: 1300ms;
   transition-delay: 1300ms;
-  width: 100%;
+  width: 70%;
 }
 
 .main-slider-two__single-bottom .title-box {
@@ -6923,22 +6958,21 @@ Service Details Css
 
 .service-details__content-img1 img {
   width: 100%;
-  border: 1px solid rgba(92, 92, 92, 0.322);
-  border-radius: 25px;
+  max-width: 460px;
 }
 
 .service-details__content-text1 {
   position: relative;
   display: block;
-  margin-top: 34px;
+  margin-top: 0px;
 }
 
 .service-details__content-text1 h2 {
-  font-size: 36px;
-  line-height: 46px;
+  font-size: 30px;
+  line-height: 1;
   font-weight: 400;
   text-transform: capitalize;
-  margin-bottom: 22px;
+  margin-bottom: 9px;
 }
 
 .service-details__content-text1 p {
@@ -6946,7 +6980,7 @@ Service Details Css
 }
 
 .service-details__content-text1 p+p {
-  margin-top: 23px;
+  margin-top: 10px;
 }
 
 .service-details__content-text2 {
@@ -7048,23 +7082,23 @@ Service Details Css
   position: relative;
   display: block;
   cursor: pointer;
-  padding: 22px 0px 22px;
-  padding-left: 40px;
-  padding-right: 40px;
-  transition: all 200ms linear;
+  padding: 12px 0px 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: all 200mslinear;
   transition-delay: 0.1s;
 }
 
 .service-details__faq .accrodion .accrodion-title h4 {
   position: relative;
-  color: #c29958;
+  color: #000000;
   font-size: 20px;
   line-height: 30px;
   transition: all .2s linear;
   transition-delay: .1s;
   text-transform: uppercase;
   font-weight: 100;
-  letter-spacing: 9px;
+  letter-spacing: 4px;
 }
 
 .service-details__faq .accrodion .accrodion-title h4:before {
@@ -7097,8 +7131,16 @@ Service Details Css
 .service-details__faq .accrodion.active .accrodion-content {
   position: relative;
   display: block;
-  padding: 0px 40px 35px;
+  padding: 0px 16px 20px;
   display: block;
+}
+
+.left-said img {
+  max-width: 151px;
+  /* margin: auto; */
+  display: flex;
+  margin: 23px auto;
+  filter: grayscale(1);
 }
 
 .service-details__faq .accrodion .accrodion-content .inner {
@@ -8399,7 +8441,7 @@ Testimonials One Testimonials Css
 .testimonials-one--testimonials {
   position: relative;
   display: block;
-  padding: 120px 0px 100px;
+  padding: 50px 0px 100px;
   z-index: 1;
 }
 
@@ -8427,7 +8469,7 @@ Blog One Blog Css
 .blog-one--blog {
   position: relative;
   display: block;
-  padding: 120px 0px 111px;
+  padding: 50px 0px 111px;
   z-index: 1;
 }
 
@@ -8886,6 +8928,37 @@ section.header {
   transition: all 500ms ease;
 }
 
+.tabs-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  font-size: 15px;
+}
+
+.tabs button.active {
+  background: #343434;
+  color: white;
+}
+
+.tab-content {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  background: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
 
 /***
 =====================================================
@@ -8895,7 +8968,7 @@ Contact Page Css
 .contact-page {
   position: relative;
   display: block;
-  padding: 120px 0px 120px;
+  padding: 50px 0px 120px;
   background: var(--thm-black);
   z-index: 1;
 }
@@ -9184,40 +9257,47 @@ Team Carousel Page
   padding: 6px 40px;
   overflow: hidden;
   transition: all 0.2sease-out;
+}
 
-  &>.backdrop {
-    z-index: 1;
-    transition: 150ms ease-out;
-  }
+.button .backdrop {
+  z-index: 1;
+  transition: 150ms ease-out;
+}
 
-  &>.overlay {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: inherit;
-    background: #373129;
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    transform: translateY(calc(100% + 1px));
-    transition: all .2sease-out;
-  }
+.button .overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: inherit;
+  background: #373129;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  transform: translateY(calc(100% + 1px));
+  transition: all .2sease-out;
+}
 
-  &:is(:hover, :focus) {
-    background: #59391F;
-    transition: 250ms ease-out;
+.button:hover,
+.button:focus {
+  background: #313130;
+  transition: 250ms ease-out;
+}
 
-    &>.backdrop {
-      scale: 0.8;
-      opacity: 0.5;
-    }
+.orderHistory {
+  max-width: 1200px;
+  margin-bottom: 40px;
+}
 
-    &>.overlay {
-      transform: translateY(0);
-    }
-  }
+.wtitle {
+  background-color: rgb(194, 153, 88);
+  color: white;
+  width: 200px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mainbtn {
@@ -9452,7 +9532,7 @@ Pricing One Pricing
 .pricing-one--pricing {
   position: relative;
   display: block;
-  padding: 120px 0px 111px;
+  padding: 50px 0px 111px;
 }
 
 /***
@@ -9538,7 +9618,7 @@ Faq Page
   position: relative;
   display: block;
   background: var(--thm-black);
-  padding: 120px 0px 110px;
+  padding: 50px 0px 110px;
   z-index: 1;
 }
 
@@ -10333,6 +10413,10 @@ End Css
     line-height: 33px;
     font-weight: 500;
     text-transform: capitalize;
+  }
+
+  .saliderimg img {
+    height: 488px;
   }
 
   .advantages-one__single-content .title-box {
@@ -11266,6 +11350,17 @@ End Css
     order: 2;
   }
 
+  .saliderimg:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #ffffff4d;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+  }
+
   .main-containe {
     display: flex;
     padding: 0px 0;
@@ -11360,6 +11455,10 @@ End Css
 @media only screen and (max-width: 767px) {
   .auto-container {
     padding: 0px 15px;
+  }
+
+  .saliderimg img {
+    height: 343px;
   }
 
   .header-search-box {
@@ -12636,7 +12735,15 @@ End Css
   }
 }
 
+@media only screen and (max-width: 576px) {
+  .gapt {
+    gap: 12px;
+  }
 
+  .wtitle {
+    width: 112px;
+  }
+}
 
 @media only screen and (max-width: 548px) {
   .main-slider-two__single-bottom .title-box h2 {
@@ -12848,6 +12955,20 @@ End Css
   cursor: not-allowed;
 }
 
+.tooltip-box {
+  position: fixed;
+  background: white;
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.tablehover td {
+  font-size: 14px;
+}
 
 .tabletopcss {
   font-size: 14px;
@@ -12855,9 +12976,10 @@ End Css
   padding: 5px 5px;
   width: fit-content;
   margin-bottom: 8px;
+  gap: 10px;
   background: #b89154;
   display: flex;
-
+  flex-wrap: wrap;
 }
 
 .basketbtn {

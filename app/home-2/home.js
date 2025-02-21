@@ -131,8 +131,8 @@ const DiamondFilter = () => {
                             <div className="col-md-6 col-12">
                                 <div className="mainbox">
                                     <h5>Carat</h5>
-                                    <div className="row">
-                                        <div className="col-6">
+                                    <div className="row gapt">
+                                        <div className="col-sm-6 col-12">
                                             <input
                                                 type="text"
                                                 placeholder="From"
@@ -140,7 +140,7 @@ const DiamondFilter = () => {
                                                 onChange={(e) => setCarat({ ...carat, from: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-6">
+                                        <div className="col-sm-6 col-12">
                                             <input
                                                 type="text"
                                                 placeholder="To"
@@ -262,8 +262,8 @@ const DiamondFilter = () => {
                             <div className="col-md-6 col-12">
                                 <div className="mainbox">
                                     <h5>US$/CT</h5>
-                                    <div className="row">
-                                        <div className="col-6">
+                                    <div className="row gapt">
+                                        <div className="col-sm-6 col-12">
                                             <input
                                                 type="text"
                                                 placeholder="From"
@@ -271,7 +271,7 @@ const DiamondFilter = () => {
                                                 onChange={(e) => setCarat({ ...carat, from: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-6">
+                                        <div className="col-sm-6 col-12">
                                             <input
                                                 type="text"
                                                 placeholder="To"

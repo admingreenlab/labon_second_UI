@@ -222,22 +222,43 @@ function Basket() {
                     </div>
                 </div>
                 <div className="text-center auto-container">
-                    <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex' }}>
-                        <button className="basketbtn" >Export To Excel</button>
-                        <button className="basketbtn" >Remove to Basket</button>
-                        <button className="basketbtn" >INTEREST SLIP</button>
+                    <div className="d-flex align-items-center gap-2 flex-wrap" style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex' }}>
+                        <button class="button">
+                            <div class="backdrop">
+                                <span>Export To Excel</span>
+                            </div>
+                            <div class="overlay">
+                                <span>Export To Excel</span>
+                            </div>
+                        </button>
+                        <button class="button">
+                            <div class="backdrop">
+                                <span>Remove to Basket</span>
+                            </div>
+                            <div class="overlay">
+                                <span>Remove to Basket</span>
+                            </div>
+                        </button>
+                        <button class="button">
+                            <div class="backdrop">
+                                <span>INTEREST SLIP</span>
+                            </div>
+                            <div class="overlay">
+                                <span>INTEREST SLIP</span>
+                            </div>
+                        </button>
                     </div>
-                    <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex' }}>
-                        <label>Client Name : </label>
-                        <div> KRIGEL MESH DIAMONDS </div>
+                    <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex', gap: "6px" }}>
+                        <label>Client Name:</label>
+                        <div className="ml-2 d-block"> KRIGEL MESH DIAMONDS </div>
                     </div>
                     <div className="tabletopcss">
                         <div>Total Pcs = <span> 2</span></div>
-                        <div style={{ marginLeft: '20px' }}>Cts = <span> 29.24</span></div>
-                        <div style={{ marginLeft: '20px' }}>Rap = <span> 45905.95</span></div>
-                        <div style={{ marginLeft: '20px' }}>Disc% = <span> 98.24</span></div>
-                        <div style={{ marginLeft: '20px' }}>Price = <span> 809.51</span></div>
-                        <div style={{ marginLeft: '20px' }}>Amt $ = <span> 23670.07</span></div>
+                        <div>Cts = <span> 29.24</span></div>
+                        <div>Rap = <span> 45905.95</span></div>
+                        <div>Disc% = <span> 98.24</span></div>
+                        <div>Price = <span> 809.51</span></div>
+                        <div>Amt $ = <span> 23670.07</span></div>
                     </div>
                     <div className="table-responsive pt-10" >
                         <Table striped bordered hover style={{ width: '100%' }} >
