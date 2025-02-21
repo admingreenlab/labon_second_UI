@@ -252,11 +252,11 @@ function Basket() {
                     </div>
                     <div className="tabletopcss">
                         <div>Total Pcs = <span>{selectedtotals?.pcs}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Cts = <span>{selectedtotals?.CARATS.toFixed(2)}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Rap = <span>{selectedtotals?.RAP.toFixed(2)}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Disc% = <span>{selectedtotals?.ASK_DISC.toFixed(2)}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Price = <span>{selectedtotals?.pricects.toFixed(2)}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Amt $ = <span>{selectedtotals?.amount.toFixed(2)}</span></div>
+                        <div style={{ marginLeft: '20px' }}>Cts = <span>{selectedtotals?.CARATS?.toFixed(2)}</span></div>
+                        <div style={{ marginLeft: '20px' }}>Rap = <span>{selectedtotals?.RAP?.toFixed(2)}</span></div>
+                        <div style={{ marginLeft: '20px' }}>Disc% = <span>{selectedtotals?.ASK_DISC?.toFixed(2)}</span></div>
+                        <div style={{ marginLeft: '20px' }}>Price = <span>{selectedtotals?.pricects?.toFixed(2)}</span></div>
+                        <div style={{ marginLeft: '20px' }}>Amt $ = <span>{selectedtotals?.amount?.toFixed(2)}</span></div>
                     </div>
                     <div className="table-responsive pt-10" >
                         <Table striped bordered hover style={{ width: '100%' }} >
@@ -363,7 +363,7 @@ function Basket() {
                                         <td>{item.ha}</td>
                                         <td>{item.RAP_PRICE?.toFixed(2)}</td>
                                         <td>{item.ASK_DISC}</td>
-                                        <td>{(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100).toFixed(2)}</td>
+                                        <td>{(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100)?.toFixed(2)}</td>
                                         <td>{((item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS)?.toFixed(2)}</td>
                                         <td>{item.viewoffer}</td>
                                         <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank" style={{ color: 'blue' }}>PDF</a></td>
