@@ -41,7 +41,8 @@ export default function Home() {
                 setError(data.message || 'Login failed')
             }
         } catch (err) {
-            setError('An error occurred. Please try again.')
+            setError('An error occurred. Please try again.',err)
+            console.log('An error occurred. Please try again.',err)
         } finally {
             setLoading(false)
         }

@@ -8,7 +8,7 @@ import { dmSans, lora } from '@/lib/font'
 import { SearchProvider } from "@/components/context/SearchContext";
 export const metadata = {
     title: 'Labon',
-    description: 'Digital Agency react next Js template'
+    description: 'Labon Diomands LLC'
 }
 
 export default function RootLayout({ children }) {
