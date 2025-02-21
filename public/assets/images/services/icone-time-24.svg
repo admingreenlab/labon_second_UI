@@ -3,7 +3,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-<path fill-rule="evenodd" clip-rule="evenodd" fill="#0A3D61" d="M0.5,35.914c0.523,0.649,1.022,0.841,1.496,1.38
+<path fillRule="evenodd" clip-rule="evenodd" fill="#0A3D61" d="M0.5,35.914c0.523,0.649,1.022,0.841,1.496,1.38
 	C2.861,38.278,4.241,39.18,5.1,40.16c0.238,0.272,0.466,0.431,0.766,0.674c0.795,0.647,1.985,1.917,3.066,2.798
 	c0.801,0.652,1.555,1.516,2.332,2.199c0.276,0.242,0.512,0.409,0.797,0.646c0.331,0.275,0.454,0.506,0.768,0.777
 	c0.277,0.24,0.523,0.402,0.799,0.645c0.293,0.259,0.399,0.475,0.703,0.73l2.361,2.071c0.321,0.297,0.408,0.484,0.768,0.775
@@ -86,7 +86,7 @@
 	l-9.098-6.623C36.869,25.88,35.688,25.08,35.475,24.808z"/>
 <g>
 	
-		<polygon opacity="0.15" fill="#FFEC00" stroke="#1A1A18" stroke-width="0.5669" stroke-miterlimit="22.9256" enable-background="new    " points="
+		<polygon opacity="0.15" fill="#FFEC00" stroke="#1A1A18" strokeWidth="0.5669" stroke-miterlimit="22.9256" enable-background="new    " points="
 		23.635,19.523 76.5,19.542 100,35.901 50,81.168 0,35.979 	"/>
 </g>
 </svg>

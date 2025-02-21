@@ -1069,7 +1069,7 @@ img {
   font-weight: 600;
   letter-spacing: 15px;
   text-transform: uppercase;
-  -webkit-text-stroke-width: 1px;
+  -webkit-text-strokeWidth: 1px;
   -webkit-text-stroke-color: rgba(255, 255, 255, 0.30);
   font-family: var(--thm-font);
 }

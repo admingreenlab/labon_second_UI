@@ -198,10 +198,10 @@ function Basket() {
     return (
         <>
             <Layout headerStyle={2} footerStyle={1}>
-                <div class="same-secton my-3">
+                <div className="same-secton my-3">
                     <div className=" auto-container">
                         <div className="d-flex align-items-center gap-3 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#c29958" class="bi bi-home" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#c29958" className="bi bi-home" viewBox="0 0 16 16">
                                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                             </svg>
                             DashBoard
@@ -212,41 +212,41 @@ function Basket() {
                     <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex', alignItems: "center", justifyContent: "space-between" }}>
                         <div className="d-flex align-items-center  gap-2">
                             <Link href="/basket">
-                                <button class="button">
-                                    <div class="backdrop">
+                                <button className="button">
+                                    <div className="backdrop">
                                         <span>Add To Basket</span>
                                     </div>
-                                    <div class="overlay">
+                                    <div className="overlay">
                                         <span>Add To Basket</span>
                                     </div>
                                 </button>
                             </Link>
                             <Link href="/serch">
-                                <button class="button">
-                                    <div class="backdrop">
+                                <button className="button">
+                                    <div className="backdrop">
                                         <span>Export to Excel</span>
                                     </div>
-                                    <div class="overlay">
+                                    <div className="overlay">
                                         <span>Export to Excel</span>
                                     </div>
                                 </button>
                             </Link>
                             <Link href="/serch">
-                                <button class="button">
-                                    <div class="backdrop">
+                                <button className="button">
+                                    <div className="backdrop">
                                         <span>Modify Search</span>
                                     </div>
-                                    <div class="overlay">
+                                    <div className="overlay">
                                         <span>Modify Search</span>
                                     </div>
                                 </button>
                             </Link>
                             <Link href="/wishlist">
-                                <button class="button">
-                                    <div class="backdrop">
+                                <button className="button">
+                                    <div className="backdrop">
                                         <span>Add To WatchList</span>
                                     </div>
-                                    <div class="overlay">
+                                    <div className="overlay">
                                         <span>Add To WatchList</span>
                                     </div>
                                 </button>
@@ -294,7 +294,7 @@ function Basket() {
                             <thead className="tablecss" >
                                 <tr>
                                     <th>
-                                        <label class="checkbox style-a">
+                                        <label className="checkbox style-a">
                                             <input
                                                 type="checkbox"
                                                 onChange={() => {
@@ -306,7 +306,7 @@ function Basket() {
                                                 }}
                                                 checked={selectedRows.length === data.length}
                                             />
-                                            <div class="checkbox__checkmark"></div>
+                                            <div className="checkbox__checkmark"></div>
                                         </label>
                                     </th>
                                     {/* <th>SrNo</th> */}
@@ -356,13 +356,13 @@ function Basket() {
                                             checked={selectedRows.includes(item.srNo)}
                                             onChange={() => handleRowSelect(item.srNo)}
                                         /> */}
-                                            <label class="checkbox style-a">
+                                            <label className="checkbox style-a">
                                                 <input
                                                     type="checkbox"
                                                     checked={selectedRows.includes(item.STONE)}
                                                     onChange={() => handleRowSelect(item.STONE)}
                                                 />
-                                                <div class="checkbox__checkmark"></div>
+                                                <div className="checkbox__checkmark"></div>
                                             </label>
                                         </td>
                                         {/* <td>{index + 1}</td> */}

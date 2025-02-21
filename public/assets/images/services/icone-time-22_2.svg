@@ -4,7 +4,7 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px"
 	 height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 <g id="Layer_1">
-	<path fill-rule="evenodd" clip-rule="evenodd" fill="#0A3D61" d="M0.5,36.248c0.523,0.649,1.022,0.841,1.496,1.38
+	<path fillRule="evenodd" clip-rule="evenodd" fill="#0A3D61" d="M0.5,36.248c0.523,0.649,1.022,0.841,1.496,1.38
 		c0.865,0.984,2.245,1.886,3.104,2.866c0.238,0.272,0.465,0.431,0.765,0.674c0.795,0.647,1.986,1.917,3.067,2.798
 		c0.8,0.652,1.555,1.516,2.333,2.199c0.276,0.242,0.511,0.409,0.797,0.646c0.331,0.275,0.454,0.506,0.767,0.777
 		c0.277,0.24,0.523,0.402,0.798,0.645c0.293,0.259,0.4,0.475,0.704,0.73l2.361,2.07c0.322,0.298,0.409,0.485,0.768,0.775
@@ -89,7 +89,7 @@
 <g id="Layer_2">
 	<g>
 		
-			<polygon opacity="0.05" fill="#FFEC00" stroke="#1A1A18" stroke-width="0.5669" stroke-miterlimit="22.9256" enable-background="new    " points="
+			<polygon opacity="0.05" fill="#FFEC00" stroke="#1A1A18" strokeWidth="0.5669" stroke-miterlimit="22.9256" enable-background="new    " points="
 			23.635,19.857 76.5,19.875 100,36.234 50,81.501 0,36.313 		"/>
 	</g>
 </g>

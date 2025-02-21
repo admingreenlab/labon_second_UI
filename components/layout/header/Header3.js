@@ -50,7 +50,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                                     <div className="main-menu-box">
                                         <Link href="#" className="mobile-nav__toggler" onClick={handleMobileMenu}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 534 400" fill="none">
-                                                <path d="M233.666 366.667H500.333M33.666 200H500.333M233.666 33.3334H500.333" stroke="white" stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M233.666 366.667H500.333M33.666 200H500.333M233.666 33.3334H500.333" stroke="white" strokeWidth="66.6667" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                         </Link>
 
@@ -97,7 +97,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                                     <div className="main-menu-box">
                                         <Link href="#" className="mobile-nav__toggler" onClick={handleMobileMenu}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 534 400" fill="none">
-                                                <path d="M233.666 366.667H500.333M33.666 200H500.333M233.666 33.3334H500.333" stroke="white" stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M233.666 366.667H500.333M33.666 200H500.333M233.666 33.3334H500.333" stroke="white" strokeWidth="66.6667" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                         </Link>
 

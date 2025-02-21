@@ -116,10 +116,10 @@ function Demo() {
     return (
         <>
             <Layout headerStyle={2} footerStyle={1}>
-                <div class="same-secton my-3">
+                <div className="same-secton my-3">
                     <div className=" auto-container">
                         <div className="d-flex align-items-center gap-3 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#c29958" class="bi bi-heart" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#c29958" className="bi bi-heart" viewBox="0 0 16 16">
                                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
                             </svg>
                             WishList
@@ -132,11 +132,11 @@ function Demo() {
                             <label >Client Name:</label>
                             {/* <span className="d-bock">krigel</span> */}
                             <span style={{ fontWeight: '300', marginRight: '5px', color: '#b89154' }}>krigel</span>
-                            <button class="button">
-                                <div class="backdrop">
+                            <button className="button">
+                                <div className="backdrop">
                                     <span>Add to Basket</span>
                                 </div>
-                                <div class="overlay">
+                                <div className="overlay">
                                     <span>Add to Basket</span>
                                 </div>
                             </button>
@@ -163,7 +163,7 @@ function Demo() {
                                             }}
                                             checked={selectedRows.length === data.length}
                                         /> */}
-                                        <label class="checkbox style-a">
+                                        <label className="checkbox style-a">
                                             <input type="checkbox"
                                                 onChange={() => {
                                                     if (selectedRows.length === data.length) {
@@ -174,7 +174,7 @@ function Demo() {
                                                 }}
                                                 checked={selectedRows.length === data.length}
                                             />
-                                            <div class="checkbox__checkmark"></div>
+                                            <div className="checkbox__checkmark"></div>
                                         </label>
                                     </th>
                                     <th>SrNo</th>
@@ -216,14 +216,14 @@ function Demo() {
                                 {currentRows.map((item, index) => (
                                     <tr key={index}>
                                         <td>
-                                            <label class="checkbox style-a">
+                                            <label className="checkbox style-a">
                                                 <input
                                                     type="checkbox"
                                                     checked={selectedRows.includes(item.srNo)}
                                                     onChange={() => handleRowSelect(item.srNo)}
 
                                                 />
-                                                <div class="checkbox__checkmark"></div>
+                                                <div className="checkbox__checkmark"></div>
                                             </label>
                                         </td>
                                         <td>{item.srNo}</td>

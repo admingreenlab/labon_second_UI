@@ -614,34 +614,34 @@ const DiamondFilter = () => {
                             </div>
                         </div>
                     </>
-
-
                 )}
                 <div className="col-12 mb-3">
                     <div className="mainbtn">
-                        <button class="button">
-                            <div class="backdrop">
+                        <span className="button">
+                            <div className="backdrop">
                                 <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
                             </div>
-                         
-                        </button>
-                        <button class="button">
-                            <div class="backdrop">
+                            <div className="overlay">
+                                <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
+                            </div>
+                        </span>
+                        <span className="button">
+                            <div className="backdrop">
                                 <button style={{ color: 'white' }} onClick={handleAdvanceSearchClick}>
                                     {isAdvanceSearchOpen ? "Close Advance Search" : "Advance Search"}
                                 </button>
                             </div>
-                            <div class="overlay">
+                            <div className="overlay">
                                 <button style={{ color: 'white' }} onClick={handleAdvanceSearchClick}>
                                     {isAdvanceSearchOpen ? "Close Advance Search" : "Advance Search"}
                                 </button>
                             </div>
-                        </button>
-                        <button class="button" onClick={() => setIsOpen(true)}>
-                            <div class="backdrop">
+                        </span>
+                        <button className="button" onClick={() => setIsOpen(true)}>
+                            <div className="backdrop">
                                 <span>Post Your Demand</span>
                             </div>
-                            <div class="overlay">
+                            <div className="overlay">
                                 <span>Post Your Demand</span>
                             </div>
                         </button>
@@ -660,12 +660,12 @@ const DiamondFilter = () => {
                         {/* Modal Header */}
                         <div className="modal-header">
                             <h2>Post Your Demand</h2>
-                            <button onClick={() => setIsOpen(false)} className="close-btn">✖</button>
+                            <span onClick={() => setIsOpen(false)} className="close-btn">✖</span>
                         </div>
 
                         {/* Modal Body */}
                         <div className="modal-body">
-                            <label>Remark</label>
+                            <label>Remark
                             <input
                                 type="text"
                                 placeholder="ADD Remark"
@@ -673,6 +673,7 @@ const DiamondFilter = () => {
                                 value={remark}
                                 onChange={(e) => setRemark(e.target.value)}
                             />
+                            </label>
                         </div>
 
                         {/* Modal Footer */}
