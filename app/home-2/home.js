@@ -623,9 +623,7 @@ const DiamondFilter = () => {
                             <div class="backdrop">
                                 <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
                             </div>
-                            <div class="overlay">
-                                <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
-                            </div>
+                         
                         </button>
                         <button class="button">
                             <div class="backdrop">

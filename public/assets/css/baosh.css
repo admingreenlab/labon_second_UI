@@ -42,8 +42,6 @@
   --thm-black-rgb: 0, 0, 0;
 }
 
-@charset "UTF-8";
-
 @font-face {
   font-family: "diamond-shape";
   src: url("../vendors/fontawesome/diamond-shape.woff");
