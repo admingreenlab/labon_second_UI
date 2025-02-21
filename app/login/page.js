@@ -28,10 +28,10 @@ export default function Home() {
         setLoading(true)
 
         try {
-            const response = await Axios.post('/userauth', JSON.stringify({
+            const response = await Axios.post('/userauth', {
                 username: formData.username,
                 password: formData.password,
-            }),
+            },
             )
 
             if (response.status === 200) {
