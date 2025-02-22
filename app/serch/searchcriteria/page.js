@@ -281,8 +281,9 @@ function Basket() {
         try {
             // console.log('selectedRows', selectedRows)
             const payload = {
-                stoneCert: selectedRows?.map(row => row.STONE).join(' '),
-            }
+                stoneCert: selectedRows?.map(row => row.STONE).join(' '), // Converts the array of STONE IDs into a space-separated string
+            };
+
             const response = await Axios.post('/search/stoneUser?type=excel', payload);
 
             if (response.data.status === 'success') {
@@ -303,7 +304,8 @@ function Basket() {
 
         try {
             const payload = {
-                stoneCert: ""
+                stoneCert: "",
+                ...searchState // Pass the entire searchState object here
             }
             const response = await Axios.post('/search/stoneUser?type=excel', payload);
 
@@ -490,7 +492,7 @@ function Basket() {
                     {
                         !loading &&
                         <>
-                            <div className="controls text-start my-3 d-flex align-items-center justify-content-between gap-3">
+                            <div className="controls text-start my-3 d-flex align-items-center gap-3">
                                 <div>
                                     <label>Page Size :</label>
                                     <select
@@ -579,14 +581,15 @@ function Basket() {
                                                 onMouseLeave={handleMouseLeave}
                                                 className="hover:bg-[#f3e8d8]"
                                             >
-                                                <td>
+                                                <td style={{ maxWidth: '30px' }}>
                                                     {/* <input
                                             type="checkbox"
                                             checked={selectedRows.includes(item.srNo)}
                                             onChange={() => handleRowSelect(item.srNo)}
                                         /> */}
-                                                    <label className="checkbox style-a">
+                                                    <label className="checkbox style-a" style={{ maxWidth: '30px' }}>
                                                         <input
+                                                            style={{ maxWidth: '30px' }}
                                                             type="checkbox"
                                                             checked={selectedRows.some(selected => selected.STONE === item.STONE)}
                                                             onChange={() => handleRowSelect(item)}

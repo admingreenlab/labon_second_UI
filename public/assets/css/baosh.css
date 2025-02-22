@@ -2584,7 +2584,7 @@ Main Header Two
   padding-right: 5px;
   text-align: center;
   cursor: pointer;
-  width: 100%;
+  min-width: 50px;
 }
 
 .main-header-two .main-menu__wrapper-inner {
