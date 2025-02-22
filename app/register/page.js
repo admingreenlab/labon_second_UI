@@ -175,7 +175,7 @@ export default function Faq() {
     const options = ["MR.", "MRS.", "MS."];
 
     const [formData, setFormData] = useState({
-        companyName: '',
+        cname: '',
         title: 'MR',
         fname: '',
         lname: '',
@@ -183,7 +183,7 @@ export default function Faq() {
         country: '',
         state: '',
         city: '',
-        phoneNumber: '',
+        mobile: '',
         aboutUs: '',
         loginEmail: '',
         pass: '',
@@ -312,8 +312,8 @@ export default function Faq() {
                                     <div className="input-box">
                                         <input
                                             type="text"
-                                            name="companyName"
-                                            value={formData.companyName}
+                                            name="cname"
+                                            value={formData.cname}
                                             onChange={handleInputChange}
                                             placeholder="Company Name of Account Applicant as appears officially *"
                                             required
@@ -428,8 +428,8 @@ export default function Faq() {
                                             <div className="input-box">
                                                 <input
                                                     type="tel"
-                                                    name="phoneNumber"
-                                                    value={formData.phoneNumber}
+                                                    name="mobile"
+                                                    value={formData.mobile}
                                                     onChange={handleInputChange}
                                                     placeholder="Phone Number *"
                                                     required
