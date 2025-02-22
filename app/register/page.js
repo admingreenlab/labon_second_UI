@@ -273,13 +273,20 @@ export default function Faq() {
         try {
             const response = await Axios.post('user/addnewuser', JSON.stringify(formData));
 
-            if (response.ok) {
+            if (response.data.message === "user registered Sucessfully") {
                 window.location.href = '/login'; // Redirect to login after successful registration
             } else {
-                setError(data.message || 'Registration failed');
+                if (response.data.error === "ORA-00001: unique constraint (SALESEX.UN_FL_USERNAME) violated\nORA-06512: at line 5\nHelp: https://docs.oracle.com/error-help/db/ora-00001/") {
+                    setError('user already exists')
+                }
+                // setError(response.data.message || 'Registration failed');
             }
         } catch (err) {
-            setError('An error occurred. Please try again.');
+            // if (err.response.data.err === "ORA-00001: unique constraint (SALESEX.UN_FL_USERNAME) violated\nORA-06512: at line 5\nHelp: https://docs.oracle.com/error-help/db/ora-00001/") {
+            //     setError('user already exists')
+            // }
+            // setError(err.response.data.message);
+            console.log(err);
         } finally {
             setLoading(false);
         }
