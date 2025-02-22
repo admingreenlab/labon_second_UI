@@ -10,6 +10,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
     const [lastScrollY, setLastScrollY] = useState(0);
 
     const [data, setData] = useState([]);
+    const [clientName, setClientName] = useState('');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -60,6 +61,16 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
             }
         };
         fetchData();
+    }, [])
+
+    useEffect(() => {
+        const user = localStorage.getItem('user') || sessionStorage.getItem('user');
+        // const branchescode = localStorage.getItem('branches') || sessionStorage.getItem('branches')
+        if (user) {
+            // setCompany(JSON.parse(branchescode)[0].FL_COMPANY_CODE);
+            // console.log('user.FL_USER_NAME',JSON.parse(user)?.FL_USER_NAME)
+            setClientName(JSON.parse(user)?.FL_USER_NAME)
+        }
     }, [])
 
     return (
@@ -118,6 +129,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
 
                                     <div className="main-header-two__right ">
                                         <div className="header-search-box">
+                                            <span style={{color:'white' ,marginRight:'15px'}}>{clientName}</span>
                                             <Link href="/serch">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
                                                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
