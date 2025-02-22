@@ -2,35 +2,21 @@ import Link from "next/link"
 import React, { useState, useEffect } from 'react';
 
 export default function Footer1() {
-    const [time, setTime] = useState('');
-    const [mounted, setMounted] = useState(false);
+    const [nyTime, setNyTime] = useState(
+        new Date().toLocaleTimeString("en-US", { timeZone: "America/New_York" })
+    );
+    const [laTime, setLaTime] = useState(
+        new Date().toLocaleTimeString("en-US", { timeZone: "America/Los_Angeles" })
+    );
 
     useEffect(() => {
-        setMounted(true);
-        
-        // Initial time set
-        setTime(new Date().toLocaleTimeString('en-US', { 
-            timeZone: 'America/New_York',
-            hour: 'numeric',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true 
-        }));
-
-        // Update time every second
         const timer = setInterval(() => {
-            setTime(new Date().toLocaleTimeString('en-US', { 
-                timeZone: 'America/New_York',
-                hour: 'numeric',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true 
-            }));
+            setNyTime(new Date().toLocaleTimeString("en-US", { timeZone: "America/New_York" }));
+            setLaTime(new Date().toLocaleTimeString("en-US", { timeZone: "America/Los_Angeles" }));
         }, 1000);
 
-        return () => clearInterval(timer);
-    }, []);
-
+        return () => clearInterval(timer); // Cleanup interval on component unmount
+    }, []); 
     return (
         <footer className="footer-one">
             <div className="footer">
@@ -61,7 +47,8 @@ export default function Footer1() {
                                         <h3 style={{ marginTop: "10px" }}>
                                             <Link href="tel:98210009630">(213) 688-8704</Link>
                                         </h3>
-                                        <h6 className="mt-1">{mounted ? time : '--:-- --'}</h6>
+                                        {/* <h6 className="mt-1">{mounted ? time : '--:-- --'}</h6> */}
+                                        <h6 className="mt-1">{nyTime}</h6>
                                     </div>
                                 </li>
                                 <li>
@@ -87,7 +74,8 @@ export default function Footer1() {
                                         <h3 style={{ marginTop: "10px" }}>
                                             <Link href="tel:98210009630">(315) 207-7066</Link>
                                         </h3>
-                                        <h6 className="mt-1">{mounted ? time : '--:-- --'}</h6>
+                                        {/* <h6 className="mt-1">{mounted ? time : '--:-- --'}</h6> */}
+                                        <h6 className="mt-1">{laTime}</h6>
                                     </div>
                                 </li>
                             </ul>

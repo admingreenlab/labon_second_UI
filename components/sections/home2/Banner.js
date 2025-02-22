@@ -1,19 +1,19 @@
 'use client';
 import Link from "next/link"
 import { useEffect, useState } from "react";
-import { Navigation, Pagination } from "swiper/modules"
+import { Autoplay, Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 export default function Banner() {
     const [swiperOptions, setSwiperOptions] = useState({
-        // modules: [Autoplay, Pagination, Navigation],
+        modules: [Autoplay, Pagination, Navigation],
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,
-        // autoplay: {
-        //     delay: 8000, // Set scroll time in milliseconds (e.g., 3000ms = 3s)
-        //     disableOnInteraction: false, // Keeps autoplay running even after user interaction
-        // },
+        autoplay: {
+            delay: 8000, // Set scroll time in milliseconds (e.g., 3000ms = 3s)
+            disableOnInteraction: false, // Keeps autoplay running even after user interaction
+        },
         navigation: {
             nextEl: '.h1n',
             prevEl: '.h1p',
