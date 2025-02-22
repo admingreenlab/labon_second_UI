@@ -1,7 +1,7 @@
 import jwtAxios from "axios";
 
-export const baseURL = "http://192.168.6.32:4747/";
-// export const baseURL = 'https://labonstkback.labon.diamonds/'
+// export const baseURL = "http://192.168.6.32:4747/";
+export const baseURL = 'https://labonstkback.labon.diamonds/'
 
 
 const Axios = jwtAxios.create({
