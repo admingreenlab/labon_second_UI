@@ -29,6 +29,12 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
             window.removeEventListener("scroll", handleScroll);
         };
     }, [lastScrollY]);
+
+    const handleclearstorage = () => {
+        localStorage.clear();
+
+        sessionStorage.clear();
+    }
     return (
         <>
 
@@ -105,7 +111,7 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
                                                 </svg>
                                             </Link>
                                         </div>
-                                        <div className="side-content-button-box">
+                                        <div className="side-content-button-box" onClick={handleclearstorage}>
                                             <Link href="/login">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-box-arrow-right" viewBox="0 0 16 16">
                                                     <path fillRule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />

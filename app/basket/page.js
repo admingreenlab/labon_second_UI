@@ -4,7 +4,10 @@ import Container from "react-bootstrap/Container";
 import Table from 'react-bootstrap/Table'
 import Pagination from 'react-bootstrap/Pagination';
 import Layout from "@/components/layout/Layout"
-import Axios from "@/components/auth/axios";
+import Axios, { baseURL } from "@/components/auth/axios";
+import * as XLSX from 'xlsx';
+
+
 const styles = {
     container: {
         maxWidth: '1200px',
@@ -117,7 +120,7 @@ function Basket() {
     const [data, setData] = useState([]);
 
     const [selectedtotals, setSelectedTotals] = useState({})
-;
+        ;
     useEffect(() => {
         console.log('selectedRows', selectedRows)
     }, [selectedRows])
@@ -227,6 +230,32 @@ function Basket() {
         }
     }
 
+
+    const handleExportSelectedToExcel = async () => {
+
+        if (selectedRows.length === 0) {
+            window.alert('Please select stones to export.');
+            return;
+        }
+
+        try {
+            // console.log('selectedRows', selectedRows)
+            const payload = {
+                stoneCert: selectedRows?.map(row => row.STONE).join(' '),
+            }
+            const response = await Axios.post('/search/stoneUser?type=excel', payload);
+
+            if (response.data.status === 'success') {
+                window.open(`${baseURL}exports/${response.data.fileName}`)
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     return (
         <>
             <Layout headerStyle={2} footerStyle={1}>
@@ -242,9 +271,8 @@ function Basket() {
                 </div>
                 <div className="text-center auto-container">
                     <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex' }}>
-                        <button className="basketbtn" >Export To Excel</button>
+                        <button className="basketbtn" onClick={handleExportSelectedToExcel}>Export To Excel</button>
                         <button className="basketbtn" onClick={handleremovebasket} >Remove to Basket</button>
-                        <button className="basketbtn" >INTEREST SLIP</button>
                     </div>
                     <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex' }}>
                         <label>Client Name : </label>
@@ -270,7 +298,7 @@ function Basket() {
                                                     if (selectedRows.length === data.length) {
                                                         setSelectedRows([]);
                                                     } else {
-                                                        setSelectedRows(data?.map(item => item.STONE));
+                                                        setSelectedRows(data?.map(item => item));
                                                     }
                                                 }}
                                                 checked={selectedRows.length === data.length}
@@ -345,7 +373,7 @@ function Basket() {
                                         </td>
                                         {/* <td>{item.srNo}</td> */}
                                         <td>{item.STATUS}</td>
-                                        <td>{company}</td>
+                                        <td>{item.FL_BRID}</td>
                                         <td>{item.STONE}</td>
                                         <td><a style={{ color: 'blue' }} href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank">{item.LAB}</a></td>
                                         <td>{item.REPORTNO}</td>

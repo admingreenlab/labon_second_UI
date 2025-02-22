@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { SearchContext } from "@/components/context/SearchContext";
 
+
 const categories = {
     Shape: [
         { name: "Round", shapeicon: "ico-shp icon-round-shape" },
@@ -29,7 +30,7 @@ const categories = {
 };
 
 const DiamondFilter = () => {
-    const { setSearchState } = useContext(SearchContext);
+    const { setSearchState, searchState } = useContext(SearchContext);
     const router = useRouter();
     const [selectedOptions, setSelectedOptions] = useState({});
     const [carat, setCarat] = useState({ from: "", to: "" });
@@ -71,6 +72,59 @@ const DiamondFilter = () => {
     const handleOthersClick = () => {
         setShowVVS2((prev) => !prev); // Toggle visibility
     };
+
+    useEffect(() => {
+        if (searchState) {
+            setSelectedOptions({
+                SHAPES: searchState.SHAPE || [],
+                Clarity: searchState.CLARITY || [],
+                Color: searchState.COLOR || [],
+                Cut: searchState.CUT || [],
+                Lab: searchState.LAB || [],
+                Polish: searchState.POLISH || [],
+                Symm: searchState.SYMM || [],
+                Flour: searchState.FLOUR || [],
+            });
+
+            setCarat({
+                from: searchState.FromCarate || "",
+                to: searchState.ToCarate || "",
+            });
+
+            setUS$CT({
+                from: searchState.FromUSCT || "",
+                to: searchState.ToUSCT || "",
+            });
+
+            setStoneId(searchState.stoneCert || "");
+
+            setAdvanceSearchFields({
+                tableFrom: searchState.FromTable_per || "",
+                tableTo: searchState.ToTable_per || "",
+                depthFrom: searchState.FromDepth_per || "",
+                depthTo: searchState.ToDepth_per || "",
+                ratioFrom: searchState.FromRatio || "",
+                ratioTo: searchState.ToRatio || "",
+                memo: !!searchState.Memo,
+                available: !!searchState.A,
+                hold: !!searchState.Hold,
+            });
+
+            setIsAdvanceSearchOpen(
+                !!(
+                    searchState.FromTable_per ||
+                    searchState.ToTable_per ||
+                    searchState.FromDepth_per ||
+                    searchState.ToDepth_per ||
+                    searchState.FromRatio ||
+                    searchState.ToRatio ||
+                    searchState.Memo ||
+                    searchState.A ||
+                    searchState.Hold
+                )
+            );
+        }
+    }, [searchState]);
 
     useEffect(() => {
         let isMounted = true; // Track whether the component is still mounted
@@ -619,20 +673,20 @@ const DiamondFilter = () => {
                     <div className="mainbtn">
                         <span className="button" onClick={handlesearch}>
                             <div className="backdrop">
-                                <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
+                                <button style={{ color: 'white' }}>Search</button>
                             </div>
                             <div className="overlay">
-                                <button onClick={handlesearch} style={{ color: 'white' }}>Search</button>
+                                <button style={{ color: 'white' }}>Search</button>
                             </div>
                         </span>
                         <span className="button" onClick={handleAdvanceSearchClick}>
                             <div className="backdrop">
-                                <button style={{ color: 'white' }} onClick={handleAdvanceSearchClick}>
+                                <button style={{ color: 'white' }}>
                                     {isAdvanceSearchOpen ? "Close Advance Search" : "Advance Search"}
                                 </button>
                             </div>
                             <div className="overlay">
-                                <button style={{ color: 'white' }} onClick={handleAdvanceSearchClick}>
+                                <button style={{ color: 'white' }}>
                                     {isAdvanceSearchOpen ? "Close Advance Search" : "Advance Search"}
                                 </button>
                             </div>
@@ -666,13 +720,13 @@ const DiamondFilter = () => {
                         {/* Modal Body */}
                         <div className="modal-body">
                             <label>Remark
-                            <input
-                                type="text"
-                                placeholder="ADD Remark"
-                                className="input-box"
-                                value={remark}
-                                onChange={(e) => setRemark(e.target.value)}
-                            />
+                                <input
+                                    type="text"
+                                    placeholder="ADD Remark"
+                                    className="input-box"
+                                    value={remark}
+                                    onChange={(e) => setRemark(e.target.value)}
+                                />
                             </label>
                         </div>
 

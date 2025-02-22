@@ -40,6 +40,8 @@ export default function Home() {
 
             const result = await response.data;
 
+
+
             if (response.status === 200) {
                 // Success
                 setSuccess(result.message);
@@ -51,7 +53,10 @@ export default function Home() {
                 setSuccess('');
             }
         } catch (err) {
-            setError('An unexpected error occurred.');
+            // if (response.data.message === "Old password is incorrect") {
+                // setError("Old password is incorrect");
+            // console.error(err);
+            setError(err.response.data.message);
             setSuccess('');
         }
     };

@@ -41,8 +41,8 @@ export default function Home() {
                 setError(response.data.message || 'Login failed')
             }
         } catch (err) {
-            setError('An error occurred. Please try again.',err)
-            console.log('An error occurred. Please try again.',err)
+            setError('username or password feild', err)
+            console.log('An error occurred. Please try again.', err)
         } finally {
             setLoading(false)
         }

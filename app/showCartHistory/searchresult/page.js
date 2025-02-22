@@ -112,43 +112,6 @@ const styles = {
 };
 
 const InvoiceTable = () => {
-
-    // const data = [
-    //     {
-    //         no: 1,
-    //         orderNo: 'LD/IS/NY/2025/4',
-    //         date: '2/17/2025 5:58',
-    //         memoTerms: 'Cash',
-    //         noOfDays: 2,
-    //         createdBy: 'krigel',
-    //         customerName: 'KRIGEL MESH DIAMONDS',
-    //         pcs: 1,
-    //         cts: 11.23,
-    //         invoiceTotal: 7810.47,
-    //         totalAmtS: 7810.47,
-    //         invReport: '',
-    //         memoReport: '',
-    //         saleInv: ''
-    //     },
-    //     {
-    //         no: 2,
-    //         orderNo: 'LD/IS/LA/2025/4',
-    //         date: '2/17/2025 5:58',
-    //         memoTerms: 'Cash',
-    //         noOfDays: 2,
-    //         createdBy: 'krigel',
-    //         customerName: 'KRIGEL MESH DIAMONDS',
-    //         pcs: 1,
-    //         cts: 8.06,
-    //         invoiceTotal: 2437.34,
-    //         totalAmtS: 2437.34,
-    //         invReport: '',
-    //         memoReport: '',
-    //         saleInv: ''
-    //     }
-    // ];
-
-
     const searchParams = useSearchParams();
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -161,8 +124,10 @@ const InvoiceTable = () => {
                 const endDate = searchParams.get('endDate');
                 const transactionType = searchParams.get('transactionType');
 
+                console.log("sddssd", transactionType)
+
                 // Check if we have the required parameters
-                if (!startDate || !endDate || !transactionType) {
+                if (!startDate || !endDate) {
                     setIsLoading(false);
                     return;
                 }
@@ -172,124 +137,131 @@ const InvoiceTable = () => {
                     endDate,
                     // clientName,
                     // transactionType: status,
-                    transactionType: transactionType.split(",").map((value) => Number(value)),
-                    // INVETORYTYPE: ['POLISH-SINGLE']  
-                }
+                    ...(transactionType && { transactionType: transactionType.split(",").map((value) => Number(value)) }),
+                // INVETORYTYPE: ['POLISH-SINGLE']  
+            }
 
                 console.log(payload);
 
-                const response = await Axios.post('transation/getuserOutwardTransactionData', payload);
+            // const cleanPayload = Object.fromEntries(
+            //     Object.entries(payload).filter(([_, value]) => value !== undefined && value !== "" && !(Array.isArray(value) && value.length === 0))
+            // );
 
-                if (!response.ok) {
-                    console.log('Failed to fetch invoice data');
-                }
+            // console.log(cleanPayload);
 
 
-                setData(response.data?.Data);
-            } catch (err) {
-                console.log(err instanceof Error ? err.message : 'An error occurred');
-            } finally {
-                setIsLoading(false);
+            const response = await Axios.post('transation/getuserOutwardTransactionData', payload);
+
+            if (!response.ok) {
+                console.log('Failed to fetch invoice data');
             }
-        };
 
-        fetchData();
-    }, [searchParams]);
 
-    const formatDate = (isoDate) => {
-        const date = new Date(isoDate);
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const year = date.getFullYear();
-        let hours = date.getHours();
-        const minutes = date.getMinutes();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12 || 12;
-        return `${month}/${day}/${year} ${hours}:${minutes.toString().padStart(2, '0')}`;
+            setData(response.data?.Data);
+        } catch (err) {
+            console.log(err instanceof Error ? err.message : 'An error occurred');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    const calculateDays = (transactionDate) => {
-        const today = new Date();
-        const transDate = new Date(transactionDate);
-        const diffTime = Math.abs(today - transDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays;
-    };
+    fetchData();
+}, [searchParams]);
 
-    const totals = {
-        pcs: data?.reduce((sum, row) => sum + row.PCS, 0),
-        cts: data?.reduce((sum, row) => sum + row.CTS, 0),
-        invoiceTotal: data?.reduce((sum, row) => sum + row.INV_AMT, 0),
-        totalAmtS: data?.reduce((sum, row) => sum + row.INV_AMT, 0),
-    };
+const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    return `${month}/${day}/${year} ${hours}:${minutes.toString().padStart(2, '0')}`;
+};
 
-    if (isLoading) {
-        return (
-            <div className="flex justify-center items-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#C19A6B]"></div>
-            </div>
-        );
-    }
+const calculateDays = (transactionDate) => {
+    const today = new Date();
+    const transDate = new Date(transactionDate);
+    const diffTime = Math.abs(today - transDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+};
 
+const totals = {
+    pcs: data?.reduce((sum, row) => sum + row.PCS, 0),
+    cts: data?.reduce((sum, row) => sum + row.CTS, 0),
+    invoiceTotal: data?.reduce((sum, row) => sum + row.INV_AMT, 0),
+    totalAmtS: data?.reduce((sum, row) => sum + row.INV_AMT, 0),
+};
 
-
-
-
+if (isLoading) {
     return (
+        <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#C19A6B]"></div>
+        </div>
+    );
+}
 
-        <Layout headerStyle={2} footerStyle={1}>
-            <div className="w-full overflow-x-auto " style={{ marginBottom: '30px', overflow: 'overlay', marginTop: '65px' }}>
-                <table className="w-full border-collapse">
-                    <thead>
-                        <tr className="bg-[#C19A6B] text-black" style={{ backgroundColor: 'rgb(201 177 138)' }}>
-                            <th className="p-2 border border-gray-300 text-left">No</th>
-                            <th className="p-2 border border-gray-300 text-left">OrderNo</th>
-                            {/* <th className="p-2 border border-gray-300 text-left">Date</th> */}
-                            {/* <th className="p-2 border border-gray-300 text-left">Memo Terms</th> */}
-                            <th className="p-2 border border-gray-300 text-left">No. Of Days</th>
-                            <th className="p-2 border border-gray-300 text-left">CreatedBy</th>
-                            <th className="p-2 border border-gray-300 text-left">Customer Name</th>
-                            <th className="p-2 border border-gray-300 text-left">Pcs</th>
-                            <th className="p-2 border border-gray-300 text-left">Cts</th>
-                            <th className="p-2 border border-gray-300 text-left">Invoice Total</th>
-                            <th className="p-2 border border-gray-300 text-left">Total Amt $</th>
-                            <th className="p-2 border border-gray-300 text-left">Inv Report</th>
-                            <th className="p-2 border border-gray-300 text-left">Memo Report</th>
-                            {/* <th className="p-2 border border-gray-300 text-left">Trans Type</th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data?.map((row, index) => (
-                            <tr key={index} className="hover:bg-gray-50">
-                                <td className="p-2 border border-gray-300">{index + 1}</td>
-                                <td className="p-2 border border-gray-300">{row?.FL_BILL_NO}</td>
-                                {/* <td className="p-2 border border-gray-300">{formatDate(row.FL_TRANS_DATE)}</td> */}
-                                {/* <td className="p-2 border border-gray-300">{row?.TERM_NAME}</td> */}
-                                <td className="p-2 border border-gray-300">{calculateDays(row.FL_TRANS_DATE)}</td>
-                                <td className="p-2 border border-gray-300">{row?.USERID}</td>
-                                <td className="p-2 border border-gray-300">{row?.PARTY_NAME}</td>
-                                <td className="p-2 border border-gray-300">{row?.PCS}</td>
-                                <td className="p-2 border border-gray-300">{row?.CTS?.toFixed(2)}</td>
-                                <td className="p-2 border border-gray-300">{row?.INV_AMT?.toFixed(2)}</td>
-                                <td className="p-2 border border-gray-300">{row?.INV_AMT?.toFixed(2)}</td>
-                                <td className="p-2 border border-gray-300">{row?.INV_TYPE}</td>
-                                <td className="p-2 border border-gray-300">{row?.memoReport}</td>
-                                {/* <td className="p-2 border border-gray-300">{row?.TRANS_TYPE}</td> */}
-                            </tr>
-                        ))}
-                        <tr className="bg-[#C19A6B] text-black font-bold">
-                            <td colSpan={5} className="p-2 border border-gray-300 text-left">Total</td>
-                            <td className="p-2 border border-gray-300">{totals?.pcs}</td>
-                            <td className="p-2 border border-gray-300">{totals?.cts?.toFixed(2)}</td>
-                            <td className="p-2 border border-gray-300">{totals?.invoiceTotal?.toFixed(2)}</td>
-                            <td className="p-2 border border-gray-300">{totals?.totalAmtS?.toFixed(2)}</td>
-                            <td colSpan={3} className="p-2 border border-gray-300"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
-            {/* <div style={{ ...styles.bottomSections }}>
+
+
+
+return (
+
+    <Layout headerStyle={2} footerStyle={1}>
+        <div className="w-full overflow-x-auto " style={{ marginBottom: '30px', overflow: 'overlay', marginTop: '65px' }}>
+            <table className="w-full border-collapse">
+                <thead>
+                    <tr className="bg-[#C19A6B] text-black" style={{ backgroundColor: 'rgb(201 177 138)' }}>
+                        <th className="p-2 border border-gray-300 text-left">No</th>
+                        <th className="p-2 border border-gray-300 text-left">OrderNo</th>
+                        {/* <th className="p-2 border border-gray-300 text-left">Date</th> */}
+                        {/* <th className="p-2 border border-gray-300 text-left">Memo Terms</th> */}
+                        <th className="p-2 border border-gray-300 text-left">No. Of Days</th>
+                        <th className="p-2 border border-gray-300 text-left">CreatedBy</th>
+                        <th className="p-2 border border-gray-300 text-left">Customer Name</th>
+                        <th className="p-2 border border-gray-300 text-left">Pcs</th>
+                        <th className="p-2 border border-gray-300 text-left">Cts</th>
+                        <th className="p-2 border border-gray-300 text-left">Invoice Total</th>
+                        <th className="p-2 border border-gray-300 text-left">Total Amt $</th>
+                        <th className="p-2 border border-gray-300 text-left">Inv Report</th>
+                        <th className="p-2 border border-gray-300 text-left">Memo Report</th>
+                        {/* <th className="p-2 border border-gray-300 text-left">Trans Type</th> */}
+                    </tr>
+                </thead>
+                <tbody>
+                    {data?.map((row, index) => (
+                        <tr key={index} className="hover:bg-gray-50">
+                            <td className="p-2 border border-gray-300">{index + 1}</td>
+                            <td className="p-2 border border-gray-300">{row?.FL_BILL_NO}</td>
+                            {/* <td className="p-2 border border-gray-300">{formatDate(row.FL_TRANS_DATE)}</td> */}
+                            {/* <td className="p-2 border border-gray-300">{row?.TERM_NAME}</td> */}
+                            <td className="p-2 border border-gray-300">{calculateDays(row.FL_TRANS_DATE)}</td>
+                            <td className="p-2 border border-gray-300">{row?.USERID}</td>
+                            <td className="p-2 border border-gray-300">{row?.PARTY_NAME}</td>
+                            <td className="p-2 border border-gray-300">{row?.PCS}</td>
+                            <td className="p-2 border border-gray-300">{row?.CTS?.toFixed(2)}</td>
+                            <td className="p-2 border border-gray-300">{row?.INV_AMT?.toFixed(2)}</td>
+                            <td className="p-2 border border-gray-300">{row?.INV_AMT?.toFixed(2)}</td>
+                            <td className="p-2 border border-gray-300">{row?.INV_TYPE}</td>
+                            <td className="p-2 border border-gray-300">{row?.memoReport}</td>
+                            {/* <td className="p-2 border border-gray-300">{row?.TRANS_TYPE}</td> */}
+                        </tr>
+                    ))}
+                    <tr className="bg-[#C19A6B] text-black font-bold">
+                        <td colSpan={5} className="p-2 border border-gray-300 text-left">Total</td>
+                        <td className="p-2 border border-gray-300">{totals?.pcs}</td>
+                        <td className="p-2 border border-gray-300">{totals?.cts?.toFixed(2)}</td>
+                        <td className="p-2 border border-gray-300">{totals?.invoiceTotal?.toFixed(2)}</td>
+                        <td className="p-2 border border-gray-300">{totals?.totalAmtS?.toFixed(2)}</td>
+                        <td colSpan={3} className="p-2 border border-gray-300"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        {/* <div style={{ ...styles.bottomSections }}>
                 <div style={styles.section}>
                     <h2 style={styles.heading}>Join!</h2>
                     <p>Receive our latest offers, news, updates and promotions straight to your inbox. Just enter your email address to join our world of diamonds!</p>
@@ -318,8 +290,8 @@ const InvoiceTable = () => {
                     </div>
                 </div>
             </div> */}
-        </Layout>
-    );
+    </Layout>
+);
 };
 
 export default InvoiceTable;

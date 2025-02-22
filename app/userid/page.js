@@ -113,12 +113,22 @@ const styles = {
 export default function Home() {
     const [fromDate, setFromDate] = useState(moment());
     const [toDate, setToDate] = useState(moment().add(5, 'days'));
-    const [clientName, setClientName] = useState('Kripal');
+    const [clientName, setClientName] = useState('');
     const [status, setStatus] = useState([]);
 
     useEffect(() => {
         console.log('status', status);
     }, [status])
+
+    useEffect(() => {
+        const user = localStorage.getItem('user') || sessionStorage.getItem('user');
+        // const branchescode = localStorage.getItem('branches') || sessionStorage.getItem('branches')
+        if (user) {
+            // setCompany(JSON.parse(branchescode)[0].FL_COMPANY_CODE);
+            // console.log('user.FL_USER_NAME',JSON.parse(user)?.FL_USER_NAME)
+            setClientName(JSON.parse(user)?.FL_USER_NAME)
+        }
+    }, [])
 
     const handleSubmit = () => {
         const payload = {
@@ -170,7 +180,7 @@ export default function Home() {
                                                         <div className="left-name"> Customer/Vendor Account </div>
                                                     </div>
                                                     <div className="col-xl-8">
-                                                        <div className="text-start"> krigel</div>
+                                                        <div className="text-start">{clientName}</div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -189,67 +199,7 @@ export default function Home() {
                                         </div>
                                     </form>
                                 </div>
-                                <div className="main-box-change mt-5">
-                                    <div><h5>New User Password</h5></div>
-                                    <form id="contact-form" className="default-form2 contact-form-validated">
-                                        <ul>
-                                            <li>
-                                                <div className="row">
-                                                    <div className="col-xl-4">
-                                                        <div className="left-name">User Name:</div>
-                                                    </div>
-                                                    <div className="col-xl-8">
-                                                        <div className="text-start"> krigel</div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div className="row">
-                                                    <div className="col-xl-4">
-                                                        <div className="left-name">Old Password</div>
-                                                    </div>
-                                                    <div className="col-xl-8">
-                                                        <input type="password" placeholder="Type Old Password" id="pass" name="pass" />
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div className="row">
-                                                    <div className="col-xl-4">
-                                                        <div className="left-name">Password</div>
-                                                    </div>
-                                                    <div className="col-xl-8">
-                                                        <input type="password" placeholder="Type Password" id="repass" name="repass" />
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div className="row">
-                                                    <div className="col-xl-4">
-                                                        <div className="left-name">Retype Password</div>
-                                                    </div>
-                                                    <div className="col-xl-8">
-                                                        <input type="password" placeholder="Type Retype Password" id="repass" name="repass" />
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div className="col-12 mb-3 mt-3">
-                                            <div className="mainbtn">
-                                                <button className="button">
-                                                    <div className="backdrop">
-                                                        <span>Change
-                                                            Password</span>
-                                                    </div>
-                                                    <div className="overlay">
-                                                        <span>Change
-                                                            Password</span>
-                                                    </div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+
                             </div>
                         </div>
                     </div>

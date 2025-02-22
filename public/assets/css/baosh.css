@@ -2277,7 +2277,7 @@ Main Header One
 }
 
 .main-menu-one .auto-container {
-  max-width: 1800px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -2420,7 +2420,7 @@ Main Header One
 }
 
 .stricky-header--one.stricky-header .main-menu__wrapper .auto-container {
-  max-width: 1630px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -2443,7 +2443,7 @@ Main Header Two
 
 .main-header-two .main-menu-one .auto-container,
 .auto-container {
-  max-width: 1630px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -2522,8 +2522,8 @@ Main Header Two
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 20px;
-  width: 20px;
+  height: 15px;
+  width: 15px;
   background-color: #fff;
   border: 1px solid #333;
   transition: background-color 0.25sease;
@@ -2539,10 +2539,10 @@ Main Header Two
 .checkbox.style-a .checkbox__checkmark:after {
   content: "";
   position: absolute;
-  left: 6px;
+  left: 4px;
   top: 1px;
   width: 6px;
-  height: 12px;
+  height: 10px;
   border: 0px solid #c29958;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
@@ -2584,7 +2584,7 @@ Main Header Two
   padding-right: 5px;
   text-align: center;
   cursor: pointer;
-  min-width: 80px;
+  width: 100%;
 }
 
 .main-header-two .main-menu__wrapper-inner {
@@ -2673,7 +2673,7 @@ Main Slider One
 }
 
 .main-slider-one .auto-container {
-  max-width: 1650px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -3019,7 +3019,7 @@ Main Slider Two
 }
 
 .main-slider-two .auto-container {
-  max-width: 1630px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -3362,7 +3362,7 @@ Brand One
 }
 
 .brand-one .auto-container {
-  max-width: 1630px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -3752,7 +3752,7 @@ Counter One
 }
 
 .counter-one .auto-container {
-  max-width: 1630px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -5045,7 +5045,7 @@ Slogan One
 }
 
 .slogan-one .auto-container {
-  max-width: 1630px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -5715,7 +5715,7 @@ Counter Two
 }
 
 .counter-two .auto-container {
-  max-width: 1630px;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -9477,7 +9477,7 @@ select:focus {
 
 .checkbox-group {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
@@ -9486,7 +9486,7 @@ select:focus {
 .main-box {
   padding: 10px;
   border: 1px solid #a9a9a9;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
 }
 
 .team-carousel-page__inner {
