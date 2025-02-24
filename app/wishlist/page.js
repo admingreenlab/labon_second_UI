@@ -5,6 +5,8 @@ import Table from 'react-bootstrap/Table'
 import Pagination from 'react-bootstrap/Pagination';
 import Layout from "../../components/layout/Layout"
 import Axios from "@/components/auth/axios";
+import withAuth from "@/components/auth/withAuth";
+import { getEventBus } from "@/components/utils/EventBus";
 function Demo() {
     const [selectedRows, setSelectedRows] = useState([]);
     const [sortBy, setSortBy] = useState("");
@@ -15,12 +17,21 @@ function Demo() {
     const [clientName, setClientName] = useState('');
 
 
-    useEffect(() => {
-        const fetchdata = async () => {
-            const watchlist = localStorage.getItem('watchlist');
-            setData(JSON.parse(watchlist));
+    const fetchData = async () => {
+        try {
+            const response = await Axios.get('user/watchlist');
+
+            if (response.status === 200) {
+                setData(response?.data?.data); // Update state only if the component is still mounted
+            }
         }
-        fetchdata();
+        catch (err) {
+            console.log("Failed to fetch data. Please try again."); // Set error state
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
     }, []);
 
 
@@ -87,11 +98,12 @@ function Demo() {
 
     const totals = {
         CARATS: data?.reduce((sum, row) => sum + row.CARATS, 0),
-        ASK_DISC: data?.reduce((sum, row) => sum + row.ASK_DISC, 0),
-        pricects: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+        ASK_DISC: data?.reduce((sum, row) => sum + (row.ASK_DISC / data.length), 0),
+        // pricects: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+        pricects: data?.length > 0 ?
+        data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * (row.CARATS), 0) /
+        data?.reduce((sum, row) => sum + row.CARATS, 0) : 0,
         amount: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS, 0),
-        // {(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100)}
-        // {(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS}
     };
 
     const handleaddBasket = async () => {
@@ -102,7 +114,9 @@ function Demo() {
                 stype: 'POLISH-SINGLE'
             })
             if (response.status === 200) {
-                window.alert('Added to basket')
+                const eventBus = getEventBus();
+                eventBus.emit("basketUpdated");
+                window.alert('Added to basket');
             }
         } catch (error) {
             console.error("error to handle basket", error)
@@ -256,7 +270,7 @@ function Demo() {
                                     <th>{totals.CARATS?.toFixed(2)}</th>
                                     <th colSpan={10}></th>
                                     <th></th>
-                                    <th>{totals.ASK_DISC}</th>
+                                    <th>{totals.ASK_DISC?.toFixed(2)}</th>
                                     <th>{totals.pricects?.toFixed(2)}</th>
                                     <th>{totals.amount?.toFixed(2)}</th>
                                     <th></th>
@@ -290,4 +304,4 @@ function Demo() {
     );
 }
 
-export default Demo;
+export default withAuth(Demo);

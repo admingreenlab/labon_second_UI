@@ -6,6 +6,8 @@ import Pagination from 'react-bootstrap/Pagination';
 import Layout from "@/components/layout/Layout"
 import Axios, { baseURL } from "@/components/auth/axios";
 import * as XLSX from 'xlsx';
+import withAuth from "@/components/auth/withAuth";
+import { getEventBus } from "@/components/utils/EventBus";
 
 
 const styles = {
@@ -119,8 +121,9 @@ function Basket() {
     const [company, setCompany] = useState('');
     const [data, setData] = useState([]);
 
-    const [selectedtotals, setSelectedTotals] = useState({})
-        ;
+    const [selectedtotals, setSelectedTotals] = useState({});
+    const [count, setcount] = useState([]);
+    ;
     useEffect(() => {
         console.log('selectedRows', selectedRows)
     }, [selectedRows])
@@ -180,6 +183,7 @@ function Basket() {
             });
 
             if (response.status === 200) {
+                setcount(response.data.count);
                 setData(response?.data?.data); // Update state only if the component is still mounted
             }
         }
@@ -197,8 +201,11 @@ function Basket() {
             pcs: selectedRows.length,
             CARATS: selectedRows?.reduce((sum, row) => sum + row.CARATS, 0),
             RAP: selectedRows?.reduce((sum, row) => sum + row.RAP_PRICE, 0),
-            ASK_DISC: selectedRows?.reduce((sum, row) => sum + row.ASK_DISC, 0),
-            pricects: selectedRows?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+            ASK_DISC: selectedRows?.reduce((sum, row) => sum + (row.ASK_DISC / selectedRows.length), 0),
+            // pricects: selectedRows?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+            pricects: selectedRows?.length > 0 ?
+                selectedRows?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * (row.CARATS), 0) /
+                selectedRows?.reduce((sum, row) => sum + row.CARATS, 0) : 0,
             amount: selectedRows?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS, 0),
         };
 
@@ -209,8 +216,11 @@ function Basket() {
 
     const totals = {
         CARATS: data?.reduce((sum, row) => sum + row.CARATS, 0),
-        ASK_DISC: data?.reduce((sum, row) => sum + row.ASK_DISC, 0),
-        pricects: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+        ASK_DISC: data?.reduce((sum, row) => sum + (row.ASK_DISC / data.length), 0),
+        // pricects: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+        pricects: data?.length > 0 ?
+            data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * (row.CARATS), 0) /
+            data?.reduce((sum, row) => sum + row.CARATS, 0) : 0,
         amount: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS, 0),
     };
 
@@ -222,6 +232,8 @@ function Basket() {
                 stone_id: selectedRows.map(row => row.STONE),
             })
             if (response.status === 200) {
+                const eventBus = getEventBus();
+                eventBus.emit("basketUpdated");
                 window.alert('Remove from basket successfully');
                 fetchData()
             }
@@ -406,7 +418,7 @@ function Basket() {
                                     <th>{totals.CARATS?.toFixed(2)}</th>
                                     <th colSpan={10}></th>
                                     <th></th>
-                                    <th>{totals.ASK_DISC}</th>
+                                    <th>{count[0]?.AVG?.toFixed(2)}</th>
                                     <th>{totals.pricects?.toFixed(2)}</th>
                                     <th>{totals.amount?.toFixed(2)}</th>
                                     <th></th>
@@ -422,4 +434,4 @@ function Basket() {
     );
 }
 
-export default Basket;
+export default withAuth(Basket);

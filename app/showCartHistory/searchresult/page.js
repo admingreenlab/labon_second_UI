@@ -3,6 +3,7 @@ import Axios from '@/components/auth/axios';
 import Layout from '../../../components/layout/Layout';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import withAuth from '@/components/auth/withAuth';
 
 
 const styles = {
@@ -294,4 +295,4 @@ return (
 );
 };
 
-export default InvoiceTable;
+export default withAuth(InvoiceTable);

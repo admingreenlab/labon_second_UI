@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Table from 'react-bootstrap/Table'
 import Link from "next/link"
@@ -8,6 +8,8 @@ import Layout from "../../../components/layout/Layout"
 import { SearchContext } from "@/components/context/SearchContext";
 import Axios, { baseURL } from "@/components/auth/axios";
 import * as XLSX from 'xlsx';
+import withAuth from "@/components/auth/withAuth";
+import { getEventBus } from "@/components/utils/EventBus";
 
 
 const styles = {
@@ -114,45 +116,38 @@ const styles = {
     },
 };
 function Basket() {
-    const { searchState } = useContext(SearchContext);
+
+    const { searchState, clearSearchState } = useContext(SearchContext);
     const [hoveredRow, setHoveredRow] = useState(null);
     const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
     const [selectedRows, setSelectedRows] = useState([]);
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState("asc");
     const [data, setData] = useState([]);
-
-    // const totalRecords = 33070; // Total number of records
-    const [pageSize, setPageSize] = useState(100); // Default page size
+    const [pageSize, setPageSize] = useState(100);
     const [currentPage, setCurrentPage] = useState(1);
-
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        console.log('selectedRows', selectedRows, selectedRows.length)
-    }, [selectedRows])
+    const hasFetched = useRef(false);
 
     useEffect(() => {
-        const fetchdata = async () => {
-            setLoading(true);
-            try {
-                const response = await Axios.post('/search/stoneUser', JSON.stringify(searchState));
-
-
-                if (response.status === 200) {
+        if (!hasFetched.current) {
+            hasFetched.current = true;
+            const fetchdata = async () => {
+                setLoading(true);
+                try {
+                    const response = await Axios.post('/search/stoneUser', JSON.stringify(searchState));
                     setData(response.data.result);
-                    console.log('search seuccess', response.data)
-                } else {
-                    console.log(data.message || 'Registration failed');
+                } catch (err) {
+                    console.error(err);
+                } finally {
+                    setLoading(false);
                 }
-            } catch (err) {
-                console.log('An error occurred. Please try again.', err);
-            } finally {
-                setLoading(false);
-            }
+            };
+            fetchdata();
         }
-        fetchdata();
-    }, [searchState])
+    }, [searchState]);
+
 
 
     const handleRowSelect = (item) => {
@@ -209,34 +204,52 @@ function Basket() {
 
     const totals = {
         CARATS: data?.reduce((sum, row) => sum + row.CARATS, 0),
-        ASK_DISC: data?.reduce((sum, row) => sum + row.ASK_DISC, 0),
-        pricects: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+        ASK_DISC: data?.reduce((sum, row) => sum + (row.ASK_DISC / data.length), 0),
+        // pricects: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
+        pricects: data?.length > 0 ?
+            data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * (row.CARATS), 0) /
+            data?.reduce((sum, row) => sum + row.CARATS, 0) : 0,
         amount: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS, 0),
         // {(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100)}
         // {(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS}
     };
 
 
-    const handleaddwatchlist = () => {
+    const handleaddwatchlist = async () => {
         if (selectedRows?.length < 1) {
             window.alert('Please select stone to add watchlist')
         } else {
 
-            const existingWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+            // const existingWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
 
-            // Filter out rows that are already in the watchlist (based on stoneId)
-            const uniqueSelectedRows = selectedRows.filter(row =>
-                !existingWatchlist.some(existingRow => existingRow.STONE === row.STONE)
-            );
+            // // Filter out rows that are already in the watchlist (based on stoneId)
+            // const uniqueSelectedRows = selectedRows.filter(row =>
+            //     !existingWatchlist.some(existingRow => existingRow.STONE === row.STONE)
+            // );
 
-            // Combine existing watchlist with new rows
-            const updatedWatchlist = [...existingWatchlist, ...uniqueSelectedRows];
+            // // Combine existing watchlist with new rows
+            // const updatedWatchlist = [...existingWatchlist, ...uniqueSelectedRows];
 
-            // Save the updated watchlist back to localStorage
-            localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
+            // // Save the updated watchlist back to localStorage
+            // localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
 
-            window.alert('stones added to watch');
+            // window.alert('stones added to watch');
 
+            const users = localStorage.getItem('user') || sessionStorage.getItem('user')
+            const FL_COID = JSON.parse(users).FL_COID
+
+            try {
+                const response = await Axios.post('user/watchlist/add', {
+                    lotIds: selectedRows.map(row => row.STONE),
+                    inventoryType: 'POLISH-SINGLE',
+                    coid: FL_COID
+                })
+                if (response.status === 200) {
+                    window.alert('Added to watchlist');
+                }
+            } catch (error) {
+                console.error("error to handle basket", error)
+            }
         }
     }
 
@@ -249,6 +262,8 @@ function Basket() {
                 stype: 'POLISH-SINGLE'
             })
             if (response.status === 200) {
+                const eventBus = getEventBus();
+                eventBus.emit("basketUpdated");
                 window.alert('Added to basket')
             }
         } catch (error) {
@@ -737,4 +752,4 @@ function Basket() {
     );
 }
 
-export default Basket;
+export default withAuth(Basket);

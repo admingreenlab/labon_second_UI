@@ -2,8 +2,9 @@
 import Link from "next/link"
 import Layout from "@/components/layout/Layout"
 import PolishSinglesearch from "../home-2/home"
+import withAuth from "@/components/auth/withAuth"
 
-export default function Home() {
+const Home = () => {
 
     return (
         <>
@@ -31,3 +32,5 @@ export default function Home() {
         </>
     )
 }
+
+export default withAuth(Home);

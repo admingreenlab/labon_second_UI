@@ -2,8 +2,9 @@
 import Axios from "@/components/auth/axios";
 import Layout from "../../components/layout/Layout";
 import React, { useState } from 'react';
+import withAuth from "@/components/auth/withAuth";
 
-export default function Home() {
+const Home = () => {
     const [formData, setFormData] = useState({
         oldPassword: '',
         newPassword: '',
@@ -54,7 +55,7 @@ export default function Home() {
             }
         } catch (err) {
             // if (response.data.message === "Old password is incorrect") {
-                // setError("Old password is incorrect");
+            // setError("Old password is incorrect");
             // console.error(err);
             setError(err.response.data.message);
             setSuccess('');
@@ -163,3 +164,5 @@ export default function Home() {
         </>
     );
 }
+
+export default withAuth(Home);

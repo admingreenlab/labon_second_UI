@@ -7,6 +7,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment from 'moment';
 import { redirect, useRouter } from 'next/navigation';
 import Axios from '@/components/auth/axios';
+import withAuth from '@/components/auth/withAuth';
 // import { useNavigate } from 'react-router-dom';
 
 const styles = {
@@ -345,4 +346,4 @@ const WebOrderHistory = () => {
     );
 };
 
-export default WebOrderHistory;
+export default withAuth(WebOrderHistory);
