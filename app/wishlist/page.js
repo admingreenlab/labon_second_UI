@@ -107,19 +107,23 @@ function Demo() {
     };
 
     const handleaddBasket = async () => {
-        try {
-            const response = await Axios.post('user/userbasket', {
-                type: 'I',
-                stone_id: selectedRows,
-                stype: 'POLISH-SINGLE'
-            })
-            if (response.status === 200) {
-                const eventBus = getEventBus();
-                eventBus.emit("basketUpdated");
-                window.alert('Added to basket');
+        if(selectedRows.length > 0){
+            try {
+                const response = await Axios.post('user/userbasket', {
+                    type: 'I',
+                    stone_id: selectedRows,
+                    stype: 'POLISH-SINGLE'
+                })
+                if (response.status === 200) {
+                    const eventBus = getEventBus();
+                    eventBus.emit("basketUpdated");
+                    window.alert('Added to basket');
+                }
+            } catch (error) {
+                console.error("error to handle basket", error)
             }
-        } catch (error) {
-            console.error("error to handle basket", error)
+        }else{
+            window.alert('please select stone')
         }
     }
 
