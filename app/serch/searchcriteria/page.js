@@ -10,6 +10,9 @@ import Axios, { baseURL } from "@/components/auth/axios";
 import * as XLSX from 'xlsx';
 import withAuth from "@/components/auth/withAuth";
 import { getEventBus } from "@/components/utils/EventBus";
+import Image from "next/image";
+import Loader from '@/public/assets/images/loader/Ellipsis@1x-1.3s-200px-200px.svg';
+
 
 
 const styles = {
@@ -148,6 +151,86 @@ function Basket() {
         }
     }, [searchState]);
 
+    const transformData = (data) => {
+        const csvData = data?.map((item) => ({
+            'Stock #': item.STONE,
+            Shape: item.SHAPE,
+            Color: item.COLOR,
+            Clarity: item.CLARITY,
+            Carat: item.CARATS,
+            Lab: item.LAB,
+            'Certification #': item.REPORTNO,
+            'Cut Grade': item.CUT,
+            Polish: item.POLISH,
+            Symmetry: item.SYMM,
+            '%Off': item.ASK_DISC,
+            'Price/Ct': item.RAP_PRICE,
+            'Total Price': ((item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS, 0),
+            // data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS, 0),
+            Fluor: item.FL_BRID,
+            Location: 'NEW YORK', // Default value as per your example
+            Measurement: item.FL_MEASUREMENTS,
+            Length: parseFloat(item.FL_MEASUREMENTS.split(' ')[0]),
+            Width: parseFloat(item.FL_MEASUREMENTS.split(' ')[2]),
+            Depth: parseFloat(item.FL_MEASUREMENTS.split(' ')[4]),
+            Ratio: item.FL_RATIO || '', // If FL_RATIO is null, set to empty string
+            'Depth%': item.FL_DEPTH_PER,
+            'Table %': item.FL_TABLE_PER,
+            'Girdle Thin': '', // Not available in API response
+            'Girdle Thick': '', // Not available in API response
+            'Crown Height': '', // Not available in API response
+            'Crown Angle': '', // Not available in API response
+            'Pavillion Depth': '', // Not available in API response
+            'Pavillion Angle': '', // Not available in API response
+            Culet: '', // Not available in API response
+            'Seller Comment': 'This Laboratory grown diamond was created by chemical vapor deposition process (CVD) Type IIa', // Default value as per your example
+            'Video URL': `https://v360.in/MKExport/vision360.html?d=${item.STONE}&z=1&surl`,
+            'Image URL': `https://s7.v360.in/images/company/216/imaged/${item.STONE}/still.jpg`,
+            'Certificate Image URL': `https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`
+        }));
+
+        return csvData;
+    };
+
+    const convertToCSV = (data) => {
+        if (!Array.isArray(data) || data.length === 0) return '';
+
+        // Extract headers (keys of the first object)
+        const headers = Object.keys(data[0]);
+
+        // Convert each row to a CSV line
+        const rows = data.map((row) =>
+            headers.map((header) => `"${row[header] ?? ''}"`).join(',')
+        );
+
+        // Combine headers and rows
+        return [headers.join(','), ...rows].join('\n');
+    };
+
+    // Function to trigger CSV download
+    const downloadCSV = (csvData, fileName = 'data.csv') => {
+        const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+
+        link.setAttribute('href', url);
+        link.setAttribute('download', fileName);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const handledownload = () => {
+        const transformedData = transformData(data);
+
+        // Convert the transformed data to CSV format
+        const csvData = convertToCSV(transformedData);
+
+        // Download the CSV file
+        downloadCSV(csvData, 'diamond_data.csv');
+        console.log(transformedData);
+    }
 
 
     const handleRowSelect = (item) => {
@@ -496,8 +579,8 @@ function Basket() {
                     </div>
 
                     {loading && (
-                        <div style={styles.loader}>
-                            Loading...
+                        <div style={{ display: 'flex', height: '100vh', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                            <Image width='100' height='100' src={Loader} alt={"loading"} />
                         </div>
                     )}
                     {/* <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex', gap: "10px" }}>

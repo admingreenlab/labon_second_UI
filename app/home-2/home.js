@@ -39,6 +39,8 @@ const DiamondFilter = () => {
     const [data, setData] = useState();
     const [isOpen, setIsOpen] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     const [error, setError] = useState(false);
 
     const [isAdvanceSearchOpen, setIsAdvanceSearchOpen] = useState(false);
@@ -169,6 +171,7 @@ const DiamondFilter = () => {
 
 
     const handleSubmit = async () => {
+        setLoading(true);
 
         const payload = {
             CLARITY: selectedOptions.Clarity || [],
@@ -217,6 +220,7 @@ const DiamondFilter = () => {
                 console.log('search seuccess', response.data)
                 setIsOpen(false);
                 setRemark('');
+                setLoading(false)
             } else {
                 console.log(data.message || 'failed');
             }
@@ -229,6 +233,7 @@ const DiamondFilter = () => {
 
 
     const handlesearch = async () => {
+        setLoading(true);
         const payload = {
             CLARITY: selectedOptions.Clarity || [],
             COLOR: selectedOptions.Color || [],
@@ -266,7 +271,10 @@ const DiamondFilter = () => {
 
         setSearchState(cleanPayload);
 
+        setLoading(false)
+
         router.push(`/serch/searchcriteria`)
+
 
         // try {
         //     const response = await Axios.post('/search/stoneUser', JSON.stringify(cleanPayload));
@@ -673,10 +681,10 @@ const DiamondFilter = () => {
                     <div className="mainbtn">
                         <span className="button" onClick={handlesearch}>
                             <div className="backdrop">
-                                <button style={{ color: 'white' }}>Search</button>
+                                <button style={{ color: 'white' }}>{loading ? 'Searching...' : 'Search'}</button>
                             </div>
                             <div className="overlay">
-                                <button style={{ color: 'white' }}>Search</button>
+                                <button style={{ color: 'white' }}>{loading ? 'Searching...' : 'Search'}</button>
                             </div>
                         </span>
                         <span className="button" onClick={handleAdvanceSearchClick}>
@@ -733,7 +741,7 @@ const DiamondFilter = () => {
                         {/* Modal Footer */}
                         <div className="modal-footer">
                             <button onClick={() => setIsOpen(false)} className="cancel-btn">Cancel</button>
-                            <button onClick={handleSubmit} className="submit-btn">Submit</button>
+                            <button onClick={handleSubmit} className="submit-btn">{loading ? "Submiting...":"Submit"}</button>
                         </div>
                     </div>
                 </div>

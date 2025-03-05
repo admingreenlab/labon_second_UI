@@ -21,12 +21,25 @@ Axios.interceptors.request.use(
     if (branchescode) {
       config.headers.ccode = JSON.parse(branchescode)[0].FL_COMPANY_CODE;
     }
-    return config;
+    return (config);
   },
   (error) => {
+    return Promise.reject('errr', error);
+  }
+);
+
+Axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 403) {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "/login";
+    }
     return Promise.reject(error);
   }
 );
+
 
 
 export const setAuthToken = (data, isRememberMe) => {
@@ -38,10 +51,12 @@ export const setAuthToken = (data, isRememberMe) => {
       localStorage.setItem("token", data.token); // Store in localStorage for long-term
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("branches", JSON.stringify(data.branches));
+      sessionStorage.clear();
     } else {
       sessionStorage.setItem("token", data.token); // Store in sessionStorage for session-only
       sessionStorage.setItem("user", JSON.stringify(data.user));
       sessionStorage.setItem("branches", JSON.stringify(data.branches));
+      localStorage.clear();
     }
 
 

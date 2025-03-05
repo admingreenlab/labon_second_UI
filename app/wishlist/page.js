@@ -7,6 +7,10 @@ import Layout from "../../components/layout/Layout"
 import Axios from "@/components/auth/axios";
 import withAuth from "@/components/auth/withAuth";
 import { getEventBus } from "@/components/utils/EventBus";
+import Loader from '@/public/assets/images/loader/Ellipsis@1x-1.3s-200px-200px.svg';
+import Image from "next/image";
+
+
 function Demo() {
     const [selectedRows, setSelectedRows] = useState([]);
     const [sortBy, setSortBy] = useState("");
@@ -16,13 +20,17 @@ function Demo() {
     const [data, setData] = useState([]);
     const [clientName, setClientName] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
 
     const fetchData = async () => {
+        setLoading(true)
         try {
             const response = await Axios.get('user/watchlist');
 
             if (response.status === 200) {
                 setData(response?.data?.data); // Update state only if the component is still mounted
+                setLoading(false)
             }
         }
         catch (err) {
@@ -101,13 +109,13 @@ function Demo() {
         ASK_DISC: data?.reduce((sum, row) => sum + (row.ASK_DISC / data.length), 0),
         // pricects: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100), 0),
         pricects: data?.length > 0 ?
-        data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * (row.CARATS), 0) /
-        data?.reduce((sum, row) => sum + row.CARATS, 0) : 0,
+            data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * (row.CARATS), 0) /
+            data?.reduce((sum, row) => sum + row.CARATS, 0) : 0,
         amount: data?.reduce((sum, row) => sum + (row.RAP_PRICE * (100 - Number(row.ASK_DISC)) / 100) * row.CARATS, 0),
     };
 
     const handleaddBasket = async () => {
-        if(selectedRows.length > 0){
+        if (selectedRows.length > 0) {
             try {
                 const response = await Axios.post('user/userbasket', {
                     type: 'I',
@@ -117,15 +125,52 @@ function Demo() {
                 if (response.status === 200) {
                     const eventBus = getEventBus();
                     eventBus.emit("basketUpdated");
+
+                    try {
+                        const response = await Axios.delete('user/watchlist/remove', {
+                            params: {
+                                lotId: selectedRows.join(',')
+                            }
+                        });
+                        if (response.status === 200) {
+                            console.log('removed')
+                        }
+                    } catch (error) {
+                        console.error("Error removing from watchlist", error);
+                        // setToastMessage(error.response.data);
+                        // setShowToast(true);
+                        window.alert('error while remove from watchlist');
+                    }
+
                     window.alert('Added to basket');
+                    setSelectedRows([]);
+                    fetchData();
                 }
             } catch (error) {
                 console.error("error to handle basket", error)
             }
-        }else{
+        } else {
             window.alert('please select stone')
         }
     }
+
+
+    const handleClearWatchlist = async () => {
+        if (selectedRows?.length === data?.length) {
+            try {
+                const response = await Axios.delete('user/watchlist/clear');
+                if (response.status === 200) {
+                    setSelectedRows([]);
+                    fetchData()
+                }
+            } catch (error) {
+                console.error("Error removing from watchlist", error);
+              
+            }
+        } else {
+            window.alert('Please select all StoneIds to clear the watchlist');
+        }
+    };
 
     return (
         <>
@@ -154,6 +199,16 @@ function Demo() {
                                     <span>Add to Basket</span>
                                 </div>
                             </button>
+
+                            <button className="button" onClick={handleClearWatchlist}>
+                                <div className="backdrop">
+                                    <span>Clear Watch List</span>
+                                </div>
+                                <div className="overlay">
+                                    <span>Clear Watch List</span>
+                                </div>
+                            </button>
+
                         </div>
                         <div style={{ marginBottom: '10px', marginLeft: 'auto' }}>
                             <label style={{ fontWeight: '300' }}> Available: </label>
@@ -162,12 +217,20 @@ function Demo() {
                             <button style={{ fontWeight: '300', padding: '0px 7px', marginRight: '5px', border: '1px solid #b89154', color: '#fff', background: '#b89154', borderRadius: "3px", marginLeft: "3px" }}> M </button>
                         </div>
                     </div>
-                    <div className="table-responsive pt-10" >
-                        <Table striped bordered hover style={{ width: '100%' }} >
-                            <thead className="tablecss" >
-                                <tr>
-                                    <th>
-                                        {/* <input type="checkbox"
+                    {loading && (
+                        <div style={{ display: 'flex', height: '100vh', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                            <Image width='100' height='100' src={Loader} alt={"loading"} />
+                        </div>
+                    )}
+                    {
+                        !loading && (
+                            <>
+                                <div className="table-responsive pt-10" >
+                                    <Table striped bordered hover style={{ width: '100%' }} >
+                                        <thead className="tablecss" >
+                                            <tr>
+                                                <th>
+                                                    {/* <input type="checkbox"
                                             onChange={() => {
                                                 if (selectedRows.length === data.length) {
                                                     setSelectedRows([]);
@@ -177,131 +240,134 @@ function Demo() {
                                             }}
                                             checked={selectedRows.length === data.length}
                                         /> */}
-                                        <label className="checkbox style-a">
-                                            <input type="checkbox"
-                                                onChange={() => {
-                                                    if (selectedRows?.length === data?.length) {
-                                                        setSelectedRows([]);
-                                                    } else {
-                                                        setSelectedRows(data?.map(item => item.STONE));
-                                                    }
-                                                }}
-                                                checked={selectedRows?.length === data?.length}
-                                            />
-                                            <div className="checkbox__checkmark"></div>
-                                        </label>
-                                    </th>
-                                    {/* <th>SrNo</th> */}
-                                    <th>Status</th>
-                                    <th>StoneId</th>
-                                    <th onClick={() => handleSort("LAB")}> Lab {sortBy === "LAB" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th>Report No</th>
-                                    <th onClick={() => handleSort("SHAPE")}>
-                                        Shape {sortBy === "SHAPE" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}
-                                    </th>
-                                    <th onClick={() => handleSort("CARATS")}>
-                                        Carats {sortBy === "CARATS" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("COLOR")}>
-                                        Color {sortBy === "COLOR" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("CLARITY")}>
-                                        Clarity {sortBy === "CLARITY" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("CUT")}>
-                                        Cut{sortBy === "CUT" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("POLISH")}>
-                                        Polish{sortBy === "POLISH" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th onClick={() => handleSort("SYMM")}>
-                                        Symm{sortBy === "SYMM" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                    <th>Measurements</th>
-                                    <th>Table %</th>
-                                    <th>Depth %</th>
-                                    <th>Ratio</th>
-                                    <th>H&A</th>
-                                    <th>RapPrice</th>
-                                    <th>Discount %</th>
-                                    <th>Price/Cts</th>
-                                    <th>Amount</th>
-                                    <th>Certificate</th>
-                                    <th>VideoLink</th>
-                                    <th>Created By</th>
-                                    {/* <th>CompanyName</th> */}
-                                </tr>
-                            </thead>
-                            <tbody className="tablecss">
-                                {currentRows?.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <label className="checkbox style-a">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedRows?.some(selected => selected === item.STONE)}
-                                                    onChange={() => handleRowSelect(item)}
+                                                    <label className="checkbox style-a">
+                                                        <input type="checkbox"
+                                                            onChange={() => {
+                                                                if (selectedRows?.length === data?.length) {
+                                                                    setSelectedRows([]);
+                                                                } else {
+                                                                    setSelectedRows(data?.map(item => item.STONE));
+                                                                }
+                                                            }}
+                                                            checked={selectedRows?.length === data?.length}
+                                                        />
+                                                        <div className="checkbox__checkmark"></div>
+                                                    </label>
+                                                </th>
+                                                {/* <th>SrNo</th> */}
+                                                <th>Status</th>
+                                                <th>StoneId</th>
+                                                <th onClick={() => handleSort("LAB")}> Lab {sortBy === "LAB" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th>Report No</th>
+                                                <th onClick={() => handleSort("SHAPE")}>
+                                                    Shape {sortBy === "SHAPE" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}
+                                                </th>
+                                                <th onClick={() => handleSort("CARATS")}>
+                                                    Carats {sortBy === "CARATS" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("COLOR")}>
+                                                    Color {sortBy === "COLOR" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("CLARITY")}>
+                                                    Clarity {sortBy === "CLARITY" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("CUT")}>
+                                                    Cut{sortBy === "CUT" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("POLISH")}>
+                                                    Polish{sortBy === "POLISH" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("SYMM")}>
+                                                    Symm{sortBy === "SYMM" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th>Measurements</th>
+                                                <th>Table %</th>
+                                                <th>Depth %</th>
+                                                <th>Ratio</th>
+                                                <th>H&A</th>
+                                                <th>RapPrice</th>
+                                                <th>Discount %</th>
+                                                <th>Price/Cts</th>
+                                                <th>Amount</th>
+                                                <th>Certificate</th>
+                                                <th>VideoLink</th>
+                                                <th>Created By</th>
+                                                {/* <th>CompanyName</th> */}
+                                            </tr>
+                                        </thead>
+                                        <tbody className="tablecss">
+                                            {currentRows?.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>
+                                                        <label className="checkbox style-a">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedRows?.some(selected => selected === item.STONE)}
+                                                                onChange={() => handleRowSelect(item)}
 
-                                                />
-                                                <div className="checkbox__checkmark"></div>
-                                            </label>
-                                        </td>
-                                        {/* <td>{item.srNo}</td> */}
-                                        <td>{item.STATUS}</td>
-                                        <td>{item.STONE}</td>
-                                        <td><a style={{ color: 'blue' }} href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank">{item.LAB}</a></td>
-                                        <td>{item.REPORTNO}</td>
-                                        <td>{item.SHAPE}</td>
-                                        <td>{item.CARATS}</td>
-                                        <td>{item.COLOR}</td>
-                                        <td>{item.CLARITY}</td>
-                                        <td>{item.CUT}</td>
-                                        <td>{item.POLISH}</td>
-                                        <td>{item.SYMM}</td>
-                                        <td>{item.FL_MEASUREMENTS}</td>
-                                        <td>{item.FL_TABLE_PER?.toFixed(2)}</td>
-                                        <td>{item.FL_DEPTH_PER?.toFixed(2)}</td>
-                                        <td>{item.FL_RATIO || '-'}</td>
-                                        <td>{item.ha}</td>
-                                        <td>{item.RAP_PRICE?.toFixed(2)}</td>
-                                        <td>{item.ASK_DISC}</td>
-                                        <td>{(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100).toFixed(2)}</td>
-                                        <td>{((item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS)?.toFixed(2)}</td>
-                                        <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank" style={{ color: 'blue' }}>PDF</a></td>
-                                        <td><a href={`https://www.dnav360.com/vision/dna.html?d=${item.STONE}&ic=1`} target="_blank" style={{ color: 'blue' }}>VIDEO</a></td>
-                                        <td>{clientName}</td>
-                                        {/* <td>{item.companyName}</td> */}
-                                    </tr>
-                                ))}
+                                                            />
+                                                            <div className="checkbox__checkmark"></div>
+                                                        </label>
+                                                    </td>
+                                                    {/* <td>{item.srNo}</td> */}
+                                                    <td>{item.STATUS}</td>
+                                                    <td>{item.STONE}</td>
+                                                    <td><a style={{ color: 'blue' }} href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank">{item.LAB}</a></td>
+                                                    <td>{item.REPORTNO}</td>
+                                                    <td>{item.SHAPE}</td>
+                                                    <td>{item.CARATS}</td>
+                                                    <td>{item.COLOR}</td>
+                                                    <td>{item.CLARITY}</td>
+                                                    <td>{item.CUT}</td>
+                                                    <td>{item.POLISH}</td>
+                                                    <td>{item.SYMM}</td>
+                                                    <td>{item.FL_MEASUREMENTS}</td>
+                                                    <td>{item.FL_TABLE_PER?.toFixed(2)}</td>
+                                                    <td>{item.FL_DEPTH_PER?.toFixed(2)}</td>
+                                                    <td>{item.FL_RATIO || '-'}</td>
+                                                    <td>{item.ha}</td>
+                                                    <td>{item.RAP_PRICE?.toFixed(2)}</td>
+                                                    <td>{item.ASK_DISC}</td>
+                                                    <td>{(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100).toFixed(2)}</td>
+                                                    <td>{((item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS)?.toFixed(2)}</td>
+                                                    <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank" style={{ color: 'blue' }}>PDF</a></td>
+                                                    <td><a href={`https://www.dnav360.com/vision/dna.html?d=${item.STONE}&ic=1`} target="_blank" style={{ color: 'blue' }}>VIDEO</a></td>
+                                                    <td>{clientName}</td>
+                                                    {/* <td>{item.companyName}</td> */}
+                                                </tr>
+                                            ))}
 
-                                <tr className="tablecss">
-                                    <th></th>
-                                    <th colSpan={5}>Total</th>
-                                    <th>{totals.CARATS?.toFixed(2)}</th>
-                                    <th colSpan={10}></th>
-                                    <th></th>
-                                    <th>{totals.ASK_DISC?.toFixed(2)}</th>
-                                    <th>{totals.pricects?.toFixed(2)}</th>
-                                    <th>{totals.amount?.toFixed(2)}</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    {/* <th></th> */}
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
-                    <div >
-                        <Pagination>
-                            <Pagination.First onClick={() => handlePageChange(1)} />
-                            <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} />
-                            {[...Array(totalPages)]?.map((_, index) => (
-                                <Pagination.Item
-                                    key={index + 1}
-                                    active={index + 1 === currentPage}
-                                    onClick={() => handlePageChange(index + 1)}
-                                >
-                                    {index + 1}
-                                </Pagination.Item>
-                            ))}
-                            <Pagination.Next onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)} />
-                            <Pagination.Last onClick={() => handlePageChange(totalPages)} />
-                        </Pagination>
-                    </div>
+                                            <tr className="tablecss">
+                                                <th></th>
+                                                <th colSpan={5}>Total</th>
+                                                <th>{totals.CARATS?.toFixed(2)}</th>
+                                                <th colSpan={10}></th>
+                                                <th></th>
+                                                <th>{totals.ASK_DISC?.toFixed(2)}</th>
+                                                <th>{totals.pricects?.toFixed(2)}</th>
+                                                <th>{totals.amount?.toFixed(2)}</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                {/* <th></th> */}
+                                            </tr>
+                                        </tbody>
+                                    </Table>
+                                </div>
+                                <div >
+                                    <Pagination>
+                                        <Pagination.First onClick={() => handlePageChange(1)} />
+                                        <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} />
+                                        {[...Array(totalPages)]?.map((_, index) => (
+                                            <Pagination.Item
+                                                key={index + 1}
+                                                active={index + 1 === currentPage}
+                                                onClick={() => handlePageChange(index + 1)}
+                                            >
+                                                {index + 1}
+                                            </Pagination.Item>
+                                        ))}
+                                        <Pagination.Next onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)} />
+                                        <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+                                    </Pagination>
+                                </div>
+                            </>
+                        )
+                    }
                 </div>
             </Layout>
         </>
