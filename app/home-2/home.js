@@ -1,6 +1,6 @@
 "use client"
 import Axios from "@/components/auth/axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { SearchContext } from "@/components/context/SearchContext";
@@ -27,6 +27,7 @@ const categories = {
     Polish: ['ID', 'EX', 'VG', 'GD', 'FR'],
     Symm: ['EX', 'VG', 'GD', 'FR', 'G'],
     Flour: ["NON", "FNT", "MED", "SL", "VSL", "STG", "VST"],
+    Location: []
 };
 
 const DiamondFilter = () => {
@@ -43,6 +44,8 @@ const DiamondFilter = () => {
 
     const [error, setError] = useState(false);
 
+    const isInitialized = useRef(false);
+
     const [isAdvanceSearchOpen, setIsAdvanceSearchOpen] = useState(false);
     const [advanceSearchFields, setAdvanceSearchFields] = useState({
         tableFrom: "",
@@ -56,6 +59,23 @@ const DiamondFilter = () => {
         hold: false,
     });
 
+    useEffect(() => {
+        if (isInitialized.current) return;
+        isInitialized.current = true;
+
+        const branches = localStorage.getItem("branches") || sessionStorage.getItem("branches");
+        const branchesList = branches ? JSON.parse(branches) : [];
+
+        categories.Location = [];
+
+        branchesList?.map((item) => {
+            categories?.Location?.push(item.FL_BRANCH_CODE);
+        })
+    }, [])
+
+    // useEffect(()=>{
+    //     console.log('selectedOptions',selectedOptions)
+    // },[selectedOptions])
 
     const handleCheckboxChange = (category, option) => {
         setSelectedOptions((prev) => {
@@ -86,6 +106,7 @@ const DiamondFilter = () => {
                 Polish: searchState.POLISH || [],
                 Symm: searchState.SYMM || [],
                 Flour: searchState.FLOUR || [],
+                Location: searchState.location || [],
             });
 
             setCarat({
@@ -187,6 +208,7 @@ const DiamondFilter = () => {
             SYMM: selectedOptions.Symm || [],
             stoneCert: stoneId || "",
             FLOUR: selectedOptions.Flour || [],
+            location: selectedOptions.Location || [],
             ...(isAdvanceSearchOpen && {
 
                 FromTable_per: advanceSearchFields.tableFrom || "",
@@ -204,6 +226,7 @@ const DiamondFilter = () => {
             }),
         };
 
+
         const cleanPayload = Object.fromEntries(
             Object.entries(payload).filter(([_, value]) => value !== undefined && value !== "" && !(Array.isArray(value) && value.length === 0))
         );
@@ -217,7 +240,6 @@ const DiamondFilter = () => {
             const response = await Axios.post('mail/postdemand', JSON.stringify(formData));
 
             if (response.status === 200) {
-                console.log('search seuccess', response.data)
                 setIsOpen(false);
                 setRemark('');
                 setLoading(false)
@@ -248,6 +270,7 @@ const DiamondFilter = () => {
             SYMM: selectedOptions.Symm || [],
             stoneCert: stoneId || "",
             FLOUR: selectedOptions.Flour || [],
+            location: selectedOptions.Location || [],
             ...(isAdvanceSearchOpen && {
 
                 FromTable_per: advanceSearchFields.tableFrom || "",
@@ -524,6 +547,29 @@ const DiamondFilter = () => {
                                     </div>
                                 ))}
                             </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12">
+                    <div className="main-box">
+                        <div className="row">
+                            <div className="col-md-6 col-12">
+                                {['Location']?.map((category) => (
+                                    <div className="mainbox" key={category}>
+                                        <h5>{category}</h5>
+                                        <div className="checkbox-group">
+                                            {categories[category].map((option) => (
+                                                <span key={option}
+                                                    className={`checkbox-label ${selectedOptions[category]?.includes(option) ? 'selected' : ''}`}
+                                                    onClick={() => handleCheckboxChange(category, option)}>
+                                                    {option}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -741,7 +787,7 @@ const DiamondFilter = () => {
                         {/* Modal Footer */}
                         <div className="modal-footer">
                             <button onClick={() => setIsOpen(false)} className="cancel-btn">Cancel</button>
-                            <button onClick={handleSubmit} className="submit-btn">{loading ? "Submiting...":"Submit"}</button>
+                            <button onClick={handleSubmit} className="submit-btn">{loading ? "Submiting..." : "Submit"}</button>
                         </div>
                     </div>
                 </div>
