@@ -302,22 +302,6 @@ function Basket() {
         if (selectedRows?.length < 1) {
             window.alert('Please select stone to add watchlist')
         } else {
-
-            // const existingWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
-
-            // // Filter out rows that are already in the watchlist (based on stoneId)
-            // const uniqueSelectedRows = selectedRows.filter(row =>
-            //     !existingWatchlist.some(existingRow => existingRow.STONE === row.STONE)
-            // );
-
-            // // Combine existing watchlist with new rows
-            // const updatedWatchlist = [...existingWatchlist, ...uniqueSelectedRows];
-
-            // // Save the updated watchlist back to localStorage
-            // localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
-
-            // window.alert('stones added to watch');
-
             const users = localStorage.getItem('user') || sessionStorage.getItem('user')
             const FL_COID = JSON.parse(users).FL_COID
 
@@ -328,6 +312,8 @@ function Basket() {
                     coid: FL_COID
                 })
                 if (response.status === 200) {
+                    const eventBus = getEventBus();
+                    eventBus.emit("watchlistUpdated");
                     window.alert('Added to watchlist');
                 }
             } catch (error) {

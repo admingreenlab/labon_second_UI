@@ -116,6 +116,7 @@ function Demo() {
 
     const handleaddBasket = async () => {
         if (selectedRows.length > 0) {
+            setLoading(true);
             try {
                 const response = await Axios.post('user/userbasket', {
                     type: 'I',
@@ -148,6 +149,8 @@ function Demo() {
                 }
             } catch (error) {
                 console.error("error to handle basket", error)
+            }finally{
+                setLoading(false);
             }
         } else {
             window.alert('please select stone')
@@ -157,6 +160,7 @@ function Demo() {
 
     const handleClearWatchlist = async () => {
         if (selectedRows?.length === data?.length) {
+            setLoading(true);
             try {
                 const response = await Axios.delete('user/watchlist/clear');
                 if (response.status === 200) {
@@ -166,6 +170,8 @@ function Demo() {
             } catch (error) {
                 console.error("Error removing from watchlist", error);
               
+            }finally{
+                setLoading(false);
             }
         } else {
             window.alert('Please select all StoneIds to clear the watchlist');
@@ -193,19 +199,19 @@ function Demo() {
                             <span style={{ fontWeight: '300', marginRight: '5px', color: '#b89154' }}>{clientName}</span>
                             <button className="button" onClick={handleaddBasket}>
                                 <div className="backdrop">
-                                    <span>Add to Basket</span>
+                                    <span>{loading ? 'Loading...' :'Add to Basket'}</span>
                                 </div>
                                 <div className="overlay">
-                                    <span>Add to Basket</span>
+                                    <span>{loading ? 'Loading...' :'Add to Basket'}</span>
                                 </div>
                             </button>
 
                             <button className="button" onClick={handleClearWatchlist}>
                                 <div className="backdrop">
-                                    <span>Clear Watch List</span>
+                                    <span>{loading ? 'Loading...' :'Clear Watch List'}</span>
                                 </div>
                                 <div className="overlay">
-                                    <span>Clear Watch List</span>
+                                    <span>{loading ? 'Loading...' :'Clear Watch List'}</span>
                                 </div>
                             </button>
 

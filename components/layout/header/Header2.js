@@ -87,15 +87,23 @@ export default function Header2({ scroll, handlePopup, handleSidebar, handleMobi
             fetchData();
         };
 
+        const handleWatchlistUpdate = () => {
+            console.log('Watchlist update received');
+            fetchData();
+        };
+
         // Initial fetch
         fetchData();
 
         // Subscribe to events
         eventBus.on("basketUpdated", handleBasketUpdate);
 
+        eventBus.on("watchlistUpdated", handleWatchlistUpdate);
+
         // Cleanup
         return () => {
             eventBus.off("basketUpdated", handleBasketUpdate);
+            eventBus.off("watchlistUpdated", handleWatchlistUpdate);
         };
     }, []);
 
