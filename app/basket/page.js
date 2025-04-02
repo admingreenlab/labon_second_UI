@@ -10,6 +10,7 @@ import withAuth from "@/components/auth/withAuth";
 import { getEventBus } from "@/components/utils/EventBus";
 import Image from "next/image";
 import Loader from '@/public/assets/images/loader/Ellipsis@1x-1.3s-200px-200px.svg';
+import { Button } from "@mui/material";
 
 
 const styles = {
@@ -127,7 +128,12 @@ function Basket() {
     const [count, setcount] = useState([]);
 
     const [loading, setLoading] = useState(false);
-    ;
+
+    const [tabselect, settabselect] = useState({
+        single: true,
+        parcel: false
+    });
+
     useEffect(() => {
         console.log('selectedRows', selectedRows)
     }, [selectedRows])
@@ -287,14 +293,39 @@ function Basket() {
                         </div>
                     </div>
                 </div>
-                <div className="text-center auto-container">
-                    <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex' }}>
-                        <button className="basketbtn" onClick={handleExportSelectedToExcel}>Export To Excel</button>
-                        <button className="basketbtn" onClick={handleremovebasket} >Remove to Basket</button>
+                <div className="text-center auto-container" style={{ marginBottom: '15px' }}>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <Button
+                            variant={tabselect.single ? 'contained' : 'outlined'}
+                            onClick={() => {
+                                settabselect(prev => ({
+                                    ...prev,
+                                    single: true,
+                                    parcel: false
+                                }))
+                            }}>SINGLE</Button>
+                        <Button
+                            variant={tabselect.parcel ? 'contained' : 'outlined'}
+                            onClick={() => {
+                                settabselect((prev) => ({
+                                    ...prev,
+                                    single: false,
+                                    parcel: true
+                                }))
+                            }}
+                        >PARCEL</Button>
                     </div>
-                    <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex' }}>
+                </div>
+
+                <div className="text-center auto-container">
+                    {/* <div style={{ marginBottom: '10px', fontWeight: '300', marginRight: 'auto', display: 'flex' }}>
+                        
+                    </div> */}
+                    <div style={{ marginBottom: '10px', fontWeight: '400', marginRight: 'auto', display: 'flex', alignItems: 'center' }}>
                         <label>Client Name : </label>
                         <div>{clientName}</div>
+                        <button className="basketbtn" onClick={handleExportSelectedToExcel} style={{ marginLeft: '15px' }}>Export To Excel</button>
+                        <button className="basketbtn" onClick={handleremovebasket} >Remove to Basket</button>
                     </div>
                     <div className="tabletopcss">
                         <div>Total Pcs = <span>{selectedtotals?.pcs}</span></div>
@@ -312,26 +343,27 @@ function Basket() {
                     {
 
                         !loading && (
-                            <div className="table-responsive pt-10" >
-                                <Table striped bordered hover style={{ width: '100%' }} >
-                                    <thead className="tablecss" >
-                                        <tr>
-                                            <th>
-                                                <label className="checkbox style-a">
-                                                    <input
-                                                        type="checkbox"
-                                                        onChange={() => {
-                                                            if (selectedRows.length === data.length) {
-                                                                setSelectedRows([]);
-                                                            } else {
-                                                                setSelectedRows(data?.map(item => item));
-                                                            }
-                                                        }}
-                                                        checked={selectedRows.length === data.length}
-                                                    />
-                                                    <div className="checkbox__checkmark"></div>
-                                                </label>
-                                                {/* <input
+                            tabselect?.single ? <>
+                                <div className="table-responsive pt-10" >
+                                    <Table striped bordered hover style={{ width: '100%' }} >
+                                        <thead className="tablecss" >
+                                            <tr>
+                                                <th>
+                                                    <label className="checkbox style-a">
+                                                        <input
+                                                            type="checkbox"
+                                                            onChange={() => {
+                                                                if (selectedRows.length === data.length) {
+                                                                    setSelectedRows([]);
+                                                                } else {
+                                                                    setSelectedRows(data?.map(item => item));
+                                                                }
+                                                            }}
+                                                            checked={selectedRows.length === data.length}
+                                                        />
+                                                        <div className="checkbox__checkmark"></div>
+                                                    </label>
+                                                    {/* <input
                                             type="checkbox"
                                             onChange={() => {
                                                 if (selectedRows.length === data.length) {
@@ -342,106 +374,180 @@ function Basket() {
                                             }}
                                             checked={selectedRows.length === data.length}
                                         /> */}
-                                            </th>
-                                            {/* <th>SrNo</th> */}
-                                            <th>Status</th>
-                                            <th>Location</th>
-                                            <th>StoneId</th>
-                                            <th onClick={() => handleSort("LAB")}> Lab {sortBy === "LAB" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                            <th>ReportNo</th>
-                                            <th onClick={() => handleSort("SHAPE")}>
-                                                Shape {sortBy === "SHAPE" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}
-                                            </th>
-                                            <th onClick={() => handleSort("CARATS")}>
-                                                Carats {sortBy === "CARATS" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                            <th onClick={() => handleSort("COLOR")}>
-                                                Color {sortBy === "COLOR" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                            <th onClick={() => handleSort("CLARITY")}>
-                                                Clarity {sortBy === "CLARITY" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                            <th onClick={() => handleSort("CUT")}>
-                                                Cut{sortBy === "CUT" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                            <th onClick={() => handleSort("POLISH")}>
-                                                Polish{sortBy === "POLISH" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                            <th onClick={() => handleSort("SYMM")}>
-                                                Symm{sortBy === "SYMM" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                            <th>Measurements</th>
-                                            <th>Table %</th>
-                                            <th>Depth %</th>
-                                            <th>Ratio</th>
-                                            <th>H&A</th>
-                                            <th>RapPrice</th>
-                                            <th>Discount %</th>
-                                            <th>Price/Cts</th>
-                                            <th onClick={() => handleSort("AMOUNT")}>
-                                                Amount{sortBy === "AMOUNT" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
-                                            <th>View Offer</th>
-                                            <th>Certificate</th>
-                                            <th>VideoLink</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="tablecss">
-                                        {data?.map((item, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                    {/* <input
+                                                </th>
+                                                {/* <th>SrNo</th> */}
+                                                <th>Status</th>
+                                                <th>Location</th>
+                                                <th>StoneId</th>
+                                                <th onClick={() => handleSort("LAB")}> Lab {sortBy === "LAB" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th>ReportNo</th>
+                                                <th onClick={() => handleSort("SHAPE")}>
+                                                    Shape {sortBy === "SHAPE" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}
+                                                </th>
+                                                <th onClick={() => handleSort("CARATS")}>
+                                                    Carats {sortBy === "CARATS" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("COLOR")}>
+                                                    Color {sortBy === "COLOR" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("CLARITY")}>
+                                                    Clarity {sortBy === "CLARITY" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("CUT")}>
+                                                    Cut{sortBy === "CUT" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("POLISH")}>
+                                                    Polish{sortBy === "POLISH" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th onClick={() => handleSort("SYMM")}>
+                                                    Symm{sortBy === "SYMM" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th>Measurements</th>
+                                                <th>Table %</th>
+                                                <th>Depth %</th>
+                                                <th>Ratio</th>
+                                                <th>H&A</th>
+                                                <th>RapPrice</th>
+                                                <th>Discount %</th>
+                                                <th>Price/Cts</th>
+                                                <th onClick={() => handleSort("AMOUNT")}>
+                                                    Amount{sortBy === "AMOUNT" ? (sortOrder === "asc" ? ' ▲' : ' ▼') : '▼'}</th>
+                                                <th>View Offer</th>
+                                                <th>Certificate</th>
+                                                <th>VideoLink</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="tablecss">
+                                            {data?.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>
+                                                        {/* <input
                                             type="checkbox"
                                             checked={selectedRows.includes(item.srNo)}
                                             onChange={() => handleRowSelect(item.srNo)}
                                         /> */}
-                                                    <label className="checkbox style-a">
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={selectedRows.some(selected => selected.STONE === item.STONE)}
-                                                            onChange={() => handleRowSelect(item)}
-                                                        />
-                                                        <div className="checkbox__checkmark"></div>
-                                                    </label>
-                                                </td>
-                                                {/* <td>{item.srNo}</td> */}
-                                                <td>{item.STATUS}</td>
-                                                <td>{item.FL_BRID}</td>
-                                                <td>{item.STONE}</td>
-                                                <td><a style={{ color: 'blue' }} href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank">{item.LAB}</a></td>
-                                                <td>{item.REPORTNO}</td>
-                                                <td>{item.SHAPE}</td>
-                                                <td>{item.CARATS}</td>
-                                                <td>{item.COLOR}</td>
-                                                <td>{item.CLARITY}</td>
-                                                <td>{item.CUT}</td>
-                                                <td>{item.POLISH}</td>
-                                                <td>{item.SYMM}</td>
-                                                <td>{item.FL_MEASUREMENTS}</td>
-                                                <td>{item.FL_TABLE_PER?.toFixed(2)}</td>
-                                                <td>{item.FL_DEPTH_PER?.toFixed(2)}</td>
-                                                <td>{item.FL_RATIO || '-'}</td>
-                                                <td>{item.ha}</td>
-                                                <td>{item.RAP_PRICE?.toFixed(2)}</td>
-                                                <td>{item.ASK_DISC}</td>
-                                                <td>{(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100)?.toFixed(2)}</td>
-                                                <td>{((item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS)?.toFixed(2)}</td>
-                                                <td>{item.viewoffer}</td>
-                                                <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank" style={{ color: 'blue' }}>PDF</a></td>
-                                                <td><a href={`https://www.dnav360.com/vision/dna.html?d=${item.STONE}&ic=1`} target="_blank" style={{ color: 'blue' }}>VIDEO</a></td>
+                                                        <label className="checkbox style-a">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedRows.some(selected => selected.STONE === item.STONE)}
+                                                                onChange={() => handleRowSelect(item)}
+                                                            />
+                                                            <div className="checkbox__checkmark"></div>
+                                                        </label>
+                                                    </td>
+                                                    {/* <td>{item.srNo}</td> */}
+                                                    <td>{item.STATUS}</td>
+                                                    <td>{item.FL_BRID}</td>
+                                                    <td>{item.STONE}</td>
+                                                    <td><a style={{ color: 'blue' }} href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank">{item.LAB}</a></td>
+                                                    <td>{item.REPORTNO}</td>
+                                                    <td>{item.SHAPE}</td>
+                                                    <td>{item.CARATS}</td>
+                                                    <td>{item.COLOR}</td>
+                                                    <td>{item.CLARITY}</td>
+                                                    <td>{item.CUT}</td>
+                                                    <td>{item.POLISH}</td>
+                                                    <td>{item.SYMM}</td>
+                                                    <td>{item.FL_MEASUREMENTS}</td>
+                                                    <td>{item.FL_TABLE_PER?.toFixed(2)}</td>
+                                                    <td>{item.FL_DEPTH_PER?.toFixed(2)}</td>
+                                                    <td>{item.FL_RATIO || '-'}</td>
+                                                    <td>{item.ha}</td>
+                                                    <td>{item.RAP_PRICE?.toFixed(2)}</td>
+                                                    <td>{item.ASK_DISC}</td>
+                                                    <td>{(item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100)?.toFixed(2)}</td>
+                                                    <td>{((item.RAP_PRICE * (100 - Number(item.ASK_DISC)) / 100) * item.CARATS)?.toFixed(2)}</td>
+                                                    <td>{item.viewoffer}</td>
+                                                    <td><a href={`https://www.igi.org/reports/verify-your-report?r=${item.REPORTNO}`} target="_blank" style={{ color: 'blue' }}>PDF</a></td>
+                                                    <td><a href={`https://www.dnav360.com/vision/dna.html?d=${item.STONE}&ic=1`} target="_blank" style={{ color: 'blue' }}>VIDEO</a></td>
 
+                                                </tr>
+                                            ))}
+
+                                            <tr className="tablecss">
+                                                <th></th>
+                                                <th colSpan={6}>Total</th>
+                                                <th>{totals.CARATS?.toFixed(2)}</th>
+                                                <th colSpan={10}></th>
+                                                <th></th>
+                                                <th>{count[0]?.AVG?.toFixed(2)}</th>
+                                                <th>{totals.pricects?.toFixed(2)}</th>
+                                                <th>{totals.amount?.toFixed(2)}</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
                                             </tr>
-                                        ))}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </> :
+                                <>
+                                    <div className="table-responsive pt-10" >
+                                        <Table striped bordered hover style={{ width: '100%' }} >
+                                            <thead className="tablecss" >
+                                                <tr>
+                                                    <th>
+                                                        <label className="checkbox style-a">
+                                                            <input type="checkbox"
+                                                                onChange={() => {
+                                                                    if (selectedRows?.length === data?.length) {
+                                                                        setSelectedRows([]);
+                                                                    } else {
+                                                                        setSelectedRows(data?.map(item => item.STONE));
+                                                                    }
+                                                                }}
+                                                                checked={selectedRows?.length === data?.length}
+                                                            />
+                                                            <div className="checkbox__checkmark"></div>
+                                                        </label>
+                                                    </th>
+                                                    {/* <th>SrNo</th> */}
+                                                    <th>Type</th>
+                                                    <th>Location</th>
+                                                    <th>In Stock</th>
+                                                    <th>LOT NO</th>
+                                                    <th>Carats</th>
+                                                    <th>Clarity</th>
+                                                    <th>CO ID</th>
+                                                    <th>Color</th>
+                                                    <th>Height</th>
+                                                    <th>Length</th>
+                                                    <th>Main_LOT</th>
+                                                    <th>Shape</th>
+                                                    <th>MM Size</th>
+                                                    <th>Width</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="tablecss">
+                                                {data?.map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td>
+                                                            <label className="checkbox style-a">
+                                                                <input
+                                                                    type="checkbox"
+                                                                    checked={selectedRows?.some(selected => selected === item.STONE)}
+                                                                    onChange={() => handleRowSelect(item)}
 
-                                        <tr className="tablecss">
-                                            <th></th>
-                                            <th colSpan={6}>Total</th>
-                                            <th>{totals.CARATS?.toFixed(2)}</th>
-                                            <th colSpan={10}></th>
-                                            <th></th>
-                                            <th>{count[0]?.AVG?.toFixed(2)}</th>
-                                            <th>{totals.pricects?.toFixed(2)}</th>
-                                            <th>{totals.amount?.toFixed(2)}</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </div>
+                                                                />
+                                                                <div className="checkbox__checkmark"></div>
+                                                            </label>
+                                                        </td>
+                                                        {/* <td>{item.srNo}</td> */}
+                                                        <td>{item.FL_TYPE}</td>
+                                                        <td>{item.FL_BRID}</td>
+                                                        <td>A</td>
+                                                        <td>{item.FL_SUB_LOT}</td>
+                                                        <td>{item.FL_CARATS}</td>
+                                                        <td>{item.FL_CLARITY}</td>
+                                                        <td>{item.FL_COID}</td>
+                                                        <td>{item.FL_COLOR}</td>
+                                                        <td>{item.FL_HIGHT}</td>
+                                                        <td>{item.FL_LENGTH}</td>
+                                                        <td>{item.FL_MAIN_LOT}</td>
+                                                        <td>{item.FL_SHAPE_NAME}</td>
+                                                        <td>{item.FL_SIZE}</td>
+                                                        <td>{item.FL_WIDTH}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </Table>
+                                    </div>
+                                </>
+
                         )
                     }
                 </div>

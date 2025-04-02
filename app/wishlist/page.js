@@ -9,6 +9,7 @@ import withAuth from "@/components/auth/withAuth";
 import { getEventBus } from "@/components/utils/EventBus";
 import Loader from '@/public/assets/images/loader/Ellipsis@1x-1.3s-200px-200px.svg';
 import Image from "next/image";
+import { Button } from "@mui/material";
 
 
 function Demo() {
@@ -22,6 +23,10 @@ function Demo() {
 
     const [loading, setLoading] = useState(false);
 
+    const [tabselect, settabselect] = useState({
+        single: true,
+        parcel: false
+    });
 
     const fetchData = async () => {
         setLoading(true)
@@ -149,7 +154,7 @@ function Demo() {
                 }
             } catch (error) {
                 console.error("error to handle basket", error)
-            }finally{
+            } finally {
                 setLoading(false);
             }
         } else {
@@ -169,8 +174,8 @@ function Demo() {
                 }
             } catch (error) {
                 console.error("Error removing from watchlist", error);
-              
-            }finally{
+
+            } finally {
                 setLoading(false);
             }
         } else {
@@ -192,6 +197,29 @@ function Demo() {
                     </div>
                 </div>
                 <div className="text-center auto-container">
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <Button
+                            variant={tabselect.single ? 'contained' : 'outlined'}
+                            onClick={() => {
+                                settabselect(prev => ({
+                                    ...prev,
+                                    single: true,
+                                    parcel: false
+                                }))
+                            }}>SINGLE</Button>
+                        <Button
+                            variant={tabselect.parcel ? 'contained' : 'outlined'}
+                            onClick={() => {
+                                settabselect((prev) => ({
+                                    ...prev,
+                                    single: false,
+                                    parcel: true
+                                }))
+                            }}
+                        >PARCEL</Button>
+                    </div>
+                </div>
+                <div className="text-center auto-container">
                     <div className="mt-3 mb-2" style={{ display: 'flex' }}>
                         <div className="d-flex align-items-center gap-3">
                             <label >Client Name:</label>
@@ -199,19 +227,19 @@ function Demo() {
                             <span style={{ fontWeight: '300', marginRight: '5px', color: '#b89154' }}>{clientName}</span>
                             <button className="button" onClick={handleaddBasket}>
                                 <div className="backdrop">
-                                    <span>{loading ? 'Loading...' :'Add to Basket'}</span>
+                                    <span>{loading ? 'Loading...' : 'Add to Basket'}</span>
                                 </div>
                                 <div className="overlay">
-                                    <span>{loading ? 'Loading...' :'Add to Basket'}</span>
+                                    <span>{loading ? 'Loading...' : 'Add to Basket'}</span>
                                 </div>
                             </button>
 
                             <button className="button" onClick={handleClearWatchlist}>
                                 <div className="backdrop">
-                                    <span>{loading ? 'Loading...' :'Clear Watch List'}</span>
+                                    <span>{loading ? 'Loading...' : 'Clear Watch List'}</span>
                                 </div>
                                 <div className="overlay">
-                                    <span>{loading ? 'Loading...' :'Clear Watch List'}</span>
+                                    <span>{loading ? 'Loading...' : 'Clear Watch List'}</span>
                                 </div>
                             </button>
 
@@ -230,22 +258,12 @@ function Demo() {
                     )}
                     {
                         !loading && (
-                            <>
+                            tabselect?.single ? <>
                                 <div className="table-responsive pt-10" >
                                     <Table striped bordered hover style={{ width: '100%' }} >
                                         <thead className="tablecss" >
                                             <tr>
                                                 <th>
-                                                    {/* <input type="checkbox"
-                                            onChange={() => {
-                                                if (selectedRows.length === data.length) {
-                                                    setSelectedRows([]);
-                                                } else {
-                                                    setSelectedRows(data.map(item => item.srNo));
-                                                }
-                                            }}
-                                            checked={selectedRows.length === data.length}
-                                        /> */}
                                                     <label className="checkbox style-a">
                                                         <input type="checkbox"
                                                             onChange={() => {
@@ -371,11 +389,114 @@ function Demo() {
                                         <Pagination.Last onClick={() => handlePageChange(totalPages)} />
                                     </Pagination>
                                 </div>
-                            </>
+                            </> :
+                                <>
+                                    <div className="table-responsive pt-10" >
+                                        <Table striped bordered hover style={{ width: '100%' }} >
+                                            <thead className="tablecss" >
+                                                <tr>
+                                                    <th>
+                                                        <label className="checkbox style-a">
+                                                            <input type="checkbox"
+                                                                onChange={() => {
+                                                                    if (selectedRows?.length === data?.length) {
+                                                                        setSelectedRows([]);
+                                                                    } else {
+                                                                        setSelectedRows(data?.map(item => item.STONE));
+                                                                    }
+                                                                }}
+                                                                checked={selectedRows?.length === data?.length}
+                                                            />
+                                                            <div className="checkbox__checkmark"></div>
+                                                        </label>
+                                                    </th>
+                                                    {/* <th>SrNo</th> */}
+                                                    <th>Type</th>
+                                                    <th>Location</th>
+                                                    <th>In Stock</th>
+                                                    <th>LOT NO</th>
+                                                    <th>Carats</th>
+                                                    <th>Clarity</th>
+                                                    <th>CO ID</th>
+                                                    <th>Color</th>
+                                                    <th>Height</th>
+                                                    <th>Length</th>
+                                                    <th>Main_LOT</th>
+                                                    <th>Shape</th>
+                                                    <th>MM Size</th>
+                                                    <th>Width</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="tablecss">
+                                                {currentRows?.map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td>
+                                                            <label className="checkbox style-a">
+                                                                <input
+                                                                    type="checkbox"
+                                                                    checked={selectedRows?.some(selected => selected === item.STONE)}
+                                                                    onChange={() => handleRowSelect(item)}
+
+                                                                />
+                                                                <div className="checkbox__checkmark"></div>
+                                                            </label>
+                                                        </td>
+                                                        {/* <td>{item.srNo}</td> */}
+                                                        <td>{item.FL_TYPE}</td>
+                                                        <td>{item.FL_BRID}</td>
+                                                        <td>A</td>
+                                                        <td>{item.FL_SUB_LOT}</td>
+                                                        <td>{item.FL_CARATS}</td>
+                                                        <td>{item.FL_CLARITY}</td>
+                                                        <td>{item.FL_COID}</td>
+                                                        <td>{item.FL_COLOR}</td>
+                                                        <td>{item.FL_HIGHT}</td>
+                                                        <td>{item.FL_LENGTH}</td>
+                                                        <td>{item.FL_MAIN_LOT}</td>
+                                                        <td>{item.FL_SHAPE_NAME}</td>
+                                                        <td>{item.FL_SIZE}</td>
+                                                        <td>{item.FL_WIDTH}</td>
+                                                    </tr>
+                                                ))}
+{/* 
+                                                <tr className="tablecss">
+                                                    <th></th>
+                                                    <th colSpan={5}>Total</th>
+                                                    <th>{totals.CARATS?.toFixed(2)}</th>
+                                                    <th colSpan={10}></th>
+                                                    <th></th>
+                                                    <th>{totals.ASK_DISC?.toFixed(2)}</th>
+                                                    <th>{totals.pricects?.toFixed(2)}</th>
+                                                    <th>{totals.amount?.toFixed(2)}</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr> */}
+                                            </tbody>
+                                        </Table>
+                                    </div>
+                                    <div >
+                                        <Pagination>
+                                            <Pagination.First onClick={() => handlePageChange(1)} />
+                                            <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} />
+                                            {[...Array(totalPages)]?.map((_, index) => (
+                                                <Pagination.Item
+                                                    key={index + 1}
+                                                    active={index + 1 === currentPage}
+                                                    onClick={() => handlePageChange(index + 1)}
+                                                >
+                                                    {index + 1}
+                                                </Pagination.Item>
+                                            ))}
+                                            <Pagination.Next onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)} />
+                                            <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+                                        </Pagination>
+                                    </div>
+                                </>
                         )
                     }
                 </div>
-            </Layout>
+            </Layout >
         </>
     );
 }
