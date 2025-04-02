@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 import { SearchContext } from "@/components/context/SearchContext";
+import { PolishProvider } from "@/components/context/PolishContext"; 
 
 
 export function RouteChangeListener() {

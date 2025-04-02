@@ -315,7 +315,16 @@ const DiamondFilter = () => {
 
 
     return (
-        <div className="">
+        
+        <div className="" >
+            <div className="col-md-12 col-12" style={{display:"flex",justifyContent:"end", alignContent:"center",gap:"10px",marginBottom:"10px" }}> 
+                <Link href='/serch'>        
+                <button type="button" class="btn btn-primary">Search Stone</button>
+                </Link>  
+                <Link href='/polish'>        
+                <button type="button" class="btn btn-outline-primary">Parcel Search</button>
+                </Link>  
+                </div>
             <div className="row">
                 <div className="col-12">
 
@@ -383,8 +392,7 @@ const DiamondFilter = () => {
                                     <h5>Stone Id #/Cert #</h5>
                                     <textarea
                                         placeholder="Enter Stone Id or Certificate Number"
-                                        value={stoneId}
-                                        onChange={(e) => setStoneId(e.target.value)}
+                               
                                     />
                                 </div>
                             </div>

@@ -7,6 +7,7 @@ import 'swiper/css/free-mode';
 import { dmSans, lora } from '@/lib/font'
 import { SearchProvider } from "@/components/context/SearchContext";
 import { RouteChangeListener } from "./route-change-listener";
+import { PolishProvider } from "@/components/context/PolishContext";
 
 export const metadata = {
     title: 'Labon',
@@ -17,8 +18,10 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en" className={`${dmSans.variable} ${lora.variable}`}>
             <SearchProvider>
+                 <PolishProvider>
                 <RouteChangeListener />
                 <body>{children}</body>
+                </PolishProvider>
             </SearchProvider>
         </html>
     )
