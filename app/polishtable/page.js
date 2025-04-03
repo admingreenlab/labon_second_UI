@@ -303,7 +303,7 @@ function Polish() {
             const response = await Axios.post('user/userbasket', {
                 type: 'I',
                 stone_id: selectedRows.map(row => row.FL_SUB_LOT),
-                stype: 'bulk'
+                stype: 'POLISH-PARCEL'
             })
             if (response.status === 200) {
                 const eventBus = getEventBus();

@@ -317,12 +317,12 @@ const DiamondFilter = () => {
     return (
         
         <div className="" >
-            <div className="col-md-12 col-12" style={{display:"flex",justifyContent:"end", alignContent:"center",gap:"10px",marginBottom:"10px" }}> 
+            <div className="col-md-12 col-12" style={{display:"flex",justifyContent:"start", alignContent:"center",gap:"10px",marginBottom:"20px" }}> 
                 <Link href='/serch'>        
-                <button type="button" class="btn btn-primary">Search Stone</button>
+                <button type="button" class="btn btn-primary">Polish Certified</button>
                 </Link>  
                 <Link href='/polish'>        
-                <button type="button" class="btn btn-outline-primary">Parcel Search</button>
+                <button type="button" class="btn btn-outline-primary">Polish Parcel</button>
                 </Link>  
                 </div>
             <div className="row">

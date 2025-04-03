@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { PolishContext } from "@/components/context/PolishContext";
 import Layout from "@/components/layout/Layout"
 
+
 const categories = {
     Shape: [
         { name: "Round", shapeicon: "ico-shp icon-round-shape" },
@@ -318,12 +319,12 @@ const DiamondFilter = () => {
                 <div className="container">
                     <div className="">
                         <div className="row">
-                            <div className="col-md-12 col-12" style={{display:"flex",justifyContent:"end", alignContent:"center",gap:"15px",marginBottom:"10px" }}> 
+                            <div className="col-md-12 col-12" style={{display:"flex",justifyContent:"start", alignContent:"center",gap:"15px",marginBottom:"20px" }}> 
                                             <Link href='/serch'>        
-                                            <button type="button" class="btn btn-outline-primary">Search Stone</button>
+                                              <button type="button" class="btn btn-outline-primary">Polish Certified</button>
                                             </Link>  
                                             <Link href='/polish'>        
-                                            <button type="button" class="btn btn-primary">Parcel Search</button>
+                                             <button type="button" class="btn btn-primary">Polish Parcel</button>
                                             </Link>  
                                         </div>
                             <div className="col-12">
