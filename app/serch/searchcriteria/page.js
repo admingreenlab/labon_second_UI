@@ -329,6 +329,7 @@ function Basket() {
                 type: 'I',
                 stone_id: selectedRows.map(row => row.STONE),
                 stype: 'POLISH-SINGLE'
+                
             })
             if (response.status === 200) {
                 const eventBus = getEventBus();
