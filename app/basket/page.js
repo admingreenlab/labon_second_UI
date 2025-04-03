@@ -138,17 +138,90 @@ function Basket() {
         console.log('selectedRows', selectedRows)
     }, [selectedRows])
 
+    const transformData = (data) => {
+        const csvData = data?.map((item) => ({
+            'LOT NO': item.FL_SUB_LOT,
+            Type: item.FL_INVENTORY_TYPE,
+            Carats: item.FL_CARATS,
+            Clarity: item.FL_CLARITY,
+            Color: item.FL_COLOR,
+            'Co ID': item.FL_COID,
+            // Height: item.FL_HIGHT,
+            // Length: item.FL_LENGTH,
+            Main_LOT: item.FL_MAIN_LOT,
+            Shape: item.FL_SHAPE_GROUP,
+            // 'MM Size': item.FL_SIZE,
+            // 'Width': item.FL_WIDTH,
+            'Location': item.FL_BRID
+        }));
+
+        return csvData;
+    };
+
+    const convertToCSV = (data) => {
+        if (!Array.isArray(data) || data.length === 0) return '';
+
+        // Extract headers (keys of the first object)
+        const headers = Object.keys(data[0]);
+
+        // Convert each row to a CSV line
+        const rows = data.map((row) =>
+            headers.map((header) => `"${row[header] ?? ''}"`).join(',')
+        );
+
+        // Combine headers and rows
+        return [headers.join(','), ...rows].join('\n');
+    };
+
+    // Function to trigger CSV download
+    const downloadCSV = (csvData, fileName = 'data.csv') => {
+        const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+
+        link.setAttribute('href', url);
+        link.setAttribute('download', fileName);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const handledownload = () => {
+        if (selectedRows.length === 0) {
+            window.alert('Please select stones to export.');
+            return;
+        }
+        const transformedData = transformData((selectedRows));
+        const csvData = convertToCSV(transformedData);
+        downloadCSV(csvData, 'diamond_data.csv');
+        console.log(transformedData);
+    }
+
     const handleRowSelect = (item) => {
-        setSelectedRows((prevSelected) => {
-            const isSelected = prevSelected.some(selected => selected.STONE === item.STONE);
-            if (isSelected) {
-                // Remove the item if already selected
-                return prevSelected.filter(selected => selected.STONE !== item.STONE);
-            } else {
-                // Add the complete item if not selected
-                return [...prevSelected, item];
-            }
-        });
+        if (tabselect.single) {
+            setSelectedRows((prevSelected) => {
+                const isSelected = prevSelected.some(selected => selected.STONE === item.STONE);
+                if (isSelected) {
+                    // Remove the item if already selected
+                    return prevSelected.filter(selected => selected.STONE !== item.STONE);
+                } else {
+                    // Add the complete item if not selected
+                    return [...prevSelected, item];
+                }
+            });
+        } else {
+            setSelectedRows((prevSelected) => {
+                const isSelected = prevSelected.some(selected => selected.FL_SUB_LOT === item.FL_SUB_LOT);
+                if (isSelected) {
+                    // Remove the item if already selected
+                    return prevSelected.filter(selected => selected.FL_SUB_LOT !== item.FL_SUB_LOT);
+                } else {
+                    // Add the complete item if not selected
+                    return [...prevSelected, item];
+                }
+            });
+        }
     };
 
     const sortfilter = (col) => {
@@ -185,22 +258,45 @@ function Basket() {
         }
     }, [])
 
-    const fetchData = async () => {
-        setLoading(true);
-        try {
-            const response = await Axios.post('user/userbasket', {
-                type: 'S',
-                stype: 'single'
-            });
+    useEffect(()=>{
+        console.log('data',data)
+    },[data])
 
-            if (response.status === 200) {
-                setcount(response.data.count);
-                setData(response?.data?.data); // Update state only if the component is still mounted
-                setLoading(false);
+    const fetchData = async (single) => {
+        if (single === 'parcel') {
+            setLoading(true);
+            try {
+                const response = await Axios.post('user/userbasket', {
+                    type: 'S',
+                    stype: 'parcel'
+                });
+
+                if (response.status === 200) {
+                    setcount(response.data.count);
+                    setData(response?.data?.data); // Update state only if the component is still mounted
+                    setLoading(false);
+                }
             }
-        }
-        catch (err) {
-            console.log("Failed to fetch data. Please try again."); // Set error state
+            catch (err) {
+                console.log("Failed to fetch data. Please try again."); // Set error state
+            }
+        } else {
+            setLoading(true);
+            try {
+                const response = await Axios.post('user/userbasket', {
+                    type: 'S',
+                    stype: 'single'
+                });
+
+                if (response.status === 200) {
+                    setcount(response.data.count);
+                    setData(response?.data?.data); // Update state only if the component is still mounted
+                    setLoading(false);
+                }
+            }
+            catch (err) {
+                console.log("Failed to fetch data. Please try again."); // Set error state
+            }
         }
     };
 
@@ -237,20 +333,38 @@ function Basket() {
     };
 
     const handleremovebasket = async () => {
-        try {
-            const response = await Axios.post('user/userbasket', {
-                type: 'D',
-                stype: 'single',
-                stone_id: selectedRows.map(row => row.STONE),
-            })
-            if (response.status === 200) {
-                const eventBus = getEventBus();
-                eventBus.emit("basketUpdated");
-                window.alert('Remove from basket successfully');
-                fetchData()
+        if (tabselect.single) {
+            try {
+                const response = await Axios.post('user/userbasket', {
+                    type: 'D',
+                    stype: 'single', //parcel
+                    stone_id: selectedRows.map(row => row.STONE),
+                })
+                if (response.status === 200) {
+                    const eventBus = getEventBus();
+                    eventBus.emit("basketUpdated");
+                    window.alert('Remove from basket successfully');
+                    fetchData('single')
+                }
+            } catch (error) {
+                console.log('error while removing basket', error)
             }
-        } catch (error) {
-            console.log('error while removing basket', error)
+        } else {
+            try {
+                const response = await Axios.post('user/userbasket', {
+                    type: 'D',
+                    stype: 'parcel',
+                    stone_id: selectedRows.map(row => row.STONE),
+                })
+                if (response.status === 200) {
+                    // const eventBus = getEventBus();
+                    // eventBus.emit("basketUpdated");
+                    // window.alert('Remove from basket successfully');
+                    fetchData('parcel')
+                }
+            } catch (error) {
+                console.log('error while removing basket', error)
+            }
         }
     }
 
@@ -262,21 +376,25 @@ function Basket() {
             return;
         }
 
-        try {
-            // console.log('selectedRows', selectedRows)
-            const payload = {
-                stoneCert: selectedRows?.map(row => row.STONE).join(' '),
+        if(tabselect.single){
+            try {
+                // console.log('selectedRows', selectedRows)
+                const payload = {
+                    stoneCert: selectedRows?.map(row => row.STONE).join(' '),
+                }
+                const response = await Axios.post('/search/stoneUser?type=excel', payload);
+    
+                if (response.data.status === 'success') {
+                    window.open(`${baseURL}exports/${response.data.fileName}`)
+                }
+            } catch (error) {
+                console.log(error)
             }
-            const response = await Axios.post('/search/stoneUser?type=excel', payload);
-
-            if (response.data.status === 'success') {
-                window.open(`${baseURL}exports/${response.data.fileName}`)
-            }
-
-
-        } catch (error) {
-            console.log(error)
+        }else{
+            handledownload();
         }
+
+        
     }
 
 
@@ -296,6 +414,7 @@ function Basket() {
                 <div className="text-center auto-container" style={{ marginBottom: '15px' }}>
                     <div style={{ display: 'flex', gap: '10px' }}>
                         <Button
+                            style={tabselect.single ? { backgroundColor: '#c29958' } : { color: '#c29958', borderColor: '#c29958' }}
                             variant={tabselect.single ? 'contained' : 'outlined'}
                             onClick={() => {
                                 settabselect(prev => ({
@@ -303,8 +422,11 @@ function Basket() {
                                     single: true,
                                     parcel: false
                                 }))
+                                fetchData('single');
+                                setSelectedRows([]);
                             }}>SINGLE</Button>
                         <Button
+                            style={tabselect.parcel ? { backgroundColor: '#c29958' } : { color: '#c29958', borderColor: '#c29958' }}
                             variant={tabselect.parcel ? 'contained' : 'outlined'}
                             onClick={() => {
                                 settabselect((prev) => ({
@@ -312,6 +434,8 @@ function Basket() {
                                     single: false,
                                     parcel: true
                                 }))
+                                fetchData('parcel');
+                                setSelectedRows([]);
                             }}
                         >PARCEL</Button>
                     </div>
@@ -327,14 +451,16 @@ function Basket() {
                         <button className="basketbtn" onClick={handleExportSelectedToExcel} style={{ marginLeft: '15px' }}>Export To Excel</button>
                         <button className="basketbtn" onClick={handleremovebasket} >Remove to Basket</button>
                     </div>
-                    <div className="tabletopcss">
-                        <div>Total Pcs = <span>{selectedtotals?.pcs}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Cts = <span>{selectedtotals?.CARATS?.toFixed(2)}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Rap = <span>{selectedtotals?.RAP?.toFixed(2)}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Disc% = <span>{selectedtotals?.ASK_DISC?.toFixed(2)}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Price = <span>{selectedtotals?.pricects?.toFixed(2)}</span></div>
-                        <div style={{ marginLeft: '20px' }}>Amt $ = <span>{selectedtotals?.amount?.toFixed(2)}</span></div>
-                    </div>
+                    {
+                        tabselect.single && <div className="tabletopcss">
+                            <div>Total Pcs = <span>{selectedtotals?.pcs}</span></div>
+                            <div style={{ marginLeft: '20px' }}>Cts = <span>{selectedtotals?.CARATS?.toFixed(2)}</span></div>
+                            <div style={{ marginLeft: '20px' }}>Rap = <span>{selectedtotals?.RAP?.toFixed(2)}</span></div>
+                            <div style={{ marginLeft: '20px' }}>Disc% = <span>{selectedtotals?.ASK_DISC?.toFixed(2)}</span></div>
+                            <div style={{ marginLeft: '20px' }}>Price = <span>{selectedtotals?.pricects?.toFixed(2)}</span></div>
+                            <div style={{ marginLeft: '20px' }}>Amt $ = <span>{selectedtotals?.amount?.toFixed(2)}</span></div>
+                        </div>
+                    }
                     {loading && (
                         <div style={{ display: 'flex', height: '100vh', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                             <Image width='100' height='100' src={Loader} alt={"loading"} />
@@ -487,7 +613,7 @@ function Basket() {
                                                                     if (selectedRows?.length === data?.length) {
                                                                         setSelectedRows([]);
                                                                     } else {
-                                                                        setSelectedRows(data?.map(item => item.STONE));
+                                                                        setSelectedRows(data?.map(item => item));
                                                                     }
                                                                 }}
                                                                 checked={selectedRows?.length === data?.length}
@@ -504,12 +630,12 @@ function Basket() {
                                                     <th>Clarity</th>
                                                     <th>CO ID</th>
                                                     <th>Color</th>
-                                                    <th>Height</th>
-                                                    <th>Length</th>
+                                                    {/* <th>Height</th> */}
+                                                    {/* <th>Length</th> */}
                                                     <th>Main_LOT</th>
                                                     <th>Shape</th>
-                                                    <th>MM Size</th>
-                                                    <th>Width</th>
+                                                    {/* <th>MM Size</th> */}
+                                                    {/* <th>Width</th> */}
                                                 </tr>
                                             </thead>
                                             <tbody className="tablecss">
@@ -519,7 +645,7 @@ function Basket() {
                                                             <label className="checkbox style-a">
                                                                 <input
                                                                     type="checkbox"
-                                                                    checked={selectedRows?.some(selected => selected === item.STONE)}
+                                                                    checked={selectedRows?.some(selected => selected.FL_SUB_LOT === item.FL_SUB_LOT)}
                                                                     onChange={() => handleRowSelect(item)}
 
                                                                 />
@@ -527,7 +653,7 @@ function Basket() {
                                                             </label>
                                                         </td>
                                                         {/* <td>{item.srNo}</td> */}
-                                                        <td>{item.FL_TYPE}</td>
+                                                        <td>{item.FL_INVENTORY_TYPE}</td>
                                                         <td>{item.FL_BRID}</td>
                                                         <td>A</td>
                                                         <td>{item.FL_SUB_LOT}</td>
@@ -535,19 +661,18 @@ function Basket() {
                                                         <td>{item.FL_CLARITY}</td>
                                                         <td>{item.FL_COID}</td>
                                                         <td>{item.FL_COLOR}</td>
-                                                        <td>{item.FL_HIGHT}</td>
-                                                        <td>{item.FL_LENGTH}</td>
+                                                        {/* <td>{item.FL_HIGHT}</td> */}
+                                                        {/* <td>{item.FL_LENGTH}</td> */}
                                                         <td>{item.FL_MAIN_LOT}</td>
-                                                        <td>{item.FL_SHAPE_NAME}</td>
-                                                        <td>{item.FL_SIZE}</td>
-                                                        <td>{item.FL_WIDTH}</td>
+                                                        <td>{item.FL_SHAPE_GROUP}</td>
+                                                        {/* <td>{item.FL_SIZE}</td> */}
+                                                        {/* <td>{item.FL_WIDTH}</td> */}
                                                     </tr>
                                                 ))}
                                             </tbody>
                                         </Table>
                                     </div>
                                 </>
-
                         )
                     }
                 </div>

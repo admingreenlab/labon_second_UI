@@ -28,18 +28,28 @@ function Demo() {
         parcel: false
     });
 
-    const fetchData = async () => {
-        setLoading(true)
-        try {
-            const response = await Axios.get('user/watchlist');
+    const fetchData = async (single) => {
+        console.log('ssingle', single);
+        if (single === 'parcel') {
+            setLoading(true)
+            // console.log('parcel');
+            const watchlistdata = JSON.parse(localStorage.getItem('watchlist'));
+            // console.log(watchlistdata)
+            setData(watchlistdata)
+            setLoading(false)
+        } else {
+            setLoading(true)
+            try {
+                const response = await Axios.get('user/watchlist');
 
-            if (response.status === 200) {
-                setData(response?.data?.data); // Update state only if the component is still mounted
-                setLoading(false)
+                if (response.status === 200) {
+                    setData(response?.data?.data); // Update state only if the component is still mounted
+                    setLoading(false)
+                }
             }
-        }
-        catch (err) {
-            console.log("Failed to fetch data. Please try again."); // Set error state
+            catch (err) {
+                console.log("Failed to fetch data. Please try again."); // Set error state
+            }
         }
     };
 
@@ -62,16 +72,29 @@ function Demo() {
     }, [selectedRows])
 
     const handleRowSelect = (item) => {
-        setSelectedRows((prevSelected) => {
-            const isSelected = prevSelected.some(selected => selected === item.STONE);
-            if (isSelected) {
-                // Remove the item if already selected
-                return prevSelected.filter(selected => selected !== item.STONE);
-            } else {
-                // Add the complete item if not selected
-                return [...prevSelected, item.STONE];
-            }
-        });
+        if (tabselect.single) {
+            setSelectedRows((prevSelected) => {
+                const isSelected = prevSelected.some(selected => selected === item.STONE);
+                if (isSelected) {
+                    // Remove the item if already selected
+                    return prevSelected.filter(selected => selected !== item.STONE);
+                } else {
+                    // Add the complete item if not selected
+                    return [...prevSelected, item.STONE];
+                }
+            });
+        } else {
+            setSelectedRows((prevSelected) => {
+                const isSelected = prevSelected.some(selected => selected === item.FL_SUB_LOT);
+                if (isSelected) {
+                    // Remove the item if already selected
+                    return prevSelected.filter(selected => selected !== item.FL_SUB_LOT);
+                } else {
+                    // Add the complete item if not selected
+                    return [...prevSelected, item.FL_SUB_LOT];
+                }
+            });
+        }
     };
 
     const sortfilter = (col) => {
@@ -120,66 +143,121 @@ function Demo() {
     };
 
     const handleaddBasket = async () => {
-        if (selectedRows.length > 0) {
-            setLoading(true);
-            try {
-                const response = await Axios.post('user/userbasket', {
-                    type: 'I',
-                    stone_id: selectedRows,
-                    stype: 'POLISH-SINGLE'
-                })
-                if (response.status === 200) {
-                    const eventBus = getEventBus();
-                    eventBus.emit("basketUpdated");
+        if (tabselect.single) {
+            if (selectedRows.length > 0) {
+                setLoading(true);
+                try {
+                    const response = await Axios.post('user/userbasket', {
+                        type: 'I',
+                        stone_id: selectedRows,
+                        stype: 'POLISH-SINGLE'
+                    })
+                    if (response.status === 200) {
+                        const eventBus = getEventBus();
+                        eventBus.emit("basketUpdated");
 
-                    try {
-                        const response = await Axios.delete('user/watchlist/remove', {
-                            params: {
-                                lotId: selectedRows.join(',')
+                        try {
+                            const response = await Axios.delete('user/watchlist/remove', {
+                                params: {
+                                    lotId: selectedRows.join(',')
+                                }
+                            });
+                            if (response.status === 200) {
+                                console.log('removed')
                             }
-                        });
-                        if (response.status === 200) {
-                            console.log('removed')
+                        } catch (error) {
+                            console.error("Error removing from watchlist", error);
+                            // setToastMessage(error.response.data);
+                            // setShowToast(true);
+                            window.alert('error while remove from watchlist');
                         }
-                    } catch (error) {
-                        console.error("Error removing from watchlist", error);
-                        // setToastMessage(error.response.data);
-                        // setShowToast(true);
-                        window.alert('error while remove from watchlist');
-                    }
 
-                    window.alert('Added to basket');
-                    setSelectedRows([]);
-                    fetchData();
+                        window.alert('Added to basket');
+                        setSelectedRows([]);
+                        fetchData('single');
+                    }
+                } catch (error) {
+                    console.error("error to handle basket", error)
+                } finally {
+                    setLoading(false);
                 }
-            } catch (error) {
-                console.error("error to handle basket", error)
-            } finally {
-                setLoading(false);
+            } else {
+                window.alert('please select stone')
             }
         } else {
-            window.alert('please select stone')
+            if (selectedRows.length > 0) {
+                setLoading(true);
+                try {
+                    const response = await Axios.post('user/userbasket', {
+                        type: 'I',
+                        stone_id: selectedRows,
+                        stype: 'POLISH-PARCEL'
+                    })
+                    if (response.status === 200) {
+                        const eventBus = getEventBus();
+                        eventBus.emit("basketUpdated");
+                        window.alert('Added to basket');
+                        setSelectedRows([]);
+                        fetchData('parcel');
+                    }
+                } catch (error) {
+                    console.error("error to handle basket", error)
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                window.alert('please select stone')
+            }
         }
     }
 
+    const removeFromLocalStorage = (selectedRows) => {
+        try {
+            // 1. Get current data
+            const storedData = JSON.parse(localStorage.getItem('watchlist')) || [];
+
+            // 2. Filter out selected items
+            const updatedData = storedData.filter(
+                (item) => !selectedRows.includes(item.FL_SUB_LOT)
+            );
+
+            // 3. Update localStorage
+            localStorage.setItem('watchlist', JSON.stringify(updatedData));
+
+            console.log('Successfully removed selected items.');
+        } catch (error) {
+            console.error('Error removing items:', error);
+        }
+    };
 
     const handleClearWatchlist = async () => {
-        if (selectedRows?.length === data?.length) {
-            setLoading(true);
-            try {
-                const response = await Axios.delete('user/watchlist/clear');
-                if (response.status === 200) {
-                    setSelectedRows([]);
-                    fetchData()
-                }
-            } catch (error) {
-                console.error("Error removing from watchlist", error);
+        if (tabselect.single) {
+            if (selectedRows?.length === data?.length) {
+                setLoading(true);
+                try {
+                    const response = await Axios.delete('user/watchlist/clear');
+                    if (response.status === 200) {
+                        setSelectedRows([]);
+                        fetchData()
+                    }
+                } catch (error) {
+                    console.error("Error removing from watchlist", error);
 
-            } finally {
-                setLoading(false);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                window.alert('Please select all StoneIds to clear the watchlist');
             }
         } else {
-            window.alert('Please select all StoneIds to clear the watchlist');
+            setLoading(true);
+            if (selectedRows?.length !== 0) {
+                removeFromLocalStorage(selectedRows);
+                fetchData('parcel')
+            } else {
+                window.alert('Please select StoneIds to clear the watchlist');
+            }
+            setLoading(false);
         }
     };
 
@@ -199,6 +277,7 @@ function Demo() {
                 <div className="text-center auto-container">
                     <div style={{ display: 'flex', gap: '10px' }}>
                         <Button
+                            style={tabselect.single ? { backgroundColor: '#c29958' } : { color: '#c29958', borderColor: '#c29958' }}
                             variant={tabselect.single ? 'contained' : 'outlined'}
                             onClick={() => {
                                 settabselect(prev => ({
@@ -206,8 +285,11 @@ function Demo() {
                                     single: true,
                                     parcel: false
                                 }))
+                                fetchData('single');
+                                setSelectedRows([]);
                             }}>SINGLE</Button>
                         <Button
+                            style={tabselect.parcel ? { backgroundColor: '#c29958' } : { color: '#c29958', borderColor: '#c29958' }}
                             variant={tabselect.parcel ? 'contained' : 'outlined'}
                             onClick={() => {
                                 settabselect((prev) => ({
@@ -215,6 +297,8 @@ function Demo() {
                                     single: false,
                                     parcel: true
                                 }))
+                                fetchData('parcel');
+                                setSelectedRows([]);
                             }}
                         >PARCEL</Button>
                     </div>
@@ -402,7 +486,7 @@ function Demo() {
                                                                     if (selectedRows?.length === data?.length) {
                                                                         setSelectedRows([]);
                                                                     } else {
-                                                                        setSelectedRows(data?.map(item => item.STONE));
+                                                                        setSelectedRows(data?.map(item => item.FL_SUB_LOT));
                                                                     }
                                                                 }}
                                                                 checked={selectedRows?.length === data?.length}
@@ -434,7 +518,7 @@ function Demo() {
                                                             <label className="checkbox style-a">
                                                                 <input
                                                                     type="checkbox"
-                                                                    checked={selectedRows?.some(selected => selected === item.STONE)}
+                                                                    checked={selectedRows?.some(selected => selected === item.FL_SUB_LOT)}
                                                                     onChange={() => handleRowSelect(item)}
 
                                                                 />
@@ -458,7 +542,7 @@ function Demo() {
                                                         <td>{item.FL_WIDTH}</td>
                                                     </tr>
                                                 ))}
-{/* 
+                                                {/* 
                                                 <tr className="tablecss">
                                                     <th></th>
                                                     <th colSpan={5}>Total</th>

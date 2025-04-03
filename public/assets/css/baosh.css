@@ -7647,8 +7647,31 @@ Sidebar Css
   border-radius: 20px;
   padding: 5px 20px 8px;
 }
-
-
+.btn-primary {
+  color: #fff;
+  background-color: #c29958 !important;
+  border-color: #c29958 !important  ;
+  border-radius: 0 !important;
+}
+.btn-outline-primary {
+  color: #c29958 !important;
+  border-color: #c29958 !important;
+  border-radius: 0 !important;  
+}
+.btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #c29958 !important  ;
+  border-color: #c29958 !important  ;
+}
+.btn-check:focus+.btn-primary, .btn-primary:focus {
+  color: #fff;
+  background-color: #c29958  !important;
+  border-color: #c29958  !important;
+  box-shadow: 0 0 0 0 rgba(49, 131, 253, 0) !important;
+}
+.btn-check:active+.btn-outline-primary:focus, .btn-check:checked+.btn-outline-primary:focus, .btn-outline-primary.active:focus, .btn-outline-primary.dropdown-toggle.show:focus, .btn-outline-primary:active:focus {
+  box-shadow: 0 0 0 0 rgba(13, 109, 253, 0) !important;
+}
 .sidebar__comments {
   position: relative;
   display: block;
