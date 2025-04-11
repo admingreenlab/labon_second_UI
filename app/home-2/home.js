@@ -119,8 +119,8 @@ const DiamondFilter = () => {
                 to: searchState.ToUSCT || "",
             });
 
-            // setStoneId(searchState.stoneCert || "");
-            setStoneId("");
+            setStoneId(searchState.stoneCert);
+            // setStoneId("");
 
             setAdvanceSearchFields({
                 tableFrom: searchState.FromTable_per || "",
@@ -397,6 +397,7 @@ const DiamondFilter = () => {
                                     <textarea
                                         placeholder="Enter Stone Id or Certificate Number"
                                         onChange={(e)=>setStoneId(e.target.value)}
+                                        value={stoneId}
                                     />
                                 </div>
                             </div>
