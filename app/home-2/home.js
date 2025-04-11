@@ -119,7 +119,8 @@ const DiamondFilter = () => {
                 to: searchState.ToUSCT || "",
             });
 
-            setStoneId(searchState.stoneCert || "");
+            // setStoneId(searchState.stoneCert || "");
+            setStoneId("");
 
             setAdvanceSearchFields({
                 tableFrom: searchState.FromTable_per || "",
@@ -287,10 +288,13 @@ const DiamondFilter = () => {
                 ...(advanceSearchFields.hold && { Hold: true }),
             }),
         };
+        console.log('payload',payload);
 
         const cleanPayload = Object.fromEntries(
             Object.entries(payload).filter(([_, value]) => value !== undefined && value !== "" && !(Array.isArray(value) && value.length === 0))
         );
+
+        console.log('cleanpayload',cleanPayload);
 
         setSearchState(cleanPayload);
 
@@ -392,7 +396,7 @@ const DiamondFilter = () => {
                                     <h5>Stone Id #/Cert #</h5>
                                     <textarea
                                         placeholder="Enter Stone Id or Certificate Number"
-                               
+                                        onChange={(e)=>setStoneId(e.target.value)}
                                     />
                                 </div>
                             </div>
