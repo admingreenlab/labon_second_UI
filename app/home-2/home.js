@@ -702,7 +702,7 @@ const DiamondFilter = () => {
                                                         Available
                                                     </label>
                                                 </div>
-                                                <div className="" style={{ display: 'flex' }} >
+                                                {/* <div className="" style={{ display: 'flex' }} >
                                                     <label style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                                                         <input
                                                             type="checkbox"
@@ -727,7 +727,7 @@ const DiamondFilter = () => {
                                                         />
                                                         Hold
                                                     </label>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
