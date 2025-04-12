@@ -122,9 +122,11 @@ const InvoiceTable = () => {
     const [pageSize, setPageSize] = useState(50);
     const [currentPage, setCurrentPage] = useState(1);
     const [count, setcount] = useState({});
+    const [pageloading, setpageloading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
+            setpageloading(true)
             try {
                 const startDate = searchParams.get('startDate');
                 const endDate = searchParams.get('endDate');
@@ -158,7 +160,7 @@ const InvoiceTable = () => {
 
                 const response = await Axios.post(`transation/getuserOutwardTransactionData?page=${currentPage}&pageSize=${pageSize}`, payload);
 
-                if (!response.ok) {
+                if (!response.OK) {
                     console.log('Failed to fetch invoice data');
                 }
 
@@ -169,11 +171,12 @@ const InvoiceTable = () => {
                 console.log(err instanceof Error ? err.message : 'An error occurred');
             } finally {
                 setIsLoading(false);
+                setpageloading(false)
             }
         };
 
         fetchData();
-    }, [searchParams,currentPage]);
+    }, [searchParams, currentPage]);
 
     const formatDate = (isoDate) => {
         const date = new Date(isoDate);
@@ -211,7 +214,7 @@ const InvoiceTable = () => {
 
     useEffect(() => {
         console.log('currentPage', currentPage)
-    },[currentPage])
+    }, [currentPage])
 
     if (isLoading) {
         return (
@@ -276,8 +279,8 @@ const InvoiceTable = () => {
                 </table>
                 {
                     !isLoading && <Pagination>
-                        <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
-                        <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} disabled={currentPage === 1} />
+                        <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1 || pageloading} />
+                        <Pagination.Prev onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)} disabled={currentPage === 1 || pageloading} />
 
                         {/* Show Pagination Items (Max 5 at a time) */}
                         {totalPages > 1 && (
@@ -291,6 +294,7 @@ const InvoiceTable = () => {
                                         key={pageNumber}
                                         active={pageNumber === currentPage}
                                         onClick={() => handlePageChange(pageNumber)}
+                                        disabled={pageloading}
                                     >
                                         {pageNumber}
                                     </Pagination.Item>
@@ -298,8 +302,8 @@ const InvoiceTable = () => {
                             })
                         )}
 
-                        <Pagination.Next onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)} disabled={currentPage === totalPages} />
-                        <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
+                        <Pagination.Next onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)} disabled={currentPage === totalPages || pageloading} />
+                        <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages || pageloading} />
                     </Pagination>
                 }
             </div>
