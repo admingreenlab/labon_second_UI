@@ -11,6 +11,7 @@ const Axios = jwtAxios.create({
   },
 });
 
+
 Axios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token'); // Check both storages
