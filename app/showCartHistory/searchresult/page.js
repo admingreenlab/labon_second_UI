@@ -1,5 +1,5 @@
 'use client'
-import Axios from '@/components/auth/axios';
+import Axios, { baseURL } from '@/components/auth/axios';
 import Layout from '../../../components/layout/Layout';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -119,7 +119,7 @@ const InvoiceTable = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [pageSize, setPageSize] = useState(50);
+    const [pageSize, setPageSize] = useState(2000);
     const [currentPage, setCurrentPage] = useState(1);
     const [count, setcount] = useState({});
     const [pageloading, setpageloading] = useState(false);
@@ -224,6 +224,11 @@ const InvoiceTable = () => {
         );
     }
 
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+    const handledownloadpdf = (row) =>{
+        window.open(`${baseURL}accreport/report?t=${token}&trno=${row.FL_TRANS_NO}&brid=${row.FL_BRID}&trtype=${row.FL_TRANS_TYPE}&report=LB_Memo_Diamond.rdf&outfile=${row.FL_BILL_NO}`)
+    }
 
     return (
 
@@ -245,6 +250,7 @@ const InvoiceTable = () => {
                             <th className="p-2 border border-gray-300 text-left">Total Amt $</th>
                             <th className="p-2 border border-gray-300 text-left">Inv Report</th>
                             <th className="p-2 border border-gray-300 text-left">Memo Report</th>
+                            <th className="p-2 border border-gray-300 text-left">Sale Inv</th>
                             {/* <th className="p-2 border border-gray-300 text-left">Trans Type</th> */}
                         </tr>
                     </thead>
@@ -264,7 +270,9 @@ const InvoiceTable = () => {
                                 <td className="p-2 border border-gray-300">{row?.INV_AMT?.toFixed(2)}</td>
                                 <td className="p-2 border border-gray-300">{row?.INV_TYPE}</td>
                                 <td className="p-2 border border-gray-300">{row?.memoReport}</td>
-                                {/* <td className="p-2 border border-gray-300">{row?.TRANS_TYPE}</td> */}
+                                <td className="p-2 border border-gray-300" style={{cursor:'pointer' , color:'blue'}} onClick={()=>{
+                                    handledownloadpdf(row)
+                                }}>PDF</td>
                             </tr>
                         ))}
                         <tr className="bg-[#C19A6B] text-black font-bold">
